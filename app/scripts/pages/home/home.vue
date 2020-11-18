@@ -78,7 +78,7 @@
                  <charts :chartData="chartData_one" chartType="bar" titleText="当前考勤异常学校TOP10" :seriesData="series_one"></charts>
                </div>
                <div class="main-echart">
-                <charts :chartData="chartData_two" chartType="pie" titleText="当前健康异常学校TOP10"></charts>
+                <charts :chartData="chartData_two" chartType="pie" titleText="当前健康异常学校TOP11"></charts>
                </div>
           </div>
            <div class="main-content">
