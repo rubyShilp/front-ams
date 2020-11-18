@@ -5,6 +5,12 @@ const mainRouter = [
     meta: { scrollToTop: true, requireAuth: true },
     children: [
       {
+        path: "/home/homePage",
+        component: () =>
+          import("@/pages/homePage/homePage.vue"),
+        meta: { scrollToTop: true },
+      },
+      {
         path: "/home/statisticalManage",
         component: () =>
           import("@/pages/statisticalManage/statisticalManage.vue"),
@@ -32,7 +38,7 @@ const mainRouter = [
             component: () =>
               import("@/pages/attendanceManage/equipment/equipment.vue"),
             meta: { scrollToTop: true },
-          },
+          }
         ],
       },
     ],

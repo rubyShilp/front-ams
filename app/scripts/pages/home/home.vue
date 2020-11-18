@@ -8,23 +8,19 @@
         <div class="ams-ul-left">
           <ul>
             <li>
-              <a href="javaScript:;"><i class="el-icon-s-home"></i>首页</a>
+              <a href="javaScript:;" @click="selectRouter('/home/homePage')"><i class="el-icon-s-home"></i>首页</a>
             </li>
             <li>
-              <a href="javaScript:;"><i class="el-icon-s-data"></i>统计管理</a>
+              <a href="javaScript:;" @click="selectRouter('/home/statisticalManage')"><i class="el-icon-s-data"></i>统计管理</a>
             </li>
             <li>
-              <a href="javaScript:;"
-                ><i class="el-icon-bank-card"></i>考勤管理</a
-              >
+              <a href="javaScript:;" @click="selectRouter('/home/record')"><i class="el-icon-bank-card"></i>考勤管理</a>
             </li>
             <li>
-              <a href="javaScript:;"><i class="el-icon-s-home"></i>学院管理</a>
+              <a href="javaScript:;" @click="selectRouter('/home/homePage')"><i class="el-icon-s-home"></i>学院管理</a>
             </li>
             <li>
-              <a href="javaScript:;"
-                ><i class="el-icon-s-custom"></i>账号中心</a
-              >
+              <a href="javaScript:;" @click="selectRouter('/home/homePage')"><i class="el-icon-s-custom"></i>账号中心</a>
             </li>
           </ul>
         </div>
@@ -54,42 +50,7 @@
       </div>
     </header>
     <el-scrollbar class="main-center">
-      <!-- <router-view></router-view> -->
-        <div class="ams-home-header">
-          <span class="header-left" 
-           v-for="item in tabs" 
-           :key="item.id"
-           @click="changeType(item.id)"
-           >
-             <b :class="{'header-title':tabType===item.id}" >{{item.name}}</b>
-             <div class="header-hr" v-if="tabType === item.id"></div>
-             <div class="header-else" v-else></div>
-          </span>
-        </div>
-        <div  class="ams-home-main">
-          <div class="main-top">
-            <span class="main-top-flex" v-for="item in arrs" :key="item.id">
-              <span class="main-top-str">{{item.title}}</span>
-              <b class="main-top-num" :style="{'color': item.color}">{{item.count}}</b>
-            </span>
-          </div>
-          <div class="main-content">
-               <div class="main-echart">
-                 <charts :chartData="chartData_one" chartType="bar" titleText="当前考勤异常学校TOP10" :seriesData="series_one"></charts>
-               </div>
-               <div class="main-echart">
-                <charts :chartData="chartData_two" chartType="pie" titleText="当前健康异常学校TOP11"></charts>
-               </div>
-          </div>
-           <div class="main-content">
-               <div class="main-echart">
-                <!-- <charts :chartData="chartData_three" chartType="bar"></charts> -->
-               </div>
-               <div class="main-echart">
-                <!-- <charts :chartData="chartData_four" chartType="line"></charts> -->
-               </div>
-          </div>
-        </div>
+      <router-view></router-view>
     </el-scrollbar>
   </div>
 </template>
