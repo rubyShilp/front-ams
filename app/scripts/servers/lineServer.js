@@ -3,7 +3,12 @@ export default (el, options) => {
   const chartInstance = echarts.init(el);
   var option = {
     title: {
-      text: "¶ÑµþÇøÓòÍ¼",
+      text: options.title,
+      textStyle: {
+        fontWeight: "normal",
+        color: "#2991d0",
+        fontSize: 14,
+      },
     },
     tooltip: {
       trigger: "axis",
@@ -14,49 +19,64 @@ export default (el, options) => {
         },
       },
     },
-    legend: {
-      data: ["ÓÊ¼þÓªÏú", "ÁªÃË¹ã¸æ", "ÊÓÆµ¹ã¸æ", "Ö±½Ó·ÃÎÊ", "ËÑË÷ÒýÇæ"],
+    grid: {
+      x: 45,
+      y: 40,
+      x2: 40,
+      y2: 35,
     },
-    // grid: {
-    //     left: '3%',
-    //     right: '4%',
-    //     bottom: '3%',
-    //     containLabel: true
-    // },
+    legend: {
+      data: options.legendData,
+      orient: "vertical",
+      x: "right",
+      y: "top",
+      icon: "none",
+      formatter: "â€”â€”  {name}",
+    },
     xAxis: [
       {
         type: "category",
         boundaryGap: false,
-        data: ["2012", "2013", "2014", "2015", "2016"],
+        data: options.chartData,
+        splitLine: { show: false },
+        axisTick: {
+          show: false,
+        },
+        axisLabel: {
+          textStyle: {
+            fontWeight: "normal",
+            fontSize: 12,
+          },
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#fff",
+            width: 1,
+          },
+        },
       },
     ],
     yAxis: [
       {
         type: "value",
+        min: 0,
+        max: 150,
+        splitNumber: 3,
+        axisTick: {
+          show: false,
+        },
+        splitLine: {
+          show: false,
+        },
+        axisLine: {
+          lineStyle: {
+            color: "#fff",
+            width: 1,
+          },
+        },
       },
     ],
-    series: [
-      {
-        name: "Forest",
-        type: "bar",
-        data: [320, 332, 301, 334, 390],
-      },
-      {
-        name: "Steppe",
-        type: "bar",
-        data: [220, 182, 191, 234, 290],
-      },
-      {
-        name: "Desert",
-        type: "bar",
-        data: [150, 232, 201, 154, 190],
-      },
-      {
-        name: "Wetland",
-        type: "bar",
-        data: [98, 77, 101, 99, 40],
-      },
-    ],
+    series: options.seriesData,
   };
   chartInstance.setOption(option);
   return chartInstance;

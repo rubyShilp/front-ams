@@ -1,8 +1,2 @@
-const echarts=equire([
-    'line',
-    'bar',
-    'tooltip',
-    'title',
-    'legend'
-]);
+const echarts = equire(["legend", "line", "bar", "tooltip", "title"]);
 export default echarts;

@@ -64,7 +64,15 @@
                   </div>
                 </div>
               </div>
-              <div class="left-trend">aaaa</div>
+              <div class="left-trend">
+                <ams-chart
+                  chartType="line"
+                  title="学校考勤趋势图"
+                  :legendData="legendData"
+                  :seriesData="seriesData"
+                  :chartData="chartData"
+                ></ams-chart>
+              </div>
             </el-aside>
             <el-main class="ams-right">
               <div class="right-ul">
@@ -116,11 +124,11 @@
             </el-main>
           </el-container>
         </div>
-         <div class="ams-bottom-text">
-             —— 本数据有深圳阿拉町科技发展有限公司提供技术支持 ——
+        <div class="ams-bottom-text">
+          —— 本数据有深圳阿拉町科技发展有限公司提供技术支持 ——
         </div>
       </el-scrollbar>
     </div>
   </div>
 </template>
-<script src='./main.js'></script>
+<script src="./main.js"></script>
