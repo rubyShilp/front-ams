@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       id: this.generatorOnlyId(),
-      chartHeight: "90%",
+      chartHeight: this.theme === "main"?"95%":"90%",
       chartWidth: "95%"
     };
   },
@@ -62,6 +62,12 @@ export default {
         return []
       }
     },
+    indicatorData:{
+      type: Array,
+      default(){
+        return []
+      }
+    },
     width: {
       type: Number,
       default: 0
@@ -69,6 +75,11 @@ export default {
     height: {
       type: Number,
       default: 0
+    },
+    //主题
+    theme: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -113,6 +124,9 @@ export default {
         case "pie":
           chart.setOption(this.generatorPieOption());
           break;
+        case "radar":
+          chart.setOption(this.generatorRadaOption());
+          break;
         default:
           console.error(`chartType ${this.chartType} is invalid`);
           break;
@@ -134,18 +148,20 @@ export default {
       return {
         title: {
           text: this.titleText,
-          x: "left",
+          x: "10px",
+          y: "10px",
           textStyle: {
                 fontSize: 17,
-                 fontWeight: 'bold',
-                fontStyle: 'normal'
+                fontWeight: 'bold',
+                fontStyle: 'normal',
+                color: this.theme === "main"?"#2991d0":"#111",
            }
         },
         legend: {
           data: this.configLengend(this.seriesData[0]),
           orient: "vertical",
           x: "right",
-          y: "top",
+          y: this.theme === "main"?"10px":"top",
           icon: "none",
           formatter:'——  {name}',
         },
@@ -166,7 +182,13 @@ export default {
             splitLine: {show: false},
             axisTick:{
                  show:false
-             }
+            },
+             axisLine: this.theme === "main"?{
+                lineStyle: {
+                  color: '#fff',
+                  width: 1, //这里是为了突出显示加上的  
+                }
+            }:{},
           }
         ],
         yAxis: [
@@ -176,6 +198,12 @@ export default {
             axisTick:{
                  show:false
              },
+            axisLine: this.theme === "main"?{
+                lineStyle: {
+                  color: '#fff',
+                  width: 1, //这里是为了突出显示加上的  
+                }
+            }:{},
             min: 0,
             max: 45,
             splitNumber : 2,
@@ -191,18 +219,20 @@ export default {
       return {
         title: {
           text: this.titleText,
-          x: "left",
+          x: "10px",
+          y: "10px",
           textStyle: {
                 fontSize: 17,
-                 fontWeight: 'bold',
-                fontStyle: 'normal'
+                fontWeight: 'bold',
+                fontStyle: 'normal',
+                color: this.theme === "main"?"#2991d0":"#111",
            }
         },
         legend: {
           data: this.configLengend(this.seriesData[0]),
           orient: "vertical",
           x: "right",
-          y: "top",
+          y: this.theme === "main"?"10px":"top",
           icon: "none",
           formatter:'——  {name}',
         },
@@ -210,7 +240,11 @@ export default {
           trigger: "axis",
           axisPointer: {
             // 坐标轴指示器，坐标轴触发有效
-            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+            type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
+            shadowStyle: {              // 阴影指示器样式设置
+              width: '20px',         // 阴影大小
+              color: 'rgba(150,150,150,0.2)'  // 阴影颜色
+            }
           }
         },
         grid: {
@@ -227,6 +261,15 @@ export default {
             axisTick:{
                  show:false
              },
+             axisLabel: {
+                interval:0,//代表显示所有x轴标签显示
+            },
+             axisLine: this.theme === "main"?{
+                lineStyle: {
+                  color: '#fff',
+                  width: 1, //这里是为了突出显示加上的  
+                }
+            }:{},
           }
         ],
         yAxis: [
@@ -240,7 +283,13 @@ export default {
              },
              splitLine:{
                  show:false
-             }
+             },
+             axisLine: this.theme === "main"?{
+                lineStyle: {
+                  color: '#fff',
+                  width: 1, //这里是为了突出显示加上的  
+                }
+            }:{},
           }
         ],
         series: this.configSeries(this.seriesData)
@@ -249,7 +298,8 @@ export default {
     //配置legend
     configLengend(arr){
       let newLengend = []
-      let colors = ["#057bfb"," #01edfb","#ed7d31","#fbdb27"]
+      let colors = []
+      colors = this.chartType === "radar"?["#66CCFF","#057bfb","#fbdb27"]:["#057bfb"," #01edfb","#ed7d31","#fbdb27"];
       for(let i=0;i<arr.length;i++){
            newLengend.push({
               name: arr[i],
@@ -268,12 +318,13 @@ export default {
            newSeries.push({
             name: arr[0][i],
             type: "bar",
-            barWidth: arr[2] === "1"?"16":"32",
+            barWidth: this.theme === "main"?arr[2] === "1"?"10":"22":arr[2] === "1"?"16":"32",
             barGap: "0",
             stack: arr[2] === "1"?NaN:"school",
             data: arr[1][i],
             itemStyle: {
                normal: {
+                  barBorderRadius: this.theme === "main"?arr[2] === "1"?8:0:0,
                   //每根柱子颜色设置
                    color: function(params) {
                        return ["#057bfb","#01edfb","#ed7d31","#fbdb27"][params.seriesIndex];
@@ -282,7 +333,7 @@ export default {
                      show: true,
                      position: arr[2] === "1"?"top":"center",
                      textStyle: {	    //数值样式
-                        color: 'black',
+                        color: this.theme === "main"?"#fff":"black",
                         fontSize: 12
                      }
                     }
@@ -302,11 +353,11 @@ export default {
                normal: {
                    //每根柱子颜色设置
                       color: function(params) {
-                        return ["#057bfb","#01edfb","#ed7d31"][params.seriesIndex];
+                        return ["#057bfb","#01edfb","#ed7d31","#fbdb27"][params.seriesIndex];
                       }
                 }
             },
-            color: ["#057bfb","#01edfb","#ed7d31"][i],
+            color: ["#057bfb","#01edfb","#ed7d31","#fbdb27"][i],
             data: arr[1][i]
          })
        }
@@ -315,6 +366,7 @@ export default {
     },
     //饼图配置
     generatorPieOption() {
+      if(this.theme !== "main"){
       let [pieData1,pieData2,pieData3] = [[],[],[]];
       let temperature = this.chartData.slice(0,1);
       let heartRate = this.chartData.slice(1,2);
@@ -486,7 +538,181 @@ export default {
             }
          }
         ]
-      };
+       };
+      }else{
+         let pieData = [];
+         for(let index in this.xAxisData){
+           pieData.push({
+             value: this.xAxisData[index],
+             name: this.yAxisData[index]
+           })
+         }
+         return {
+            title: {
+            text: this.titleText,
+            x: "10px",
+            y: "10px",
+            textStyle: {
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                  fontStyle: 'normal',
+                  color: "#2991d0",
+             }
+           },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)'
+            },
+            legend: {
+              data: this.yAxisData,
+              orient: "vertical",
+              left: 20,
+              bottom: 0,
+              icon: "rect",
+              itemWidth: 10,
+              itemHeight: 10,
+              itemGap: 10,
+              textStyle: { //图例文字的样式
+                color: '#fff'
+              }
+            },
+            series: [
+                {
+                    name: "体温概括",
+                    type: 'pie',
+                    radius: ['30%', '80%'],
+                    center: ['57%', '52%'],
+                    data: pieData,
+                    label:{            //饼图图形上的文本标签
+                      normal:{
+                        show:true,
+                          position:'inner', //标签的位置
+                            textStyle : {
+                            fontWeight : 300 ,
+                            fontSize : 12,    //文字的字体大小
+                            color: "#111"
+                            },
+                            formatter:'{c}'
+                      }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    itemStyle: {
+                     normal: {
+                      //每根柱子颜色设置
+                        color: function(params) {
+                          let colorList = [
+                            "#fbdb27",
+                            "#01edfb",
+                            "#ed7d31",
+                            "#ccc"
+                            ];
+                            return colorList[params.dataIndex];
+                          }
+                    }
+                }
+              }
+            ]
+         }
+      }
+    },
+    //雷达图配置
+    generatorRadaOption(){
+      let indData = []      
+      for(let index in this.xAxisData){
+        indData.push({
+          name: this.xAxisData[index],
+          max:  this.yAxisData[index]
+        })
+      }
+      return{
+        title: {
+          text: this.titleText,
+          x: "10px",
+          y: "10px",
+          textStyle: {
+                fontSize: 17,
+                fontWeight: 'bold',
+                fontStyle: 'normal',
+                color: "#2991d0",
+           }
+        },
+        tooltip: {},
+        legend: {
+              data: this.configLengend(this.indicatorData[this.indicatorData.length -1]),
+              orient: "vertical",
+              left: 0,
+              bottom: 0,
+              icon: "none",
+              formatter:'——  {name}'
+            },
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                }
+            },
+            center: ['60%', '55%'],
+            indicator: indData,
+            splitArea : {
+                          show : false,   
+            },
+            splitLine : {
+                  show : true,
+                  lineStyle : {
+                    width : 1,
+                      color : '#286fbb' // 图表背景网格线的颜色
+              }
+            },
+            axisLine: { // (圆内的几条直线)坐标轴轴线相关设置
+                lineStyle: {
+                    width: 0
+                }
+            },
+        },
+        series: [{
+            name: '考勤异常',
+            type: 'radar',
+            // areaStyle: {normal: {}},
+            data: [
+                {
+                    value: this.indicatorData[0],
+                    name: this.indicatorData[this.indicatorData.length -1][0],
+                    lineStyle: {
+                          color: 'rgb(128, 128, 128,0)' // 将线设置成透明
+                        },
+                        areaStyle: {
+                          color: '#66CCFF' // 最浅
+                       },
+                       symbol: "none"
+                },
+                {
+                    value: this.indicatorData[1],
+                    name: this.indicatorData[this.indicatorData.length -1][1],
+                    lineStyle: {
+                          color: 'rgb(128, 128, 128,0)' // 将线设置成透明
+                        },
+                        areaStyle: {
+                          color: '#057bfb' // 最浅
+                      },
+                      symbol: "none"
+                },
+                {
+                    value: this.indicatorData[2],
+                    name: this.indicatorData[this.indicatorData.length -1][2],
+                    lineStyle: {
+                          color: 'rgb(128, 128, 128,0)' // 将线设置成透明
+                        },
+                        areaStyle: {
+                          color: '#fbdb27' // 最浅
+                    },
+                    symbol: "none"
+                }
+            ]
+        }]
+      }
     }
   },
   watch: {},

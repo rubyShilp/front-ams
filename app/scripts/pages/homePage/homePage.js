@@ -1,4 +1,4 @@
-import charts from './charts'
+import charts from '@/components/charts'
 export default {
   data() {
     return {
