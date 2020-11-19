@@ -34,6 +34,18 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+.sub-main {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin-top: 12px;
+}
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: #e7f2ff !important;
+}
+.el-button {
+  height: 35px;
+}
 /*********************top Start**************************/
 .ams-top-center {
   width: calc(100% - 80px);
@@ -57,6 +69,9 @@ a {
     width: calc(100% - 320px);
     display: inline-block;
     height: 70px;
+    .cur {
+      color: #fff;
+    }
   }
   ul {
     width: 100%;
@@ -148,28 +163,28 @@ a {
     overflow-x: hidden;
   }
   /******************home_header_start****************/
-  .ams-home-header{
+  .ams-home-header {
     height: 40px;
     line-height: 40px;
     color: #b6b6b6;
     padding: 10px 60px 10px 80px;
-    .header-left{
+    .header-left {
       display: inline-block;
       width: 50px;
       cursor: pointer;
       text-align: center;
       margin-right: 50px;
-      .header-title{
+      .header-title {
         color: #111;
       }
-      .header-hr{
-        width:100%;
-        height:2px;
-        padding:0px;
-        background-color:#ffc600;
+      .header-hr {
+        width: 100%;
+        height: 2px;
+        padding: 0px;
+        background-color: #ffc600;
       }
-      .header-else{
-        height:2px;
+      .header-else {
+        height: 2px;
       }
     }
     // .ams-home-tab-li{
@@ -184,16 +199,16 @@ a {
   }
   /******************home_header_end****************/
   /******************home_main_start****************/
-  .ams-home-main{
+  .ams-home-main {
     padding: 0 60px;
     margin: 12px 0;
-    .main-top{
+    .main-top {
       display: flex;
       flex-flow: row wrap;
       padding: 0 19px;
       justify-content: space-between;
       align-items: baseline;
-      .main-top-flex{
+      .main-top-flex {
         background: #fff;
         display: inline-block;
         color: #b6b6b6;
@@ -203,17 +218,17 @@ a {
         border-radius: 5px;
         box-shadow: 0 0px 6px rgba(0, 0, 0, 0.1);
       }
-      .main-top-num{
+      .main-top-num {
         color: #276ef9;
         font-size: 19px;
         margin-left: 10px;
       }
     }
-    .main-content{
+    .main-content {
       display: flex;
       height: 350px;
-      .main-echart{
-        width: 48%; 
+      .main-echart {
+        width: 48%;
         height: 90%;
         padding: 20px 0 0 20px;
         background: #fff;
@@ -226,7 +241,7 @@ a {
 }
 .ams-menu-sub {
   width: 100%;
-  height: 60px;
+  height: 40px;
   z-index: 2;
   background: #f6f6f7;
   border-bottom: 1px solid #eaeaea;
@@ -235,8 +250,8 @@ a {
   }
   a {
     min-width: 68px;
-    height: 60px;
-    line-height: 60px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
     display: inline-block;
     margin-right: 30px;
@@ -253,9 +268,6 @@ a {
 .sub-menu-center {
   width: 100%;
   height: 100%;
-  .el-form {
-    margin-top: 16px;
-  }
   .has-gutter {
     color: #666;
     font-size: 12px;
@@ -279,5 +291,55 @@ a {
     .el-tree-node__content:hover {
       background: #e7f2ff !important;
     }
+  }
+}
+.left-main-center {
+  margin-left: 12px;
+  width: 100%;
+  height: 100%;
+}
+.left-main-from-table {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  .el-form {
+    padding-top: 12px;
+    padding-left: 20px;
+    input {
+      height: 35px;
+    }
+  }
+}
+.from-right {
+  text-align: right;
+}
+.table-border {
+  width: calc(100% - 50px);
+  height: 100%;
+  margin: 0 auto;
+  tbody {
+    .cell {
+      font-size: 12px;
+      color: #000;
+      a {
+        i {
+          margin-right: 6px;
+          margin-left: 6px;
+        }
+      }
+      span {
+        color: #eaeaea;
+        margin-left: 6px;
+      }
+    }
+  }
+}
+.equipment-main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .left-main-center {
+    width: calc(100% - 50px);
+    margin: 0 auto;
   }
 }

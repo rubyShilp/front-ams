@@ -2,7 +2,8 @@ export default {
   data() {
     return {
       name: "平湖学院",
-      treList: []
+      index: 0,
+      treList: [],
     };
   },
   beforeMount() {
@@ -13,15 +14,22 @@ export default {
     }
     this.name = this.treList[0].name;
   },
+  beforeMount() {
+    if (sessionStorage.getItem("homeIndex")) {
+      this.index = sessionStorage.getItem("homeIndex");
+    }
+  },
   methods: {
-    selectRouter(pathUrl){
-      this.$router.push(pathUrl)
+    selectRouter(pathUrl, index) {
+      this.index = index;
+      sessionStorage.setItem("homeIndex", index);
+      this.$router.push(pathUrl);
     },
     select(name) {
       this.name = name;
     },
-    changeType(type){
+    changeType(type) {
       this.tabType = type;
-    }
+    },
   },
 };
