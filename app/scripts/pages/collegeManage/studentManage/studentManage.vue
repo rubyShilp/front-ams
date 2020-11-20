@@ -13,17 +13,17 @@
         <div class="left-main-from-table">
           <div class="from-right">
             <el-form :inline="true">
-              <el-form-item label="学校名称">
-                <el-input placeholder="请输入学校名称"></el-input>
+              <el-form-item>
+                <el-input placeholder="请输入学校名称" size="mini"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="onSubmit">新增</el-button>
+                <el-button  @click="onSubmit" size="mini">新增</el-button>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="ImportStudent">导入学生</el-button>
+                <el-button  @click="ImportStudent" size="mini">导入学生</el-button>
               </el-form-item>
               <el-form-item label="">
-                <el-button type="primary">批量删除</el-button>
+                <el-button size="mini">批量删除</el-button>
               </el-form-item>
             </el-form>
           </div>
