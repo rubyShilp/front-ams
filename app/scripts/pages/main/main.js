@@ -22,10 +22,28 @@ export default {
         [40, 52, 65, 66, 70,80,90],
         ['温度', '心率','活动量差']
        ],
-       chartData_five: [["12/7","12/6","12/5","12/4","12/3","12/2","12/1"],[100,100,100,100,100,100,100]]
+       chartData_five: [["12/7","12/6","12/5","12/4","12/3","12/2","12/1"],[100,100,100,100,100,100,100]],
+       time: '',
+       date: ''
     };
+  },
+  beforeMount(){
+    var timerID = setInterval(this.updateTime, 1000);
+    this.updateTime()
   },
   methods: {
     //初始化数据展示
+    updateTime() {
+        var cd = new Date();
+        this.time = this.zeroPadding(cd.getHours(), 2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
+        this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
+    },
+    zeroPadding(num, digit) {
+      var zero = '';
+      for(var i = 0; i < digit; i++) {
+          zero += '0';
+      }
+      return (zero + num).slice(-digit);
+    }
   },
 };

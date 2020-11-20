@@ -17,6 +17,10 @@
               </li>
             </ul>
           </div>
+          <div id="clock">
+            <p class="date">{{ date }}<span class="time">{{ time }}</span></p>
+             <p class="school">深圳市实验中学</p>
+          </div>
         </div>
         <div class="ams-main-center">
           <el-container>

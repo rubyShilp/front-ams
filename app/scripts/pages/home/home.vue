@@ -35,7 +35,7 @@
               <a
                 href="javaScript:;"
                 :class="{ cur: index == 3 }"
-                @click="selectRouter('/home/homePage', 3)"
+                @click="selectRouter('/home/schoolManage', 3)"
                 ><i class="el-icon-s-home"></i>学院管理</a
               >
             </li>

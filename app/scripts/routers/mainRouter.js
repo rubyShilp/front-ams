@@ -41,6 +41,37 @@ const mainRouter = [
           }
         ],
       },
+      {
+        path: "/home/collegeManage",
+        component: () =>
+          import("@/pages/collegeManage/collegeManage.vue"),
+        meta: { scrollToTop: true },
+        children: [
+          {
+            path: "/home/schoolManage",
+            component: () =>
+              import("@/pages/collegeManage/schoolManage/schoolManage.vue"),
+            meta: { scrollToTop: true },
+          },
+          {
+            path: "/home/gradeManage",
+            component: () => import("@/pages/collegeManage/gradeManage/gradeManage.vue"),
+            meta: { scrollToTop: true },
+          },
+          {
+            path: "/home/classManage",
+            component: () =>
+              import("@/pages/collegeManage/classManage/classManage.vue"),
+            meta: { scrollToTop: true },
+          },
+          {
+            path: "/home/studentManage",
+            component: () =>
+              import("@/pages/collegeManage/studentManage/studentManage.vue"),
+            meta: { scrollToTop: true },
+          }
+        ],
+      }
     ],
   },
 ];
