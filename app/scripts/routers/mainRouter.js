@@ -74,5 +74,11 @@ const mainRouter = [
       }
     ],
   },
+  {
+    path: "/h5/main",
+    component: () =>
+      import("@/h5/main/main.vue"),
+    meta: { scrollToTop: true },
+  }
 ];
 export default mainRouter;
