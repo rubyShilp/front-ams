@@ -5,7 +5,7 @@
         <div class="from-right">
           <el-form :inline="true">
             <el-form-item>
-              <el-input placeholder="请输入学校名称" size="mini"></el-input>
+              <el-input placeholder="请输入学校名称" size="mini" v-model="initData.school"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button  @click="onSubmit" size="mini">查询</el-button>
@@ -31,23 +31,23 @@
             :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
-            <el-table-column label="序号" type="index" align="center">
+            <el-table-column prop="schoolcode" label="序号"  align="center">
             </el-table-column>
-            <el-table-column prop="school" label="学校名称" sortable>
+            <el-table-column prop="schoolname" label="学校名称" sortable>
             </el-table-column>
-            <el-table-column prop="educationBureau" label="教育局" sortable>
+            <el-table-column prop="schoolattr" label="教育局" sortable>
             </el-table-column>
-            <el-table-column prop="officials" label="学校负责人" sortable>
+            <el-table-column prop="principal" label="学校负责人" sortable>
             </el-table-column>
-            <el-table-column prop="phone" label="学校电话" sortable>
+            <el-table-column prop="telephone" label="学校电话" sortable>
             </el-table-column>
-            <el-table-column prop="type" label="学校类型" sortable>
+            <el-table-column prop="schooltype" label="学校类型" sortable>
             </el-table-column>
-            <el-table-column prop="statu" label="学校状态" sortable>
+            <el-table-column prop="schoolstate" label="学校状态" sortable>
             </el-table-column>
             <el-table-column prop="address" label="学校地址" sortable>
             </el-table-column>
-            <el-table-column prop="reMark" label="备注">
+            <el-table-column prop="remark" label="备注">
             </el-table-column>
             <el-table-column label="操作" width="200">
               <template class="table-operation">
