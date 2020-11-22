@@ -58,7 +58,7 @@
             chartType="bar"
             titleText="当前学校考勤状态TOP10"
             :seriesData="series_two"
-            theme="main"
+            :h5="true"
           ></ams-chart>
         </div>
         <div class="main-tabs">
@@ -67,7 +67,7 @@
             chartType="bar"
             titleText="当前学校健康异常TOP10"
             :seriesData="series_three"
-            theme="main"
+            :h5="true"
           ></ams-chart>
         </div>
         <div class="main-tabs">
@@ -76,7 +76,6 @@
             chartType="line"
             titleText="当前健康异常周趋势"
             :seriesData="series_one"
-            theme="main"
           ></ams-chart>
         </div>
         <div class="main-tabs">

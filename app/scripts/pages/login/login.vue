@@ -15,6 +15,7 @@
           <li>
             <p class="login-regrit-input-title">手机号</p>
             <input
+              v-model="user.account"
               placeholder="请输入手机号"
               autocomplete="off"
               maxlength="11"
@@ -22,16 +23,22 @@
           </li>
           <li>
             <p class="login-regrit-input-title">密码</p>
-            <input placeholder="请输入密码" autocomplete="off" />
+            <input
+              v-model="user.code"
+              placeholder="请输入密码"
+              autocomplete="off"
+              type="password"
+            />
           </li>
         </ul>
         <div class="login-auto-li">
           <p><a href="javaScript:;">忘记密码？</a></p>
         </div>
         <div class="button-box">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="login()">登录</el-button>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script src="./login.js"></script>

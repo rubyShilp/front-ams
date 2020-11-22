@@ -10,7 +10,7 @@ axios.interceptors.request.use(
         //     config.data = urlParams(config.data);
         // }
         if(token()){
-            config.headers.token=token();
+            config.headers.smsKey=token();
         }
         return config;
     },

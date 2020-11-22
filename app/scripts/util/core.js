@@ -10,27 +10,6 @@ export function isJson(obj){
 export function urlParams(params){
     return qs.stringify(params);
 }
-//提示信息
-export function tripBox(options){
-    var defaults = {
-        texts: "默认2秒后自动关闭",
-        speed: 300,
-        speedend: 2000
-    };
-    var options = $.extend(defaults, options);
-    if ($("#layerTips").is(":hidden") || $("#layerTips").length == 0) {
-        if ($("#layerTips").length == 0) {
-            var confirmHtml = "<div id=\"layerTips\"><div class=\"layerTipsBox\">" + options.texts + "</div></div>";
-            $("body").append(confirmHtml);
-        } else {
-            $("#layerTips").html("<div class=\"layerTipsBox\">" + options.texts + "</div>");
-            $("#layerTips").fadeIn(options.speed);
-        }
-        setTimeout(function () {
-            $("#layerTips").fadeOut(options.speed);
-        }, options.speedend);
-    }
-}
 //密码加密
 export function encryption(password){
     return md5(password);

@@ -18,8 +18,10 @@
             </ul>
           </div>
           <div id="clock">
-            <p class="date">{{ date }}<span class="time">{{ time }}</span></p>
-             <p class="school">深圳市实验中学</p>
+            <p class="date">
+              {{ date }}<span class="time">{{ time }}</span>
+            </p>
+            <p class="school">深圳市实验中学</p>
           </div>
         </div>
         <div class="ams-main-center">
@@ -69,12 +71,12 @@
                 </div>
               </div>
               <div class="left-trend">
-                <ams-chart 
-                :chartData="chartData_one" 
-                chartType="line" 
-                titleText="当前健康异常周趋势" 
-                :seriesData="series_one" 
-                theme="main"
+                <ams-chart
+                  :chartData="chartData_one"
+                  chartType="line"
+                  titleText="当前健康异常周趋势"
+                  :seriesData="series_one"
+                  theme="main"
                 ></ams-chart>
               </div>
             </el-aside>
@@ -115,41 +117,43 @@
                   </li>
                 </ul>
               </div>
-              <el-container>
+              <el-container style="width:100%">
                 <el-aside width="750px">
                   <div class="right-school">
                     <ams-chart
-                    :chartData="chartData_two" 
-                    chartType="bar" 
-                    titleText="当前考勤异常学校TOP10" 
-                    :seriesData="series_two"
-                    theme="main"
+                      :chartData="chartData_two"
+                      chartType="bar"
+                      titleText="当前考勤异常学校TOP10"
+                      :seriesData="series_two"
+                      theme="main"
                     ></ams-chart>
                   </div>
                   <div class="right-school marign-top">
                     <ams-chart
-                    :chartData="chartData_three" 
-                    chartType="bar" 
-                    titleText="当前健康异常学校TOP10" 
-                    :seriesData="series_three"
-                    theme="main"
+                      :chartData="chartData_three"
+                      chartType="bar"
+                      titleText="当前健康异常学校TOP10"
+                      :seriesData="series_three"
+                      theme="main"
                     ></ams-chart>
                   </div>
                 </el-aside>
                 <el-main style="padding-top: 0px">
                   <div class="right-temperature">
-                    <ams-chart 
-                    :chartData="chartData_four" 
-                    chartType="pie" 
-                    titleText="当前体温概括" 
-                    theme="main"></ams-chart>
+                    <ams-chart
+                      :chartData="chartData_four"
+                      chartType="pie"
+                      titleText="当前体温概括"
+                      theme="main"
+                    ></ams-chart>
                   </div>
                   <div class="right-healthy">
-                    <ams-chart 
-                    :chartData="chartData_five" 
-                    :indicatorData="indicator_five"
-                    chartType="radar" 
-                    titleText="学校考勤异常周趋势"></ams-chart>
+                    <ams-chart
+                      :chartData="chartData_five"
+                      :indicatorData="indicator_five"
+                      chartType="radar"
+                      titleText="学校考勤异常周趋势"
+                    ></ams-chart>
                   </div>
                 </el-main>
               </el-container>
