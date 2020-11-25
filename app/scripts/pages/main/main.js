@@ -1,4 +1,5 @@
 import charts from "@/components/charts";
+import * as homeServer from './main.server.js';
 export default {
   components: {
     "ams-chart": charts,
@@ -24,7 +25,7 @@ export default {
        ],
        chartData_five: [["12/7","12/6","12/5","12/4","12/3","12/2","12/1"],[100,100,100,100,100,100,100]],
        time: '',
-       date: ''
+       date: '',
     };
   },
   beforeMount(){
@@ -32,9 +33,39 @@ export default {
     this.updateTime()
   },
   methods: {
+    //统计考勤异常数据
+    initAttendTop(){
+      let params={
+        schoolcode:"",
+        querytype:1,
+        sorttype:1,
+        page:1,
+        pageSize:10
+      }
+      homeServer.attendTop(params).then(res=>{
+        if(res.success){
+
+        }
+      })
+    },
+    //统计健康异常数据
+    initHealthTop(){
+      let params={
+        schoolcode:"",
+        querytype:1,
+        sorttype:5,
+        page:1,
+        pageSize:10
+      }
+      homeServer.healthTop(params).then(res=>{
+        if(res.success){
+
+        }
+      })
+    },
     //初始化数据展示
-    updateTime() {
-        var cd = new Date();
+    updateTime(){
+        let cd = new Date();
         this.time = this.zeroPadding(cd.getHours(), 2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
         this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2);
     },

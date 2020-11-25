@@ -1,3 +1,4 @@
+import * as attendanceServer from './../attendance.server.js'; 
 export default {
   data() {
     return {
@@ -19,6 +20,53 @@ export default {
     }
   },
   methods: {
-    //
+    //查询学校考勤设备信息
+    initAcceptorQuery(){
+      attendanceServer.acceptorQuery().then(res=>{
+        if(res.success){
+          this.dataList=res.resultMap.attendDevs
+        }
+      })
+    }, 
+    //查询考勤设备详情信息
+    acceptorDetial(){
+      attendanceServer.acceptorDetial().then(res=>{
+        if(res.success){
+          this.dataList=res.resultMap.attendDevs
+        }
+      })
+    },   
+    //编辑考勤设备信息
+    acceptorUpdate(){
+      attendanceServer.acceptorUpdate().then(res=>{
+        if(res.success){
+          this.dataList=res.resultMap.attendDevs
+        }
+      })
+    },    
+    //删除学校考勤设备信息
+    acceptorRemove(){
+      attendanceServer.acceptorRemove().then(res=>{
+        if(res.success){
+          this.dataList=res.resultMap.attendDevs
+        }
+      })
+    },    
+    //批量删除学校考勤设备信息
+    acceptorBatchRemove(){
+      attendanceServer.acceptorBatchRemove().then(res=>{
+        if(res.success){
+          this.dataList=res.resultMap.attendDevs
+        }
+      })
+    },    
+    //新增学校考勤设备信息
+    acceptorCreate(){
+      attendanceServer.acceptorCreate().then(res=>{
+        if(res.success){
+          this.dataList=res.resultMap.attendDevs
+        }
+      })
+    },
   },
 };

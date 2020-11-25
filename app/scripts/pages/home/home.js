@@ -1,3 +1,4 @@
+import {loginOut} from './home.server.js';
 export default {
   data() {
     return {
@@ -31,5 +32,15 @@ export default {
     changeType(type) {
       this.tabType = type;
     },
+    //退出登录
+    loginOut(){
+      loginOut().then(res=>{
+        if(res.success){
+          sessionStorage.removeItem('TOKEN')
+          sessionStorage.removeItem("userInfo")
+          this.$router.push('/login');
+        }
+      })
+    }
   },
 };

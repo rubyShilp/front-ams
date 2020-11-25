@@ -1,3 +1,4 @@
+import * as attendanceServer from './../attendance.server.js'; 
 export default {
   data() {
     return {
@@ -76,6 +77,13 @@ export default {
     }
   },
   methods: {
-    //
+    //初始化学校年级树形结构菜单项
+    initUserRole(){
+      attendanceServer.userRole().then(res=>{
+        if(res.success){
+          this.data=res.resultMap.roleTrees
+        }
+      })
+    }
   },
 };
