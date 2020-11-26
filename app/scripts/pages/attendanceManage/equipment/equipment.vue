@@ -15,10 +15,10 @@
               </el-date-picker>
             </el-form-item>
             <el-form-item>
-              <el-button  @click="onSubmit" size="mini">查询</el-button>
+              <el-button @click="onSubmit" size="mini">查询</el-button>
             </el-form-item>
             <el-form-item label="">
-              <el-button  size="mini">批量删除</el-button>
+              <el-button size="mini">批量删除</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -37,17 +37,17 @@
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">
             </el-table-column>
-            <el-table-column prop="school" label="学校名称" sortable>
+            <el-table-column prop="schoolname" label="学校名称" sortable>
             </el-table-column>
-            <el-table-column prop="lateCount" label="接收机编号" sortable>
+            <el-table-column prop="acceptorcode" label="接收机编号" sortable>
             </el-table-column>
-            <el-table-column prop="earlyCount" label="接收机位置" sortable>
+            <el-table-column prop="rfidlocation" label="接收机位置" sortable>
             </el-table-column>
-            <el-table-column prop="truancyCount" label="接收机方向" sortable>
+            <el-table-column prop="rfidno" label="接收机方向" sortable>
             </el-table-column>
-            <el-table-column prop="leaveCount" label="接收机组" sortable>
+            <el-table-column prop="rfidgroupid" label="接收机组" sortable>
             </el-table-column>
-            <el-table-column prop="temperatureBody" label="创建时间" sortable>
+            <el-table-column prop="createtime" label="创建时间" sortable>
             </el-table-column>
             <el-table-column label="操作" width="200">
               <template class="table-operation">
@@ -64,4 +64,4 @@
     </div>
   </div>
 </template>
-<script src='./equipment.js'></script>
+<script src="./equipment.js"></script>

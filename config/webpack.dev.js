@@ -30,8 +30,8 @@ module.exports = merge(commonConfig, {
     //代理访问后台地址
     proxy: [
       {
-        context: ["/empower", "/signature", "/userCenter", "/test"],
-        target: "http://172.18.2.35:8877", // 测试
+        context: ["/alading"],
+        target: "http://39.100.136.64:18181/", // 测试
         changeOrigin: true,
         secure: false,
       },

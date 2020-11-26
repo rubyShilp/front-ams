@@ -65,7 +65,7 @@
             </span>
             <span class="ams-cut-title">设置</span>
           </a>
-          <a href="javaScript:;" class="ams-cut-word">
+          <a href="javaScript:;" class="ams-cut-word" @click="loginOut()">
             <span class="ams-cut-text">
               <i class="el-icon-s-tools"></i>
             </span>
