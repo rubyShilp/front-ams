@@ -1,87 +1,54 @@
 import * as attendanceServer from './../attendance.server.js'; 
+import { formDate } from "@/util/core.js";
 export default {
   data() {
     return {
       dataList: [],
-      data: [
-        {
-          label: "一级 1",
-          children: [
-            {
-              label: "二级 1-1",
-              children: [
-                {
-                  label: "三级 1-1-1",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "一级 2",
-          children: [
-            {
-              label: "二级 2-1",
-              children: [
-                {
-                  label: "三级 2-1-1",
-                },
-              ],
-            },
-            {
-              label: "二级 2-2",
-              children: [
-                {
-                  label: "三级 2-2-1",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: "一级 3",
-          children: [
-            {
-              label: "二级 3-1",
-              children: [
-                {
-                  label: "三级 3-1-1",
-                },
-              ],
-            },
-            {
-              label: "二级 3-2",
-              children: [
-                {
-                  label: "三级 3-2-1",
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      data: [],
+      schoolcode:'',//学校id
     };
   },
   beforeMount() {
-    for (let i = 0; i < 20; i++) {
-      this.dataList.push({
-        school: "深圳实验学校",
-        lateCount: 23,
-        earlyCount: 2,
-        truancyCount: 12,
-        leaveCount: 12,
-        temperatureBody: "正常",
-        heartBody: "正常",
-        activityBody: "正常",
-      });
-    }
+    this.initUserRole();
+    this.initAttendTop();
   },
   methods: {
     //初始化学校年级树形结构菜单项
     initUserRole(){
-      attendanceServer.userRole().then(res=>{
+      let params={}
+      attendanceServer.userRole(params).then(res=>{
         if(res.success){
           this.data=res.resultMap.roleTrees
+        }
+      })
+    },
+    //选择学校或班级或年级信息
+    selectTreeDate(item,e){
+      let obj = {}
+      for (let i = 0; i < e.level - 1; i++) {
+      	if (!i) {
+      		obj = e.parent
+      	   } else {
+      	     obj = obj.parent
+      	   }
+      }
+      let reg = /[^:]*:([^:]*)/;
+      this.schoolcode=obj.data.id.replace(reg,"$1");
+      console.log('最外层父级数据：', this.schoolcode)
+    },
+    //获取当前学校或班级或年级考勤信息
+    initAttendTop(){
+      let params={
+        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        schoolcode: this.schoolcode,
+        page: 0,
+        pagesize: 10,
+      }
+      attendanceServer.attendRecord(params).then(res=>{
+        if(res.success){
+          console.log(res);
+          this.dataList=res.resultMap.attendrecords;
         }
       })
     }

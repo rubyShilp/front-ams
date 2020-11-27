@@ -37,27 +37,24 @@
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">
             </el-table-column>
-            <el-table-column prop="school" label="学校名称" sortable>
-            </el-table-column>
-            <el-table-column prop="lateCount" label="上午上学时间" sortable>
-            </el-table-column>
-            <el-table-column prop="earlyCount" label="上午放学时间" sortable>
-            </el-table-column>
-            <el-table-column prop="truancyCount" label="下午上学时间" sortable>
-            </el-table-column>
-            <el-table-column prop="leaveCount" label="下午放学时间" sortable>
-            </el-table-column>
             <el-table-column
-              prop="temperatureBody"
-              label="晚上上学时间"
+              prop="schoolname"
+              label="学校名称"
+              :show-overflow-tooltip="true"
               sortable
             >
             </el-table-column>
-            <el-table-column
-              prop="temperatureBody"
-              label="晚上放学时间"
-              sortable
-            >
+            <el-table-column prop="morschtime" label="上午上学时间" sortable>
+            </el-table-column>
+            <el-table-column prop="morhometime" label="上午放学时间" sortable>
+            </el-table-column>
+            <el-table-column prop="minschtime" label="下午上学时间" sortable>
+            </el-table-column>
+            <el-table-column prop="minhometime" label="下午放学时间" sortable>
+            </el-table-column>
+            <el-table-column prop="nightschtime" label="晚上上学时间" sortable>
+            </el-table-column>
+            <el-table-column prop="nighthometime" label="晚上放学时间" sortable>
             </el-table-column>
             <el-table-column label="操作" width="200">
               <template class="table-operation">
@@ -74,4 +71,4 @@
     </div>
   </div>
 </template>
-<script src='./rule.js'></script>
+<script src="./rule.js"></script>

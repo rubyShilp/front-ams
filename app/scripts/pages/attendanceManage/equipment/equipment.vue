@@ -37,7 +37,12 @@
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">
             </el-table-column>
-            <el-table-column prop="schoolname" label="学校名称" sortable>
+            <el-table-column
+              prop="schoolname"
+              label="学校名称"
+              sortable
+              :show-overflow-tooltip="true"
+            >
             </el-table-column>
             <el-table-column prop="acceptorcode" label="接收机编号" sortable>
             </el-table-column>
@@ -48,6 +53,9 @@
             <el-table-column prop="rfidgroupid" label="接收机组" sortable>
             </el-table-column>
             <el-table-column prop="createtime" label="创建时间" sortable>
+              <template slot-scope="scope">
+                {{ scope.row.createtime | Date("yyyy-MM-dd hh:mm:ss") }}
+              </template>
             </el-table-column>
             <el-table-column label="操作" width="200">
               <template class="table-operation">

@@ -8,6 +8,11 @@ export const userRole=async (params)=>{
     let result=await post('/alading/api/role/getUserRole',params);
     return result.data;
 }
+//获取当前学校或班级或年级的考勤信息
+export const attendRecord=async (params)=>{
+    let result=await post('/alading/api/attend/record/selectAttendRecordsById',params);
+    return result.data;
+} 
 /**
  * 
  * 考勤设备接口调用

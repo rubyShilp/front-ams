@@ -6,25 +6,15 @@ export default {
     };
   },
   beforeMount() {
-    for (let i = 0; i < 20; i++) {
-      this.dataList.push({
-        school: "深圳实验学校",
-        lateCount: 23,
-        earlyCount: 2,
-        truancyCount: 12,
-        leaveCount: 12,
-        temperatureBody: "正常",
-        heartBody: "正常",
-        activityBody: "正常",
-      });
-    }
+    this.initAttendRoleQuery();
   },
   methods: {
     //查询学校考勤规则信息
     initAttendRoleQuery(){
-      attendanceServer.attendRoleQuery().then(res=>{
+      let params={page:0,pageSize:10}
+      attendanceServer.attendRoleQuery(params).then(res=>{
         if(res.success){
-          this.dataList=res.resultMap.attendDevs
+          this.dataList=res.resultMap.attendRules
         }
       })
     }, 

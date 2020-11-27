@@ -7,6 +7,8 @@
           :props="defaultProps"
           highlight-current
           default-expand-all
+          :expand-on-click-node="false"
+          @node-click="selectTreeDate"
         ></el-tree>
       </el-aside>
       <div class="left-main-center">
@@ -24,7 +26,7 @@
                 </el-date-picker>
               </el-form-item>
               <el-form-item>
-                <el-button  @click="onSubmit" size="mini">查询</el-button>
+                <el-button @click="onSubmit" size="mini">查询</el-button>
               </el-form-item>
               <el-form-item label="">
                 <el-button size="mini">批量删除</el-button>
@@ -46,21 +48,24 @@
               <el-table-column type="selection" width="100"> </el-table-column>
               <el-table-column label="序号" type="index" align="center">
               </el-table-column>
-              <el-table-column prop="school" label="IMEI码" sortable>
+              <el-table-column prop="imei" label="IMEI码" sortable>
               </el-table-column>
-              <el-table-column prop="lateCount" label="学生姓名" sortable>
+              <el-table-column prop="stuname" label="学生姓名" sortable>
               </el-table-column>
-              <el-table-column prop="earlyCount" label="学号" sortable>
+              <el-table-column prop="sno" label="学号" sortable>
               </el-table-column>
-              <el-table-column prop="truancyCount" label="年级名称" sortable>
+              <el-table-column prop="gradename" label="年级名称" sortable>
               </el-table-column>
-              <el-table-column prop="leaveCount" label="班级名称" sortable>
+              <el-table-column prop="classname" label="班级名称" sortable>
               </el-table-column>
-              <el-table-column prop="temperatureBody" label="签到时间" sortable>
+              <el-table-column prop="printtime" label="签到时间" sortable>
+                <template slot-scope="scope">
+                  {{ scope.row.printtime | Date("yyyy-MM-dd hh:mm:ss") }}
+                </template>
               </el-table-column>
-              <el-table-column prop="heartBody" label="进出状态" sortable>
+              <el-table-column prop="inoutstate" label="进出状态" sortable>
               </el-table-column>
-              <el-table-column prop="activityBody" label="考勤状态" sortable>
+              <el-table-column prop="attendstate" label="考勤状态" sortable>
               </el-table-column>
               <el-table-column label="操作" width="200">
                 <template class="table-operation">
@@ -78,4 +83,4 @@
     </el-container>
   </div>
 </template>
-<script src='./record.js'></script>
+<script src="./record.js"></script>
