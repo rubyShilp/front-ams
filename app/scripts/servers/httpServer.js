@@ -2,7 +2,7 @@ import axios from "axios";
 import Vue from "vue";
 import { token, sessionOut, isJson, urlParams } from "./../util/core.js";
 axios.defaults.headers = {
-  "Content-Type": "application/json" || "multipart/form-data",
+  "Content-Type": "application/json;charset=utf-8" || "multipart/form-data",
   "X-Frame-Options": "SAMEORIGIN",
 };
 axios.defaults.baseURL = "/";

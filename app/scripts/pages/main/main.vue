@@ -15,13 +15,23 @@
                   <img src="./../../../images/right.png" class="ams-i" />
                 </p>
               </li>
+              <li class="ams-date-school">
+                <div class="date">
+                  {{ date }}<span class="time">{{ time }}</span>
+                </div>
+                <div class="ams-school-seting">
+                  <el-select v-model="schoolcode" @change="selectSchool()">
+                    <el-option
+                      v-for="item of schoolList"
+                      :key="item.schoolname"
+                      :label="item.schoolname"
+                      :value="item.schoolcode"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+              </li>
             </ul>
-          </div>
-          <div id="clock">
-            <p class="date">
-              {{ date }}<span class="time">{{ time }}</span>
-            </p>
-            <p class="school">深圳市实验中学</p>
           </div>
         </div>
         <div class="ams-main-center">
@@ -51,18 +61,20 @@
                         <tbody>
                           <tr
                             class="border"
-                            v-for="list of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-                            :key="list"
+                            v-for="list of attendanceList"
+                            :key="list.sno"
                           >
-                            <td>2012</td>
-                            <td>张三</td>
-                            <td>正常</td>
-                            <td>正常</td>
-                            <td>正常</td>
+                            <td>{{ list.sno }}</td>
+                            <td>{{ list.stuname }}</td>
+                            <td>{{ list.attendstate }}</td>
+                            <td>{{ list.heartrate }}</td>
+                            <td>{{ list.temperature }}</td>
                             <td>
-                              <div>实验学校</div>
+                              <div>{{ list.schoolname }}</div>
                             </td>
-                            <td>2年1班</td>
+                            <td>
+                              <div>{{ list.gradeclassname }}</div>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -72,9 +84,10 @@
               </div>
               <div class="left-trend">
                 <ams-chart
+                  v-if="isOne"
                   :chartData="chartData_one"
                   chartType="line"
-                  titleText="当前健康异常周趋势"
+                  titleText="当前考勤异常周趋势"
                   :seriesData="series_one"
                   theme="main"
                 ></ams-chart>
@@ -85,35 +98,51 @@
                 <ul>
                   <li>
                     <div class="right-name">总人数</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumbelatecount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">迟到人数</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumheartratecount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">早退人数</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumleavecount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">旷课人数</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">请假人数</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">体温异常</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumschoolcount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">心率异常</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumtempecount }}</h1>
+                    </div>
                   </li>
                   <li>
                     <div class="right-name">活动量差</div>
-                    <div class="right-number"><h1>3000</h1></div>
+                    <div class="right-number">
+                      <h1>{{ attendanceInfo.sumtruantcount }}</h1>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -121,6 +150,7 @@
                 <el-aside width="750px">
                   <div class="right-school">
                     <ams-chart
+                      v-if="isTwo"
                       :chartData="chartData_two"
                       chartType="bar"
                       titleText="当前考勤异常学校TOP10"
@@ -130,6 +160,7 @@
                   </div>
                   <div class="right-school marign-top">
                     <ams-chart
+                      v-if="isThree"
                       :chartData="chartData_three"
                       chartType="bar"
                       titleText="当前健康异常学校TOP10"
@@ -141,6 +172,7 @@
                 <el-main style="padding-top: 0px">
                   <div class="right-temperature">
                     <ams-chart
+                      v-if="isFour"
                       :chartData="chartData_four"
                       chartType="pie"
                       titleText="当前体温概括"
@@ -149,10 +181,11 @@
                   </div>
                   <div class="right-healthy">
                     <ams-chart
+                      v-if="isFive"
                       :chartData="chartData_five"
                       :indicatorData="indicator_five"
                       chartType="radar"
-                      titleText="学校考勤异常周趋势"
+                      titleText="学校健康异常周趋势"
                     ></ams-chart>
                   </div>
                 </el-main>
