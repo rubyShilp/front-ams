@@ -24,3 +24,8 @@ export const delmoreSchool = async (params) => {
     let result = await get("/alading/api/school/batchRemoveSchool?schoolcodes="+params);
     return result.data
 }
+//学校详情
+export const detailSchool = async (params) => {
+  let result = await post("/alading/api/school/getSchoolDetail",params);
+  return result.data
+}

@@ -8,13 +8,13 @@
               <el-input placeholder="请输入学校名称" size="mini" v-model="initData.school"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button  @click="onSubmit" size="mini">查询</el-button>
+              <el-button  @click="query" size="mini">查询</el-button>
             </el-form-item>
             <el-form-item>
-              <el-button  @click="add" size="mini">新增</el-button>
+              <el-button  size="mini">新增</el-button>
             </el-form-item>
             <el-form-item label="">
-              <el-button  size="mini">批量删除</el-button>
+              <el-button  size="mini" @click="handle('moreDel')">批量删除</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -29,6 +29,7 @@
             }"
             :row-style="{ height: '40px' }"
             :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
+            @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column prop="schoolcode" label="序号"  align="center">
@@ -50,15 +51,22 @@
             <el-table-column prop="remark" label="备注">
             </el-table-column>
             <el-table-column label="操作" width="200">
-              <template class="table-operation">
-                <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
+              <template class="table-operation" v-slot="scope">
+                <a href="javaScript:;" @click="handle('detail',scope.row)"><i class="el-icon-view"></i>详情</a>
                 <span>|</span>
                 <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
                 <span>|</span>
-                <a href="javaScript:;"><i class="el-icon-delete"></i>删除</a>
+                <a href="javaScript:;"  @click="handle('del',scope.row)"><i class="el-icon-delete"></i>删除</a>
               </template>
             </el-table-column>
           </el-table>
+           <pagination
+            v-show="total>0"
+            :total="total"
+            :page.sync="currentPage"
+            :limit.sync="pageSize"
+            @pagination="query"
+          ></pagination>
         </div>
       </div>
     </div>

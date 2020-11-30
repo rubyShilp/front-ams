@@ -29,17 +29,18 @@
             }"
             :row-style="{ height: '40px' }"
             :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
+             @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">
             </el-table-column>
-            <el-table-column prop="class" label="班级名称" sortable>
+            <el-table-column prop="classname" label="班级名称" sortable>
             </el-table-column>
-            <el-table-column prop="teacherName" label="班主任姓名" sortable>
+            <el-table-column prop="teachername" label="班主任姓名" sortable>
             </el-table-column>
-            <el-table-column prop="school" label="学校名称" sortable>
+            <el-table-column prop="schoolname" label="学校名称" sortable>
             </el-table-column>
-            <el-table-column prop="grade" label="年级名称" sortable>
+            <el-table-column prop="gradename" label="年级名称" sortable>
             </el-table-column>
             <el-table-column prop="reMark" label="备注">
             </el-table-column>
@@ -55,6 +56,13 @@
               </template>
             </el-table-column>
           </el-table>
+          <pagination
+            v-show="total>0"
+            :total="total"
+            :page.sync="currentPage"
+            :limit.sync="pageSize"
+            @pagination="query"
+          ></pagination>
         </div>
       </div>
     </div>

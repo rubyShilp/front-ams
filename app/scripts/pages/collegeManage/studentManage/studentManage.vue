@@ -14,7 +14,11 @@
           <div class="from-right">
             <el-form :inline="true">
               <el-form-item>
-                <el-input placeholder="请输入学校名称" size="mini"></el-input>
+                <el-input
+                  placeholder="请输入学校名称"
+                  size="mini">
+                  <i slot="suffix" class="el-input__icon el-icon-search"></i>
+                </el-input>
               </el-form-item>
               <el-form-item>
                 <el-button  @click="onSubmit" size="mini">新增</el-button>
@@ -42,15 +46,15 @@
               <el-table-column type="selection" width="100"> </el-table-column>
               <el-table-column label="序号" type="index" align="center">
               </el-table-column>
-              <el-table-column prop="number" label="学生编号" sortable>
+              <el-table-column prop="stucode" label="学生编号" sortable>
               </el-table-column>
               <el-table-column prop="imei" label="IMEI码" sortable>
               </el-table-column>
-              <el-table-column prop="name" label="姓名" sortable>
+              <el-table-column prop="stuname" label="姓名" sortable>
               </el-table-column>
-              <el-table-column prop="age" label="年龄" sortable>
+              <el-table-column prop="stuage" label="年龄" sortable>
               </el-table-column>
-              <el-table-column prop="gender" label="性别" sortable>
+              <el-table-column prop="stusex" label="性别" sortable>
               </el-table-column>
               <el-table-column label="操作" width="200">
                 <template class="table-operation">
@@ -62,6 +66,13 @@
                 </template>
               </el-table-column>
             </el-table>
+             <pagination
+            v-show="total>0"
+            :total="total"
+            :page.sync="currentPage"
+            :limit.sync="pageSize"
+            @pagination="query"
+          ></pagination>
           </div>
         </div>
       </div>

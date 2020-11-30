@@ -1,19 +1,21 @@
 import charts from '@/components/charts'
+import * as homeServer from "./homePage.server";
+import { formDate } from "@/util/core.js";
 export default {
   data() {
     return {
       name: "平湖学院",
       treList: [],
-      arrs: [
-        {id:'1',title: '总人数',count: 36000,color: '#276ef9'},
-        {id:'2',title: '迟到人数',count: 205,color: '#b9070e'},
-        {id:'3',title: '早退人数',count: 100,color: '#b9070e'},
-        {id:'4',title: '旷课人数',count: 56,color: '#b9070e'},
-        {id:'5',title: '请假人数',count: 66,color: '#b9070e'},
-        {id:'6',title: '体温异常',count: 25,color: '#b9070e'},
-        {id:'7',title: '心率异常',count: 10,color: '#b9070e'},
-        {id:'8',title: '活动量差',count: 360,color: '#b9070e'}
-      ],
+      arrs: {
+        sumschoolcount: 3,
+        sumbelatecount: 5,
+        sumleaveearlycount: 6,
+        sumtruantcount: 0,
+        sumleavecount: 5,
+        sumtempecount: 5,
+        sumheartratecount: 0,
+        sumlessactivitycount: 10
+      },
       tabs: [
         {id: 1,name: "学校"},
         {id: 2,name: "年级"},
@@ -39,8 +41,29 @@ export default {
   components: {
     charts
   },
-  beforeMount() {},
+  beforeMount() {
+    this.getheadData();
+  },
   methods: {
+    //获取头部数据
+    getheadData(){
+      headerData().then(res=>{
+        if(res.success){
+          this.arrs = res.resultMap.abnormalNums
+        }
+      })
+    },
+    getEchartData(){
+      let params = {
+        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        schoolcode: this.schoolcode,
+        querytype: "2",
+        sorttype: "1",
+        page: "1",
+        pagesize: "10",
+      }
+    },
     changeType(type){
       this.tabType = type;
     }
