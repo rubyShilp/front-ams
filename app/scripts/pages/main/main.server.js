@@ -30,6 +30,7 @@ export const healthTop = async (params) => {
 };
 //统计体温分布
 export const statisticsTemper = async (params) => {
+  console.log(222)
   let result = await post(
     "/alading/api/statistics/statisticsTemperDist",
     params

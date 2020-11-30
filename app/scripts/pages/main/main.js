@@ -50,7 +50,7 @@ export default {
           this.initAttendTop(2);
           this.initHealthTop(1);
           this.initHealthTop(2);
-          // this.initStatisticsTemper();
+          this.initStatisticsTemper();
           // this.initStatisticsReal(1);
         }
       });
@@ -98,37 +98,53 @@ export default {
       mainServer.attendTop(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.abAttendTop;
-          if (type == 1) {
-            this.chartData_two[0] = [];
-            this.series_two[1][0] = [];
-            this.series_two[1][1] = [];
-            this.series_two[1][2] = [];
-            this.series_two[1][3] = [];
-            for (let i = 0; i < list.length; i++) {
-              this.chartData_two[0].push(list[i].basename);
-              this.series_two[1][0].push(list[i].sumbelatecount);
-              this.series_two[1][1].push(list[i].sumleavecount);
-              this.series_two[1][2].push(list[i].sumleaveearlycount);
-              this.series_two[1][3].push(list[i].sumtruantcount);
+            if (type == 1) {
+              if(list.length !== 0){
+                this.chartData_two[0] = [];
+                this.series_two[1][0] = [];
+                this.series_two[1][1] = [];
+                this.series_two[1][2] = [];
+                this.series_two[1][3] = [];
+                for (let i = 0; i < list.length; i++) {
+                  this.chartData_two[0].push(list[i].basename);
+                  this.series_two[1][0].push(list[i].sumbelatecount);
+                  this.series_two[1][1].push(list[i].sumleavecount);
+                  this.series_two[1][2].push(list[i].sumleaveearlycount);
+                  this.series_two[1][3].push(list[i].sumtruantcount);
+                }
+                this.isTwo = true;
+              }else{
+                this.isTwo = false;
+                this.emptyData('chart2','当前考勤异常学校TOP10')
+              }
+            } else {
+              if(list.length !== 0){
+                this.chartData_one[0] = [];
+                this.series_one[1][0] = [];
+                this.series_one[1][1] = [];
+                this.series_one[1][2] = [];
+                this.series_one[1][3] = [];
+                for (let i = 0; i < list.length; i++) {
+                  this.chartData_one[0].push(list[i].createtime);
+                  this.series_one[1][0].push(list[i].sumbelatecount);
+                  this.series_one[1][1].push(list[i].sumleavecount);
+                  this.series_one[1][2].push(list[i].sumleaveearlycount);
+                  this.series_one[1][3].push(list[i].sumtruantcount);
+                }
+                this.isOne = true;
+              }else{
+                this.isOne = false;
+                this.emptyData('chart1','当前考勤异常周趋势')
+              }
             }
-            this.isTwo = true;
-          } else {
-            this.chartData_one[0] = [];
-            this.series_one[1][0] = [];
-            this.series_one[1][1] = [];
-            this.series_one[1][2] = [];
-            this.series_one[1][3] = [];
-            for (let i = 0; i < list.length; i++) {
-              this.chartData_one[0].push(list[i].createtime);
-              this.series_one[1][0].push(list[i].sumbelatecount);
-              this.series_one[1][1].push(list[i].sumleavecount);
-              this.series_one[1][2].push(list[i].sumleaveearlycount);
-              this.series_one[1][3].push(list[i].sumtruantcount);
-            }
-            this.isOne = true;
-          }
         }
       });
+    },
+    //图标数据为空
+    emptyData(classname,title){
+      var html = '<div style="padding:10px;"><span style="font-size: 18px;font-weight: bold;color: #2991d0;">'+ title +'</span><span  style="position: absolute;top: 40%;margin-left: 10%;color:#fff; font-size: 20px;">暂无数据</span></div>'
+      document.getElementsByClassName(classname)[0].innerHTML = html
+      document.getElementsByClassName(classname)[0].removeAttribute('_echarts_instance_')
     },
     //统计健康异常数据
     initHealthTop(type) {
@@ -145,29 +161,40 @@ export default {
         if (res.success) {
           let list = res.resultMap.abHealthTop;
           if (type == 1) {
-            this.chartData_three[0] = [];
-            this.series_three[1][0] = [];
-            this.series_three[1][1] = [];
-            this.series_three[1][2] = [];
-            for (let i = 0; i < list.length; i++) {
-              this.chartData_three[0].push(list[i].basename);
-              this.series_three[1][0].push(list[i].sumtempecount);
-              this.series_three[1][1].push(list[i].sumheartratecount);
-              this.series_three[1][2].push(list[i].sumlessactivitycount);
+            if(list.length !== 0){
+              this.chartData_three[0] = [];
+              this.series_three[1][0] = [];
+              this.series_three[1][1] = [];
+              this.series_three[1][2] = [];
+              for (let i = 0; i < list.length; i++) {
+                this.chartData_three[0].push(list[i].basename);
+                this.series_three[1][0].push(list[i].sumtempecount);
+                this.series_three[1][1].push(list[i].sumheartratecount);
+                this.series_three[1][2].push(list[i].sumlessactivitycount);
+              }
+              this.isThree = true;
+            }else{
+              this.isThree = false;
+              this.emptyData('chart3','当前健康异常学校TOP10')
             }
-            this.isThree = true;
           } else {
-            this.chartData_five[0] = [];
-            this.indicator_five[0] = [];
-            this.indicator_five[1] = [];
-            this.indicator_five[2] = [];
-            for (let i = 0; i < list.length; i++) {
-              this.chartData_five[0].push(list[i].createtime);
-              this.indicator_five[0].push(list[i].sumtempecount);
-              this.indicator_five[1].push(list[i].sumheartratecount);
-              this.indicator_five[2].push(list[i].sumlessactivitycount);
+            if(list.length !== 0){
+              this.chartData_five[0] = [];
+              this.indicator_five[0] = [];
+              this.indicator_five[1] = [];
+              this.indicator_five[2] = [];
+              for (let i = 0; i < list.length; i++) {
+                this.chartData_five[0].push(list[i].createtime);
+                this.indicator_five[0].push(list[i].sumtempecount);
+                this.indicator_five[1].push(list[i].sumheartratecount);
+                this.indicator_five[2].push(list[i].sumlessactivitycount);
+              }
+              this.isFive = true;
+            }else{
+              this.isFive = false;
+              this.emptyData('chart5','学校健康异常周趋势')
             }
-            this.isFive = true;
+            
           }
         }
       });
@@ -196,11 +223,16 @@ export default {
       mainServer.statisticsTemper(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.temperDists;
-          this.chartData_four[0][0] = list[0].tempecount39;
-          this.chartData_four[0][1] = list[0].tempecount359;
-          this.chartData_four[0][2] = list[0].tempecount372;
-          this.chartData_four[0][3] = list[0].tempecount391;
-          this.isFour = true;
+          if(list.length !== 0){
+            this.chartData_four[0][0] = list[0].tempecount39;
+            this.chartData_four[0][1] = list[0].tempecount359;
+            this.chartData_four[0][2] = list[0].tempecount372;
+            this.chartData_four[0][3] = list[0].tempecount391;
+            this.isFour = true;
+          }else{
+            this.isFour = false;
+            this.emptyData('chart4','当前体温概括')
+          }
         }
       });
     },
