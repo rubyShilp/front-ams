@@ -1,21 +1,16 @@
 import {loginOut} from './home.server.js';
+import * as mainServer from '@/pages/main/main.server.js';
 export default {
   data() {
     return {
-      name: "平湖学院",
+      schoolList:"",
+      schoolcode:"",
       index: 0,
       treList: [],
     };
   },
   beforeMount() {
-    for (let i = 0; i < 3; i++) {
-      this.treList.push({
-        name: "深圳实验学校12222222222222222" + i,
-      });
-    }
-    this.name = this.treList[0].name;
-  },
-  beforeMount() {
+    this.initGetSchool();
     if (sessionStorage.getItem("homeIndex")) {
       this.index = sessionStorage.getItem("homeIndex");
     }
@@ -31,6 +26,17 @@ export default {
     },
     changeType(type) {
       this.tabType = type;
+    },
+    //初始化学校信息
+    initGetSchool() {
+      let params = {};
+      console.log(111111111111)
+      mainServer.getSchool(params).then((res) => {
+        if (res.success) {
+          this.schoolList = res.resultMap.schools;
+          this.schoolcode=this.schoolList[0].schoolcode
+        }
+      });
     },
     //退出登录
     loginOut(){

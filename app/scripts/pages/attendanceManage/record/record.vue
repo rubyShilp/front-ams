@@ -19,14 +19,30 @@
                 <el-input placeholder="请输入学校名称" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="时间">
-                <el-date-picker type="date" placeholder="开始日期" size="mini">
+                <el-date-picker
+                  v-model="starttime"
+                  type="date"
+                  placeholder="开始日期"
+                  size="mini"
+                  :editable="false"
+                  :clearable="false"
+                >
                 </el-date-picker>
                 --
-                <el-date-picker type="date" placeholder="结束日期" size="mini">
+                <el-date-picker
+                  v-model="endtime"
+                  type="date"
+                  placeholder="结束日期"
+                  size="mini"
+                  :editable="false"
+                  :clearable="false"
+                >
                 </el-date-picker>
               </el-form-item>
               <el-form-item>
-                <el-button @click="onSubmit" size="mini">查询</el-button>
+                <el-button @click="initAttendTop(0)" size="mini">
+                  查询
+                </el-button>
               </el-form-item>
               <el-form-item label="">
                 <el-button size="mini">批量删除</el-button>

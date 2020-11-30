@@ -20,40 +20,41 @@
           <div class="main-number">
             <div>
               <div>总人数</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumbelatecount }}</h1>
             </div>
             <div>
               <div>迟到人数</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumheartratecount }}</h1>
             </div>
             <div>
               <div>早退人数</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumleavecount }}</h1>
             </div>
             <div>
               <div>旷课人数</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
             </div>
             <div>
               <div>请假数</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
             </div>
             <div>
               <div>体温异常</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumschoolcount }}</h1>
             </div>
             <div>
               <div>心率异常</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumtempecount }}</h1>
             </div>
             <div>
               <div>活动量差</div>
-              <h1>3000</h1>
+              <h1>{{ attendanceInfo.sumtruantcount }}</h1>
             </div>
           </div>
         </div>
-        <div class="main-tabs">
+        <div class="main-tabs chart2">
           <ams-chart
+            v-if="isTwo"
             :chartData="chartData_two"
             chartType="bar"
             titleText="当前学校考勤状态TOP10"
@@ -61,8 +62,9 @@
             :h5="true"
           ></ams-chart>
         </div>
-        <div class="main-tabs">
+        <div class="main-tabs chart3">
           <ams-chart
+            v-if="isThree"
             :chartData="chartData_three"
             chartType="bar"
             titleText="当前学校健康异常TOP10"
@@ -70,16 +72,18 @@
             :h5="true"
           ></ams-chart>
         </div>
-        <div class="main-tabs">
+        <div class="main-tabs chart1">
           <ams-chart
+            v-if="isOne"
             :chartData="chartData_one"
             chartType="line"
             titleText="当前健康异常周趋势"
             :seriesData="series_one"
           ></ams-chart>
         </div>
-        <div class="main-tabs">
+        <div class="main-tabs chart5">
           <ams-chart
+            v-if="isFive"
             :chartData="chartData_five"
             :indicatorData="indicator_five"
             chartType="radar"

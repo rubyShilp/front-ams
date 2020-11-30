@@ -8,14 +8,30 @@
               <el-input placeholder="请输入学校名称" size="mini"></el-input>
             </el-form-item>
             <el-form-item label="时间">
-              <el-date-picker type="date" placeholder="开始日期" size="mini">
+              <el-date-picker
+                v-model="starttime"
+                type="date"
+                placeholder="开始日期"
+                size="mini"
+                :editable="false"
+                :clearable="false"
+              >
               </el-date-picker>
               --
-              <el-date-picker type="date" placeholder="结束日期" size="mini">
+              <el-date-picker
+                v-model="endtime"
+                type="date"
+                placeholder="结束日期"
+                size="mini"
+                :editable="false"
+                :clearable="false"
+              >
               </el-date-picker>
             </el-form-item>
             <el-form-item>
-              <el-button @click="onSubmit" size="mini">查询</el-button>
+              <el-button @click="initAcceptorQuery(0)" size="mini"
+                >查询</el-button
+              >
             </el-form-item>
             <el-form-item label="">
               <el-button size="mini">批量删除</el-button>
@@ -57,19 +73,96 @@
                 {{ scope.row.createtime | Date("yyyy-MM-dd hh:mm:ss") }}
               </template>
             </el-table-column>
-            <el-table-column label="操作" width="200">
-              <template class="table-operation">
-                <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
+            <el-table-column label="操作" width="220">
+              <template class="table-operation" slot-scope="scope">
+                <a href="javaScript:;" @click="acceptorDetial(scope.row, 1)"
+                  ><i class="el-icon-view"></i>详情</a
+                >
                 <span>|</span>
-                <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
+                <a href="javaScript:;" @click="acceptorDetial(scope.row, 2)"
+                  ><i class="el-icon-edit"></i>编辑</a
+                >
                 <span>|</span>
-                <a href="javaScript:;"><i class="el-icon-delete"></i>删除</a>
+                <a href="javaScript:;" @click="acceptorRemove(scope.row)">
+                  <i class="el-icon-delete"></i>
+                  删除
+                </a>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </div>
     </div>
+    <!--考勤设备详情和编辑-->
+    <el-dialog
+      :title="isDetail ? '考勤设备详情' : '考勤设备编辑'"
+      width="500px"
+      :visible.sync="isEquipment"
+    >
+      <el-form
+        ref="equipmentFrom"
+        :model="equipmentInfo"
+        size="mini"
+        label-width="100px"
+        class="equipement-from"
+      >
+        <el-form-item label="学校名称：">
+          <span v-show="isDetail"> {{ equipmentInfo.schoolname }}</span>
+          <span v-show="!isDetail">
+            <el-input v-model="equipmentInfo.schoolname"></el-input
+          ></span>
+        </el-form-item>
+        <el-form-item label="接收机编号：">
+          <span v-show="isDetail"> {{ equipmentInfo.acceptorcode }}</span>
+          <span v-show="!isDetail">
+            <el-input v-model="equipmentInfo.acceptorcode"></el-input
+          ></span>
+        </el-form-item>
+        <el-form-item label="接收机位置：">
+          <span v-show="isDetail"> {{ equipmentInfo.rfidlocation }}</span>
+          <span v-show="!isDetail">
+            <el-input v-model="equipmentInfo.rfidlocation"></el-input
+          ></span>
+        </el-form-item>
+        <el-form-item label="接收机方向：">
+          <span v-show="isDetail"> {{ equipmentInfo.rfidno }}</span>
+          <span v-show="!isDetail">
+            <el-input v-model="equipmentInfo.rfidno"></el-input
+          ></span>
+        </el-form-item>
+        <el-form-item label="接收机组：">
+          <span v-show="isDetail"> {{ equipmentInfo.rfidgroupid }}</span>
+          <span v-show="!isDetail">
+            <el-input v-model="equipmentInfo.rfidgroupid"></el-input
+          ></span>
+        </el-form-item>
+        <el-form-item label="创建时间：">
+          <span v-show="isDetail">
+            {{ equipmentInfo.createtime | Date("yyyy-MM-dd hh:mm:ss") }}</span
+          >
+          <span v-show="!isDetail">
+            <el-date-picker
+              v-model="equipmentInfo.createtime"
+              type="date"
+              placeholder="结束日期"
+              size="mini"
+              :editable="false"
+              :clearable="false"
+            >
+            </el-date-picker>
+          </span>
+        </el-form-item>
+      </el-form>
+      <div style="text-align: center;" v-show="!isDetail">
+        <el-button @click="isEquipment = false">取消</el-button>
+        <el-button type="primary" @click="acceptorUpdate()">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script src="./equipment.js"></script>
+<style>
+.el-input__inner {
+  width: 230px;
+}
+</style>

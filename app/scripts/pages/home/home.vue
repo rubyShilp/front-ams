@@ -50,12 +50,12 @@
           </ul>
         </div>
         <div class="ams-seting">
-          <el-select v-model="name" @change="select">
+          <el-select v-model="schoolcode" @change="select">
             <el-option
-              v-for="item in treList"
-              :key="item.name"
-              :label="item.name"
-              :value="item.name"
+              v-for="item in schoolList"
+              :key="item.schoolname"
+              :label="item.schoolname"
+              :value="item.schoolcode"
             >
             </el-option>
           </el-select>

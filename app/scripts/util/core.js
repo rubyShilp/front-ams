@@ -100,3 +100,11 @@ export function dowandFile(res,fileName){
         navigator.msSaveBlob(blob, fileName)
     }
 }
+//时间格式化
+export function dateTime(time){
+    let timeStr=time.split(':');
+    let year=new Date().getFullYear();
+    let month=new Date().getMonth()+1;
+    let date=new Date().getDate();
+    return new Date(2016, 9, 10, 18, 40)
+}
