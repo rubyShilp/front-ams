@@ -5,6 +5,9 @@ export default {
     return {
       userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
       dataList: [],
+      totalCount:0,//總條數
+      page:1,
+      pageSize:10,//每頁顯示條數
       data: [],
       starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
@@ -69,13 +72,23 @@ export default {
         gradeId: this.gradeId,
         classId: this.classId,
         page: page,
-        pagesize: 10,
+        pagesize: this.pageSize,
       };
       attendanceServer.attendRecord(params).then((res) => {
         if (res.success) {
           this.dataList = res.resultMap.attendrecords;
         }
       });
+    },
+     //每頁顯示條數
+     handleSizeChange(pageSize){
+      this.pageSize=pageSize;
+      this.initAttendTop(0);
+    },
+    //跳轉的頁碼
+    handleCurrentChange(page){
+      this.page=page;
+      this.initAttendTop(page-1);
     },
   },
 };
