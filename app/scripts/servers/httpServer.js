@@ -1,5 +1,6 @@
 import axios from "axios";
 import Vue from "vue";
+import router from './../routers/router.js';
 import { token, sessionOut, isJson, urlParams } from "./../util/core.js";
 axios.defaults.headers = {
   "Content-Type": "application/json;charset=utf-8" || "multipart/form-data",
@@ -31,6 +32,14 @@ axios.interceptors.response.use(
       sessionOut();
       return;
     } else if (response.status === 200) {
+      if(response.data.status==96){
+        Vue.prototype.$message({
+          type: "warning",
+          message: response.data.message,
+        });
+        router.push('/login');
+        return response;
+      }
       if (response.data.success === false) {
         Vue.prototype.$message({
           type: "warning",

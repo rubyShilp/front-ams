@@ -15,8 +15,8 @@
         <div class="left-main-from-table">
           <div class="from-right">
             <el-form :inline="true">
-              <el-form-item label="学校名称">
-                <el-input placeholder="请输入学校名称" size="mini"></el-input>
+              <el-form-item label="学生姓名">
+                <el-input placeholder="学生姓名" size="mini"></el-input>
               </el-form-item>
               <el-form-item label="时间">
                 <el-date-picker

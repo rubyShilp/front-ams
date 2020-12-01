@@ -8,6 +8,7 @@ export default {
       data: [],
       starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
+      schoolcodeId:'',
       schoolcode: "", //学校id
       gradeId: "", //年级id
       classId: "", //班级id
@@ -48,8 +49,14 @@ export default {
         this.gradeId = item.id;
         this.classId = "";
       } else {
-        this.gradeId = item.id;
-        this.classId = parentid;
+        if(!obj.data){
+          this.gradeId = '';
+          this.classId = '';
+        }else{
+          this.gradeId = parentid;
+          this.classId = item.id;
+        }
+       
       }
       this.initAttendTop(0);
     },
