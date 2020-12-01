@@ -5,7 +5,16 @@
         <div class="from-right">
           <el-form :inline="true">
             <el-form-item label="学校名称">
-              <el-input placeholder="请输入学校名称" size="mini"></el-input>
+              <!-- <el-input placeholder="请输入学校名称" size="mini"></el-input> -->
+              <el-select v-model="schoolcode" size="mini">
+                <el-option
+                  v-for="item of schoolList"
+                  :key="item.schoolcode"
+                  :label="item.schoolname"
+                  :value="item.schoolcode"
+                >
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="时间">
               <el-date-picker
@@ -34,7 +43,14 @@
               >
             </el-form-item>
             <el-form-item label="">
-              <el-button size="mini">批量删除</el-button>
+              <el-button size="mini" @click="acceptorBatchAdd()"
+                >增加</el-button
+              >
+            </el-form-item>
+            <el-form-item label="">
+              <el-button size="mini" @click="acceptorBatchRemove()"
+                >批量删除</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -49,6 +65,7 @@
             }"
             :row-style="{ height: '40px' }"
             :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
+            @selection-change="selectData"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">
@@ -95,7 +112,13 @@
     </div>
     <!--考勤设备详情和编辑-->
     <el-dialog
-      :title="isDetail ? '考勤设备详情' : '考勤设备编辑'"
+      :title="
+        isDetail
+          ? '考勤设备详情'
+          : isAddOrUpdae
+          ? '考勤设备新增'
+          : '考勤设备编辑'
+      "
       width="500px"
       :visible.sync="isEquipment"
     >
@@ -109,8 +132,16 @@
         <el-form-item label="学校名称：">
           <span v-show="isDetail"> {{ equipmentInfo.schoolname }}</span>
           <span v-show="!isDetail">
-            <el-input v-model="equipmentInfo.schoolname"></el-input
-          ></span>
+            <el-select v-model="equipmentInfo.schoolname">
+              <el-option
+                v-for="item of schoolList"
+                :key="item.schoolcode"
+                :label="item.schoolname"
+                :value="item.schoolcode"
+              >
+              </el-option>
+            </el-select>
+          </span>
         </el-form-item>
         <el-form-item label="接收机编号：">
           <span v-show="isDetail"> {{ equipmentInfo.acceptorcode }}</span>
@@ -155,7 +186,9 @@
       </el-form>
       <div style="text-align: center;" v-show="!isDetail">
         <el-button @click="isEquipment = false">取消</el-button>
-        <el-button type="primary" @click="acceptorUpdate()">确定</el-button>
+        <el-button type="primary" @click="acceptorAddOrUpdate()"
+          >确定</el-button
+        >
       </div>
     </el-dialog>
   </div>

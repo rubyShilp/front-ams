@@ -5,7 +5,15 @@
         <div class="from-right">
           <el-form :inline="true">
             <el-form-item label="学校名称">
-              <el-input placeholder="请输入学校名称" size="mini"></el-input>
+              <el-select v-model="schoolcode" size="mini">
+                <el-option
+                  v-for="item of schoolList"
+                  :key="item.schoolcode"
+                  :label="item.schoolname"
+                  :value="item.schoolcode"
+                >
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="时间">
               <el-date-picker
@@ -33,8 +41,13 @@
                 >查询</el-button
               >
             </el-form-item>
+            <el-form-item>
+              <el-button @click="attendRolAdd()" size="mini">新增</el-button>
+            </el-form-item>
             <el-form-item label="">
-              <el-button size="mini">批量删除</el-button>
+              <el-button size="mini" @click="attendRoleBatchRemove()"
+                >批量删除</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -49,6 +62,7 @@
             }"
             :row-style="{ height: '40px' }"
             :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
+            @selection-change="seletData"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">
@@ -116,8 +130,16 @@
         <el-form-item label="学校名称：">
           <span v-show="isDetail"> {{ ruleInfo.schoolname }}</span>
           <span v-show="!isDetail">
-            <el-input v-model="ruleInfo.schoolname"></el-input
-          ></span>
+            <el-select v-model="ruleInfo.schoolcode">
+              <el-option
+                v-for="item of schoolList"
+                :key="item.schoolcode"
+                :label="item.schoolname"
+                :value="item.schoolcode"
+              >
+              </el-option>
+            </el-select>
+          </span>
         </el-form-item>
         <el-form-item label="上午上学时间：">
           <span v-show="isDetail"> {{ ruleInfo.morschtime }}</span>
@@ -194,7 +216,9 @@
       </el-form>
       <div style="text-align: center;" v-show="!isDetail">
         <el-button @click="isRule = false">取消</el-button>
-        <el-button type="primary" @click="attendRoleUpdate()">确定</el-button>
+        <el-button type="primary" @click="attendRoleAddOrUpdate()"
+          >确定</el-button
+        >
       </div>
     </el-dialog>
   </div>

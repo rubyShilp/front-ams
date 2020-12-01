@@ -3,12 +3,16 @@ import { formDate, dateTime } from "@/util/core.js";
 export default {
   data() {
     return {
+      schoolList:JSON.parse(sessionStorage.getItem('schoolList')),
       dataList: [],
+      schoolcode:'',
       starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
       isRule: false, //是否展开详情信息
       isDetail: false, //是否是详情
+      isAddOrUpdate:false,//是否新增或编辑
       ruleInfo: {}, //规则信息详情
+      selectDataList:[],//选择考勤规则数据
     };
   },
   beforeMount() {
@@ -27,7 +31,7 @@ export default {
         if (res.success) {
           this.dataList = res.resultMap.attendRules;
           for (let i = 0; i < this.dataList.length; i++) {
-            if (this.dataList[i].rulestate === 0) {
+            if (this.dataList[i].rulestate == 0) {
               this.dataList[i].isRuleState = true;
             } else {
               this.dataList[i].isRuleState = false;
@@ -45,16 +49,34 @@ export default {
       } else {
         this.isDetail = false;
       }
-      // let params={rulecode:list.rulecode}
-      // attendanceServer.attendRoleDetail(params).then(res=>{
-      //   if(res.success){
-      //     this.ruleInfo=res.resultMap.attendDevs
-      //   }
-      // })
+    },
+    //新增考勤设备信息
+    attendRolAdd(){
+      this.isRule=true;
+      this.isDetail=false;
+      this.isAddOrUpdae=true;
+      this.ruleInfo={schoolname:'',morschtime:'',morhometime:'',minschtime:'',minhometime:'',nightschtime:'',nighthometime:''};
+    },
+     //编辑或新增设备信息
+     attendRoleAddOrUpdate(){
+      if(this.isAddOrUpdate){
+        this.attendRoleUpdate();
+      }else{
+        this.attendRoleAdd();
+      }
     },
     //编辑考勤规则信息
     attendRoleUpdate() {
       attendanceServer.attendRoleUpdate(this.ruleInfo).then((res) => {
+        if (res.success) {
+          this.initAttendRoleQuery(0);
+          this.isRule = false;
+        }
+      });
+    },
+    //新增学校考勤规则信息
+    attendRoleAdd() {
+      attendanceServer.attendRoleAdd(this.ruleInfo).then((res) => {
         if (res.success) {
           this.initAttendRoleQuery(0);
           this.isRule = false;
@@ -86,26 +108,31 @@ export default {
           });
         });
     },
+    //选择考勤规则信息
+    selectData(list){
+      for(let i=0;i<list.length;i++){
+        this.selectDataList.push(list[i].rulecode)
+      }
+    },
     //批量删除学校考勤规则信息
     attendRoleBatchRemove() {
-      attendanceServer.attendRoleBatchRemove().then((res) => {
+      if(this.selectDataList.length==0){
+        this.$message.warning('请选择要删除的数据')
+        return false;
+      }
+      let params={
+        rulecodes:this.selectDataList.join(',')
+      }
+      attendanceServer.attendRoleBatchRemove(params).then((res) => {
         if (res.success) {
-          this.dataList = res.resultMap.attendDevs;
-        }
-      });
-    },
-    //新增学校考勤规则信息
-    attendRoleAdd() {
-      attendanceServer.attendRoleAdd().then((res) => {
-        if (res.success) {
-          this.dataList = res.resultMap.attendDevs;
+          this.initAttendRoleQuery(0);
         }
       });
     },
     //启动考勤规则
     attendRoleApply(list) {
       this.$confirm(
-        "是否" + list.rulestate == 0 ? "禁用" : "启用" + "该考勤规则?",
+        "是否" +(list.rulestate == 0 ? "禁用" : "启用" )+ "该考勤规则?",
         "提示",
         {
           confirmButtonText: "确定",
@@ -117,6 +144,7 @@ export default {
           let params = {
             schoolcode: list.schoolcode,
             rulecode: list.rulecode,
+            rulestate:list.rulestate == 0?1:0
           };
           attendanceServer.attendRoleApply(params).then((res) => {
             if (res.success) {
@@ -124,7 +152,7 @@ export default {
                 this.initAttendRoleQuery(0);
                 this.$message({
                   type: "success",
-                  message: list.rulestate == 0 ? "启用" : "禁用" + "成功!",
+                  message: (list.rulestate == 0 ? "禁用" : "启用") + "成功!",
                 });
               }
             }

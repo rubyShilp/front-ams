@@ -30,10 +30,10 @@ export default {
     //初始化学校信息
     initGetSchool() {
       let params = {};
-      console.log(111111111111)
       mainServer.getSchool(params).then((res) => {
         if (res.success) {
           this.schoolList = res.resultMap.schools;
+          sessionStorage.setItem('schoolList',JSON.stringify(this.schoolList))
           this.schoolcode=this.schoolList[0].schoolcode
         }
       });
