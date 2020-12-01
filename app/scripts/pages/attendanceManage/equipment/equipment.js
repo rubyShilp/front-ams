@@ -24,6 +24,7 @@ export default {
       let params={
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        schoolcode:this.schoolcode,
         page:page,
         pageSize:10
       }
