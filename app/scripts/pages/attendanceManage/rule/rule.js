@@ -5,6 +5,9 @@ export default {
     return {
       schoolList:JSON.parse(sessionStorage.getItem('schoolList')),
       dataList: [],
+      totalCount:0,//總條數
+      page:1,
+      pageSize:10,//每頁顯示條數
       schoolcode:'',
       starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
@@ -26,7 +29,7 @@ export default {
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode:this.schoolcode,
         page: page,
-        pageSize: 10,
+        pageSize: this.pageSize,
       };
       attendanceServer.attendRoleQuery(params).then((res) => {
         if (res.success) {
@@ -40,6 +43,16 @@ export default {
           }
         }
       });
+    },
+    //每頁顯示條數
+    handleSizeChange(pageSize){
+      this.pageSize=pageSize;
+      this.initAttendRoleQuery(0);
+    },
+    //跳轉的頁碼
+    handleCurrentChange(page){
+      this.page=page;
+      this.initAttendRoleQuery(page-1);
     },
     //查询考勤规则详情信息
     attendRoleDetail(list, type) {

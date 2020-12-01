@@ -107,6 +107,18 @@
               </template>
             </el-table-column>
           </el-table>
+          <div class="pagination">
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="page"
+              :page-sizes="[10, 20, 50, 100]"
+              :page-size="pageSize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="totalCount"
+            >
+            </el-pagination>
+          </div>
         </div>
       </div>
     </div>
@@ -194,8 +206,3 @@
   </div>
 </template>
 <script src="./equipment.js"></script>
-<style>
-.el-input__inner {
-  width: 230px;
-}
-</style>

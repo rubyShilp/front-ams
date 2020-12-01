@@ -1,7 +1,12 @@
 export default {
   data() {
     return {
+      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
+      endtime:new Date(),
       dataList: [],
+      totalCount:0,//總條數
+      page:1,
+      pageSize:10,//每頁顯示條數
       data: [
         {
           label: "一级 1",
@@ -76,6 +81,13 @@ export default {
     }
   },
   methods: {
-    //
+    //每頁顯示條數
+    handleSizeChange(pageSize){
+      this.pageSize=pageSize;
+    },
+    //跳轉的頁碼
+    handleCurrentChange(page){
+      this.page=page;
+    },
   },
 };
