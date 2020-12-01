@@ -1,6 +1,11 @@
 import * as classServer from "./classManage.server";
 import pagination from '@/components/pagination/index'
 export default {
+  props: {
+    ids: {
+      type: Object
+    }
+  },
     data() {
       return {
         initData: {
@@ -15,7 +20,11 @@ export default {
           remark: ""
         },
         detailData: {},
-        multipleSelection: []
+        multipleSelection: [],
+         //分页参数
+         currentPage: 1,
+         total: 0,
+         pageSize: 10,
       };
     },
     components: {
@@ -38,6 +47,9 @@ export default {
       //查询
       query(){
         let params = {
+          schoolcode: this.ids.schoolcode,
+          gradeId: this.ids.gradeId,
+          classId: this.ids.classId,
           classname: this.initData.classname,
           page: this.currentPage,
           pageSize: this.pageSize

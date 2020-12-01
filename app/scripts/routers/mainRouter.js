@@ -54,22 +54,28 @@ const mainRouter = [
             meta: { scrollToTop: true },
           },
           {
-            path: "/home/gradeManage",
-            component: () => import("@/pages/collegeManage/gradeManage/gradeManage.vue"),
-            meta: { scrollToTop: true },
-          },
-          {
-            path: "/home/classManage",
+            path: "/home/college",
             component: () =>
-              import("@/pages/collegeManage/classManage/classManage.vue"),
-            meta: { scrollToTop: true },
-          },
-          {
-            path: "/home/studentManage",
-            component: () =>
-              import("@/pages/collegeManage/studentManage/studentManage.vue"),
+              import("@/pages/collegeManage/college.vue"),
             meta: { scrollToTop: true },
           }
+          // {
+          //   path: "/home/gradeManage",
+          //   component: () => import("@/pages/collegeManage/gradeManage/gradeManage.vue"),
+          //   meta: { scrollToTop: true },
+          // },
+          // {
+          //   path: "/home/classManage",
+          //   component: () =>
+          //     import("@/pages/collegeManage/classManage/classManage.vue"),
+          //   meta: { scrollToTop: true },
+          // },
+          // {
+          //   path: "/home/studentManage",
+          //   component: () =>
+          //     import("@/pages/collegeManage/studentManage/studentManage.vue"),
+          //   meta: { scrollToTop: true },
+          // }
         ],
       }
     ],

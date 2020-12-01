@@ -1,6 +1,11 @@
 import * as studentServer from "./studentManage.server";
 import pagination from '@/components/pagination/index'
 export default {
+  props: {
+    ids: {
+      type: Object
+    }
+  },
     data() {
       return {
         initData: {
@@ -32,49 +37,7 @@ export default {
           { id: 1,value: "男" },
           { id: 2,value: "其它" }
         ],
-        dataList: [],
-        data: [
-          {
-            label: "深圳市实验小学",
-            children: [
-              {
-                label: "一年级",
-                children: [
-                  {
-                    label: "001班",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            label: "深圳市外国语学校",
-            children: [
-              {
-                label: "一年级",
-                children: [
-                  {
-                    label: "001班",
-                  },
-                  {
-                    label: "002班",
-                  },
-                  {
-                    label: "003班",
-                  },
-                ],
-              },
-              {
-                label: "二年级",
-                children: [
-                  {
-                    label: "001班",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
+        dataList: []
       };
     },
     components: {
@@ -87,9 +50,10 @@ export default {
       //查询
       query(){
         let params = {
-          schoolcode: this.initData.schoolcode,
-          gradecode: this.initData.gradecode,
-          classcode: this.initData.classcode,
+          schoolcode: this.ids.schoolcode,
+          gradeId: this.ids.gradeId,
+          classId: this.ids.classId,
+          stuname: this.initData.stuname,
           page: this.currentPage,
           pageSize: this.pageSize
         }

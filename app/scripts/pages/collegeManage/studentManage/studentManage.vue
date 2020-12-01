@@ -1,21 +1,12 @@
 <template>
-  <div class="sub-menu-center">
-    <el-container style="position: absolute; height: 100%; width: 100%">
-      <el-aside class="left-batch-wrap">
-        <el-tree
-          :data="data"
-          :props="defaultProps"
-          highlight-current
-          default-expand-all
-        ></el-tree>
-      </el-aside>
       <div class="left-main-center">
         <div class="left-main-from-table">
           <div class="from-right">
             <el-form :inline="true">
               <el-form-item>
                 <el-input
-                  placeholder="请输入学校名称"
+                  placeholder="请输入学生姓名"
+                  v-model="initData.stuname"
                   size="mini">
                   <i slot="suffix" class="el-input__icon el-icon-search"></i>
                 </el-input>
@@ -76,7 +67,5 @@
           </div>
         </div>
       </div>
-    </el-container>
-  </div>
 </template>
 <script src='./studentManage.js'></script>

@@ -1,11 +1,16 @@
 import * as gradeServer from "./gradeManage.server";
 import pagination from '@/components/pagination/index'
 export default {
+    props: {
+      ids: {
+        type: Object
+      }
+    },
     data() {
       return {
         dataList: [],
         initData: {
-          school: ""
+          gradename: ""
         },
         //新增参数
         addData:{
@@ -38,7 +43,10 @@ export default {
     methods: {
       query(){
         let params = {
-          schoolcode: this.initData.school,
+          schoolcode: this.ids.schoolcode,
+          gradeId: this.ids.gradeId,
+          classId: this.ids.classId,
+          gradename: this.initData.gradename,
           page: this.currentPage,
           pageSize: this.pageSize
         }

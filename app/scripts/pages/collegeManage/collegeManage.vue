@@ -11,10 +11,10 @@
         <a
           href="javaScript:;"
           :class="{ hover: index == 2 }"
-          @click="selectPath('/home/gradeManage', 2)"
-          >年级管理</a
+          @click="selectPath('/home/college', 2)"
+          >学院管理</a
         >
-        <a
+        <!-- <a
           href="javaScript:;"
           :class="{ hover: index == 3 }"
           @click="selectPath('/home/classManage', 3)"
@@ -25,7 +25,7 @@
           :class="{ hover: index == 4 }"
           @click="selectPath('/home/studentManage', 4)"
           >学生管理</a
-        >
+        > -->
       </div>
     </div>
     <div class="sub-main">
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       index: 1,
-      pathList: ["/home/schoolManage", "/home/gradeManage", "/home/classManage","/home/studentManage"],
+      pathList: ["/home/schoolManage", "/home/gradeManage"],
     };
   },
   beforeMount() {

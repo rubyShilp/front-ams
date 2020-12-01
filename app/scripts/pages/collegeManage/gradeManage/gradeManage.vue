@@ -1,14 +1,13 @@
 <template>
-  <div class="equipment-main">
     <div class="left-main-center">
       <div class="left-main-from-table">
         <div class="from-right">
           <el-form :inline="true">
             <el-form-item>
-              <el-input placeholder="请输入学校名称" size="mini"></el-input>
+              <el-input placeholder="请输入年级名称" size="mini" v-model="initData.gradename"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button @click="onSubmit" size="mini">查询</el-button>
+              <el-button @click="query" size="mini">查询</el-button>
             </el-form-item>
             <el-form-item>
               <el-button @click="add" size="mini">新增</el-button>
@@ -60,6 +59,5 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script src='./gradeManage.js'></script>

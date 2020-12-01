@@ -48,7 +48,7 @@ export default {
     methods: {
       query(){
         let params = {
-          schoolcode: this.initData.school,
+          schoolname: this.initData.school,
           page: this.currentPage,
           pageSize: this.pageSize
         }
