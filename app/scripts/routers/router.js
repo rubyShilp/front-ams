@@ -3,6 +3,10 @@ import VueRouter from "vue-router";
 import { token, sessionOut } from "./../util/core";
 import mainRouter from "./mainRouter.js";
 Vue.use(VueRouter);
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+};
 Vue.config.productionTip = false;
 //路由页面切换的时候，保持页面在滚动顶部显示
 const scrollBehavior = (to, from, savedPosition) => {

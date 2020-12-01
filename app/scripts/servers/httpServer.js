@@ -51,7 +51,7 @@ export function post(url, params) {
 }
 //get请求
 export function get(url, params) {
-  return axios.get(url, params);
+  return axios.get(url, { params: params });
 }
 //上传
 export function upload(url, params) {

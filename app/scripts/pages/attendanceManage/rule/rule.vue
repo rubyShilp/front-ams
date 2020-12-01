@@ -72,6 +72,15 @@
             </el-table-column>
             <el-table-column prop="nighthometime" label="晚上放学时间" sortable>
             </el-table-column>
+            <el-table-column label="是否启用" sortable>
+              <template slot-scope="scope">
+                <el-switch
+                  :value="scope.row.isRuleState"
+                  @change="attendRoleApply(scope.row)"
+                >
+                </el-switch>
+              </template>
+            </el-table-column>
             <el-table-column label="操作" width="200">
               <template class="table-operation" slot-scope="scope">
                 <a href="javaScript:;" @click="attendRoleDetail(scope.row, 1)"
