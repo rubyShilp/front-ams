@@ -108,3 +108,12 @@ export function dateTime(time){
     let date=new Date().getDate();
     return new Date(2016, 9, 10, 18, 40)
 }
+//樹形菜單項去掉權限標記
+export function dataCode(val){
+    let reg = /[^:]*:([^:]*)/;
+    if(val!==''){
+        return val.replace(reg,"$1");
+    }else{
+        return '';
+    }
+}

@@ -99,49 +99,49 @@
                   <li>
                     <div class="right-name">总人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumbelatecount }}</h1>
+                      <h1>{{ attendanceInfo.sumschoolcount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">迟到人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumheartratecount }}</h1>
+                      <h1>{{ attendanceInfo.sumbelatecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">早退人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumleavecount }}</h1>
+                      <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">旷课人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
+                      <h1>{{ attendanceInfo.sumtruantcount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">请假人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
+                      <h1>{{ attendanceInfo.sumleavecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">体温异常</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumschoolcount }}</h1>
+                      <h1>{{ attendanceInfo.sumtempecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">心率异常</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumtempecount }}</h1>
+                      <h1>{{ attendanceInfo.sumheartratecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">活动量差</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumtruantcount }}</h1>
+                      <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
                     </div>
                   </li>
                 </ul>

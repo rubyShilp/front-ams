@@ -4,7 +4,6 @@
       <el-aside class="left-batch-wrap">
         <el-tree
           :data="data"
-          :props="defaultProps"
           highlight-current
           default-expand-all
           :expand-on-click-node="false"

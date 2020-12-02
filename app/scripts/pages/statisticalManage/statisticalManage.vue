@@ -10,9 +10,10 @@
         <el-aside class="left-batch-wrap">
           <el-tree
             :data="data"
-            :props="defaultProps"
             highlight-current
             default-expand-all
+            :expand-on-click-node="false"
+            @node-click="selectTreeDate"
           ></el-tree>
         </el-aside>
         <div class="left-main-center">
@@ -61,27 +62,80 @@
               >
                 <el-table-column type="selection" width="100">
                 </el-table-column>
-                <el-table-column label="序号" type="index" align="center">
-                </el-table-column>
-                <el-table-column prop="school" label="学校" sortable>
-                </el-table-column>
-                <el-table-column prop="lateCount" label="迟到人数" sortable>
-                </el-table-column>
-                <el-table-column prop="earlyCount" label="早退人数" sortable>
-                </el-table-column>
-                <el-table-column prop="truancyCount" label="旷课人数" sortable>
-                </el-table-column>
-                <el-table-column prop="leaveCount" label="请假人数" sortable>
+                <el-table-column
+                  prop="basename"
+                  label="学校名称"
+                  :show-overflow-tooltip="true"
+                  sortable
+                  width="110"
+                >
                 </el-table-column>
                 <el-table-column
-                  prop="temperatureBody"
-                  label="体温异常"
+                  prop="sumbelatecount"
+                  label="迟到人数"
+                  sortable
+                  width="100"
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="sumleaveearlycount"
+                  label="早退人数"
+                  sortable
+                  width="100"
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="sumleavecount"
+                  label="旷课人数"
+                  width="100"
                   sortable
                 >
                 </el-table-column>
-                <el-table-column prop="heartBody" label="心率异常" sortable>
+                <el-table-column
+                  prop="sumleavecount"
+                  label="请假人数"
+                  width="100"
+                  sortable
+                >
                 </el-table-column>
-                <el-table-column prop="activityBody" label="活动最差" sortable>
+                <el-table-column
+                  prop="sumtruantcount"
+                  label="旷课人數"
+                  sortable
+                  width="100"
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="sumtempecount"
+                  label="体温异常"
+                  width="100"
+                  sortable
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="sumheartratecount"
+                  label="心率异常"
+                  sortable
+                  width="100"
+                >
+                </el-table-column>
+                <el-table-column
+                  prop="sumlessactivitycount"
+                  label="活动最差"
+                  sortable
+                  width="100"
+                >
+                </el-table-column>
+                <el-table-column label="操作" width="200">
+                  <template class="table-operation">
+                    <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
+                    <span>|</span>
+                    <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
+                    <span>|</span>
+                    <a href="javaScript:;"
+                      ><i class="el-icon-delete"></i>删除</a
+                    >
+                  </template>
                 </el-table-column>
               </el-table>
               <div class="pagination">
