@@ -7,15 +7,6 @@ export default {
         initData: {
           school: ""
         },
-        //新增参数
-        addData:{
-          schoolname: "",
-          schoolattr: "",
-          principal: "",
-          telephone: "",
-          address: "",
-          schooltype: 0
-        },
         multipleSelection: [],
         detailData: {},
         //分页参数
@@ -23,25 +14,36 @@ export default {
         currentPage: 1,
         total: 0,
         pageSize: 10,
+        //模态框
+        type: '',
+        title: '',
+        handle_dialog: false,
+        handleData: {},
+        schooltypes: [
+          {id: 0,value: 'k12'},
+          {id: 1,value: '中职'},
+          {id: 2,value: '其它'}
+        ],
+        school_rules: {
+          schoolname: [
+              { required: true, message: '学校名称不能为空', trigger: 'blur' }
+          ],
+          schoolattr: [
+              { required: true, message: '学校属性不能为空', trigger: 'blur' }
+          ],  
+          principal: [
+              { required: true, message: '学校负责人不能为空', trigger: 'blur' }
+          ],
+          schooltype: [
+            { required: true, message: '请选择学校类型', trigger: 'blur' }
+        ]
+        }
       };
     },
     components: {
       pagination
     },
     beforeMount() {
-      // for (let i = 0; i < 20; i++) {
-      //   this.dataList.push({
-      //     schoolcode: "L67581",
-      //     schoolname: "深圳市外国语学校1",
-      //     schoolattr: "深圳市教育局1",
-      //     principal: "曹德旺1",
-      //     telephone: "1398765411",
-      //     schooltype: 2,
-      //     schoolstate: 0,
-      //     address: "深圳龙岗",
-      //     remark: "~~",
-      //   });
-      // }
       //初始化查询
       this.query()
     },
@@ -49,7 +51,7 @@ export default {
       query(){
         let params = {
           schoolname: this.initData.school,
-          page: this.currentPage,
+          page: 0,
           pageSize: this.pageSize
         }
             schoolServer.querySchool(params).then(res => {
@@ -66,56 +68,117 @@ export default {
           message: msg
         })
       },
+      cancel(formName){
+        // for(let key in this.handleData){
+        //   this.handleData[key] = ""
+        // }
+        if(this.type !== 'detail'){
+          this.$refs[formName].resetFields();
+        }
+        this.handle_dialog = false;
+      },
+      show(statu,row){
+        for(let key in this.handleData){
+          this.handleData[key] = ""
+        }
+        if(statu === 'add'){
+          this.type = 'add';
+          this.title = '新增学校';
+          this.handle_dialog = true;
+        }else if(statu === 'edit'){
+          this.type = 'edit';
+          this.title = '编辑学校';
+          this.handleData = Object.assign({},row)
+          this.handle_dialog = true;
+        }else if(statu === "detail"){
+          this.type = 'detail';
+          this.title = '学校详情'; 
+          let params = {
+            schoolcode: row.schoolcode
+          }
+          schoolServer.detailSchool(params).then(res=>{
+          if(res.status === 200){
+            this.handleData = Object.assign({},res.resultMap)
+           }
+          })
+         this.handle_dialog = true;
+        }else if(statu === "del"){
+          this.$confirm("是否删除当前学校?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              schoolServer.delSchool(row.schoolcode).then(res=>{
+                if(res.status === 200){
+                 this.tip('success','删除成功')
+                 this.query()
+                }
+              })
+            })
+            .catch(() => {
+              this.tip('info','已取消删除')
+            });
+        }else if(statu === "moreDel"){
+          if(this.multipleSelection.length === 0){
+            this.tip('info','请选择需要删除的学校')
+          }else{
+            this.$confirm("是否删除当前选中学校?", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            })
+              .then(() => {
+                let schoolcodes = [];
+                this.multipleSelection.forEach(item=>{
+                  schoolcodes.push(item.schoolcode)
+                })
+                schoolServer.delmoreSchool(schoolcodes.join()).then(res=>{
+                  if(res.status === 200){
+                    this.tip('success','批量删除成功')
+                    this.$refs.table.clearSelection();
+                    this.query()
+                  }
+                })
+              })
+              .catch(() => {
+                this.tip('info','已取消删除')
+              });
+          }
+        }
+      },
       //处理操作
-      handle(type,row){
+      handle(type,formName){
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
        if(type === "add"){
-        schoolServer.addSchool(this.addData).then(res =>{
-            if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-            }
-        })
-       }else if(type === "edit"){
-          let params = Object.assign({},this.addData);
-          params.schoolcode = row.schoolcode;
+            schoolServer.addSchool(this.handleData).then(res =>{
+              if(res.status === 200){
+                this.tip('success','新增成功')
+                this.query()
+                this.handle_dialog = false;
+              }
+            })
+          }else if(type === "edit"){
+          let params = Object.assign({},this.handleData);
           schoolServer.editSchool(params).then(res => {
             if(res.status === 200){
-              this.tip('success',res.message)
+              this.tip('success','修改成功')
               this.query()
+              this.handle_dialog = false;
             }
           })
-       }else if(type === "singleDel"){
-           let id = row.schoolcode;
-           schoolServer.delSchool(id).then(res=>{
-             if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-             }
-           })
-       }else if(type === "moreDel"){
-          let schoolcodes = [];
-          this.multipleSelection.forEach(item=>{
-            schoolcodes.push(item.schoolcode)
-          })
-          schoolServer.delmoreSchool(schoolcodes).then(res=>{
-            if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-            }
-          })
-       }else if(type === "detail"){
-        let params = row.schoolcode;
-        schoolServer.detailSchool(params).then(res=>{
-          if(res.status === 200){
-            this.detailData = Object.assign({},res.resultMap)
-          }
-        })
        }
+      }else {
+        this.tip('error','有不合法的输入')
+        return false;
+      }
+       })
       },
-      //选中
+      //表格选中
       handleSelectionChange(val){
         this.multipleSelection = val;
       }
-    },
+    }
   };
   

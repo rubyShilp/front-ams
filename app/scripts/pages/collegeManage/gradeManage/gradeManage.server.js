@@ -21,7 +21,7 @@ export const delGrade = async (params) => {
 }
 //删除多个年级
 export const delmoreGrade = async (params) => {
-    let result = await get("/alading/api/grade/removeGrade?schoolcodes="+params);
+    let result = await get("/alading/api/grade/batchRemoveGrade?gradecodes="+params);
     return result.data
 }
 //年级详情

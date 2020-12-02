@@ -29,3 +29,8 @@ export const detailStudent = async (params) => {
   let result = await post("/alading/api/student/getStudentDetail",params);
   return result.data
 }
+//导入学生列表
+export const importStudents = async (params) => {
+  let result = await post("/alading/api/student/importStudents",params);
+  return result.data
+}

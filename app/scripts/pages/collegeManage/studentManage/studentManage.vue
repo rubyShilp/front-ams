@@ -8,17 +8,25 @@
                   placeholder="请输入学生姓名"
                   v-model="initData.stuname"
                   size="mini">
-                  <i slot="suffix" class="el-input__icon el-icon-search"></i>
+                  <i slot="suffix" class="el-input__icon el-icon-search" @click="query"></i>
                 </el-input>
               </el-form-item>
               <el-form-item>
-                <el-button  @click="onSubmit" size="mini">新增</el-button>
+                <el-button  @click="show('add')" size="mini">新增</el-button>
               </el-form-item>
               <el-form-item>
-                <el-button  @click="ImportStudent" size="mini">导入学生</el-button>
+                <!-- <form method="post" name='form1' action="/alading/api/student/importStudents" enctype="multipart/form-data">
+                  <input type="file"  accept=".xlsx,.xls" id="file"/>
+                  <el-button  @click="testFile" size="mini">导入学生</el-button>
+                   <button  @click="testFile">导入学生</button>
+                </form> -->
+                <a href="javaScript:;">
+                  导入学生
+                   <input type="file" @change="uploadFile($event)" v-ams-file='workFile' style="opacity:0"/>
+                </a>
               </el-form-item>
               <el-form-item label="">
-                <el-button size="mini">批量删除</el-button>
+                <el-button  @click="show('moreDel')" size="mini">批量删除</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -27,12 +35,14 @@
               height="460px"
               :data="dataList"
               style="width: 100%"
+               ref="table"
               :header-cell-style="{
                 'text-align': 'center',
                 'font-size': '14px',
               }"
               :row-style="{ height: '40px' }"
               :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
+               @selection-change="handleSelectionChange"
             >
               <el-table-column type="selection" width="100"> </el-table-column>
               <el-table-column label="序号" type="index" align="center">
@@ -46,14 +56,17 @@
               <el-table-column prop="stuage" label="年龄" sortable>
               </el-table-column>
               <el-table-column prop="stusex" label="性别" sortable>
+                <template class="table-operation" v-slot="scope">
+                   {{scope.row.stusex | sexName}}
+                </template>
               </el-table-column>
               <el-table-column label="操作" width="200">
-                <template class="table-operation">
-                  <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
+                <template class="table-operation" v-slot="scope">
+                  <a href="javaScript:;" @click="show('detail',scope.row)"><i class="el-icon-view"></i>详情</a>
                   <span>|</span>
-                  <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
+                  <a href="javaScript:;" @click="show('edit',scope.row)"><i class="el-icon-edit"></i>编辑</a>
                   <span>|</span>
-                  <a href="javaScript:;"><i class="el-icon-delete"></i>删除</a>
+                  <a href="javaScript:;" @click="show('del',scope.row)"><i class="el-icon-delete"></i>删除</a>
                 </template>
               </el-table-column>
             </el-table>
@@ -65,6 +78,59 @@
             @pagination="query"
           ></pagination>
           </div>
+           <!-- 操作模态框 -->
+       <el-dialog :title="title"
+       width="28%"
+       top="5vh"
+       :close-on-click-modal="false"
+       :visible.sync="handle_dialog"
+       :show-close='false'
+       class="school_dialog"
+       >
+       <el-form class="form" :model="handleData" :rules="student_rules" ref="handleForm">
+           <el-form-item label="学生名称" prop="stuname" label-width="120px">
+            <el-input v-model="handleData.stuname" :disabled="type === 'detail'"></el-input>
+           </el-form-item>
+           <el-form-item label="学生编号" prop="sno" label-width="120px">
+            <el-input v-model="handleData.sno" :disabled="type === 'detail'"></el-input>
+           </el-form-item>
+           <el-form-item label="手表唯一码" prop="imei" label-width="120px">
+            <el-input v-model="handleData.imei" :disabled="type === 'detail'"></el-input>
+           </el-form-item>
+           <el-form-item label="学生年龄" prop="stuage" label-width="120px">
+            <el-input v-model="handleData.stuage" :disabled="type === 'detail'"></el-input>
+           </el-form-item>
+           <el-form-item label="学生性别" prop="stusex" label-width="120px">
+           <el-select v-model="handleData.stusex" :disabled="type === 'detail'">
+               <el-option
+                  v-for="item in stusexs"
+                  :key="item.id"
+                  :label="item.value"
+                  :value="item.id">
+               </el-option>
+            </el-select>
+           </el-form-item>
+           <el-form-item label="学生出生日期" prop="birthday" label-width="120px" v-if="type !== 'edit'">
+            <el-date-picker
+              v-model="handleData.birthday"
+              type="date"
+              :disabled="type === 'detail'"
+              placeholder="选择出生日期">
+            </el-date-picker>
+           </el-form-item>
+           <el-form-item label="兴趣爱好" prop="expression" label-width="120px">
+            <el-input v-model="handleData.expression" :disabled="type === 'detail'"></el-input>
+           </el-form-item>
+           <el-form-item label="备注" prop="remark" label-width="120px">
+            <el-input v-model="handleData.remark" :disabled="type === 'detail'"></el-input>
+           </el-form-item>
+       </el-form>
+       <div slot="footer" class="dialog-footer">
+         <el-button size="small" @click="cancel('handleForm')">关闭</el-button>
+         <el-button v-if="type==='add'" size="small" @click="handle('add','handleForm')">新增</el-button>
+         <el-button v-if="type==='edit'" size="small" @click="handle('edit','handleForm')">修改</el-button>
+      </div>
+      </el-dialog>
         </div>
       </div>
 </template>

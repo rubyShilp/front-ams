@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import md5 from 'md5';
 import qs from 'qs';
 import router from './../routers/router';
@@ -99,6 +100,22 @@ export function dowandFile(res,fileName){
     }else{
         navigator.msSaveBlob(blob, fileName)
     }
+}
+export function upladFile(e,size){
+    let files=e.target.files;
+    for(let i=0;i<files.length;i++){
+        if(files[i].size/1024/1024>size){
+            Vue.prototype.$message.warning('上传文件不得大于'+size+'M');
+            return false;
+        }
+        let reg = /[^.]*.([^.]*)/
+        let fileType=files[i].name.replace(reg,"$1");
+        if(fileType!='xls' && fileType!='xlsx'){
+            Vue.prototype.$message.warning('请上传xls,xlsx格式文件');
+            return false;
+        }
+    }
+    return files;
 }
 //时间格式化
 export function dateTime(time){

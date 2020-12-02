@@ -25,22 +25,22 @@ export default {
          currentPage: 1,
          total: 0,
          pageSize: 10,
+         //模态框
+        type: '',
+        title: '',
+        handle_dialog: false,
+        handleData: {},
+        class_rules: {
+          classname: [
+              { required: true, message: '班级名称不能为空', trigger: 'blur' }
+          ],  
+        }
       };
     },
     components: {
       pagination
     },
     beforeMount() {
-      for (let i = 0; i < 20; i++) {
-        this.dataList.push({
-          class: "001班",
-          teacherName: "李小红",
-          school: "深圳市实验小学",
-          grade: "一年级",
-          reMark: "~~",
-          createTime: "2020-11-07 22:04"
-        });
-      }
       this.query()
     },
     methods: {
@@ -51,7 +51,7 @@ export default {
           gradeId: this.ids.gradeId,
           classId: this.ids.classId,
           classname: this.initData.classname,
-          page: this.currentPage,
+          page: 0,
           pageSize: this.pageSize
         }
         classServer.queryClass(params).then(res => {
@@ -61,63 +61,118 @@ export default {
           }
          })
       },
-      //处理操作
-      handle(type,row){
-        if(type === "add"){
-          classServer.addClass(this.addData).then(res =>{
-              if(res.status === 200){
-                this.tip('success',res.message)
-                this.query()
-              }
-          })
-        }else if(type === "edit"){
-            let params = {
-              classcode: row.classcode,
-              classname: row.classname,
-              teachername: row.teachername,
-              remark: row.remark
-            }
-            classServer.editClass(params).then(res => {
-              if(res.status === 200){
-                this.tip('success',res.message)
-                this.query()
-              }
-            })
-        }else if(type === "singleDel"){
-            let id = row.classcode;
-            classServer.delClass(id).then(res=>{
-              if(res.status === 200){
-                this.tip('success',res.message)
-                this.query()
-              }
-            })
-        }else if(type === "moreDel"){
-            let classcodes = [];
-            this.multipleSelection.forEach(item=>{
-              classcodes.push(item.classcode)
-            })
-            let ids = classcodes.join()
-            classServer.delmoreClass(ids).then(res=>{
-              if(res.status === 200){
-                this.tip('success',res.message)
-                this.query()
-              }
-            })
-        }else if(type === "detail"){
-          let params = row.calsscode;
-          classServer.detailClass(params).then(res=>{
-            if(res.status === 200){
-              this.detailData = Object.assign({},res.resultMap)
-            }
-          })
-        }
-      },
       //tip
       tip(type,msg){
         this.$message({
           type: type,
           message: msg
         })
+      },
+      cancel(formName){
+        if(this.type !== 'detail'){
+          this.$refs[formName].resetFields();
+        }
+        this.handle_dialog = false;
+      },
+      show(statu,row){
+        for(let key in this.handleData){
+          this.handleData[key] = ""
+        }
+        if(statu === 'add'){
+          this.type = 'add';
+          this.title = '新增班级';
+          this.handle_dialog = true;
+        }else if(statu === 'edit'){
+          this.type = 'edit';
+          this.title = '编辑班级';
+          this.handleData = Object.assign({},row)
+          this.handle_dialog = true;
+        }else if(statu === "detail"){
+          this.type = 'detail';
+          this.title = '班级详情'; 
+          let params = {
+            classcode: row.classcode
+          }
+          classServer.detailClass(params).then(res=>{
+          if(res.status === 200){
+            this.handleData = Object.assign({},res.resultMap)
+           }
+          })
+         this.handle_dialog = true;
+        }else if(statu === "del"){
+          this.$confirm("是否删除当前学校?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              classServer.delClass(row.classcode).then(res=>{
+                if(res.status === 200){
+                 this.tip('success','删除成功')
+                 this.query()
+                }
+              })
+            })
+            .catch(() => {
+              this.tip('info','已取消删除')
+            });
+        }else if(statu === "moreDel"){
+          if(this.multipleSelection.length === 0){
+            this.tip('info','请选择需要删除的学校')
+          }else{
+            this.$confirm("是否删除当前选中学校?", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            })
+              .then(() => {
+                let classcodes = [];
+                this.multipleSelection.forEach(item=>{
+                  classcodes.push(item.classcode)
+                })
+                classServer.delmoreClass(classcodes.join()).then(res=>{
+                  if(res.status === 200){
+                    this.tip('success','批量删除成功')
+                    this.$refs.table.clearSelection();
+                    this.query()
+                  }
+                })
+              })
+              .catch(() => {
+                this.tip('info','已取消删除')
+              });
+          }
+        }
+      },
+      //处理操作
+      handle(type,formName){
+        this.handleData.schoolcode = this.ids.schoolcode
+        this.handleData.gradecode= this.ids.gradeId
+        let params = Object.assign({},this.handleData);
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+       if(type === "add"){
+        classServer.addClass(params).then(res =>{
+              if(res.status === 200){
+                this.tip('success','新增成功')
+                this.query()
+                this.handle_dialog = false;
+              }
+            })
+          }else if(type === "edit"){
+        classServer.editClass(params).then(res => {
+            if(res.status === 200){
+              this.tip('success',res.message)
+              this.query()
+              this.handle_dialog = false;
+            }
+          })
+       }
+      }else {
+        this.tip('error','有不合法的输入')
+        return false;
+      }
+       })
       },
        //选中
        handleSelectionChange(val){

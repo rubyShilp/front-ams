@@ -25,19 +25,22 @@ export default {
         currentPage: 1,
         total: 0,
         pageSize: 10,
+        //模态框
+        type: '',
+        title: '',
+        handle_dialog: false,
+        handleData: {},
+        grade_rules: {
+          gradename: [
+              { required: true, message: '年级名称不能为空', trigger: 'blur' }
+          ],  
+        }
       };
     },
     components: {
       pagination
     },
     beforeMount() {
-      for (let i = 0; i < 20; i++) {
-        this.dataList.push({
-           grade: "一年级",
-          school: "深圳市实验小学",
-          reMark: "~~",
-        });
-      }
       this.query()
     },
     methods: {
@@ -47,7 +50,7 @@ export default {
           gradeId: this.ids.gradeId,
           classId: this.ids.classId,
           gradename: this.initData.gradename,
-          page: this.currentPage,
+          page: 0,
           pageSize: this.pageSize
         }
         gradeServer.queryGrade(params).then(res => {
@@ -64,55 +67,114 @@ export default {
           message: msg
         })
       },
-    //处理操作
-    handle(type,row){
-      if(type === "add"){
-        gradeServer.addGrade(this.addData).then(res =>{
-            if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-            }
-        })
-      }else if(type === "edit"){
-          let params = {
-            gradecode: row.gradecode,
-            gradename: row.gradename,
-            remark: row.remark
-          }
-          schoolServer.editGrade(params).then(res => {
-            if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-            }
-          })
-      }else if(type === "singleDel"){
-          let id = row.gradecode;
-          gradeServer.delGrade(id).then(res=>{
-            if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-            }
-          })
-      }else if(type === "moreDel"){
-          let gradecodes = [];
-          this.multipleSelection.forEach(item=>{
-            gradecodes.push(item.gradecode)
-          })
-          schoolServer.delmoreGrade(gradecodes).then(res=>{
-            if(res.status === 200){
-              this.tip('success',res.message)
-              this.query()
-            }
-          })
-      }else if(type === "detail"){
-        let params = row.gradecode;
-        schoolServer.detailGrade(params).then(res=>{
-          if(res.status === 200){
-            this.detailData = Object.assign({},res.resultMap)
-          }
-        })
-      }
+      cancel(formName){
+        // for(let key in this.handleData){
+        //   this.handleData[key] = ""
+        // }
+        if(this.type !== 'detail'){
+          this.$refs[formName].resetFields();
+        }
+        this.handle_dialog = false;
       },
+      show(statu,row){
+        for(let key in this.handleData){
+          this.handleData[key] = ""
+        }
+        if(statu === 'add'){
+          this.type = 'add';
+          this.title = '新增年级';
+          this.handle_dialog = true;
+        }else if(statu === 'edit'){
+          this.type = 'edit';
+          this.title = '编辑年级';
+          this.handleData = Object.assign({},row)
+          this.handle_dialog = true;
+        }else if(statu === "detail"){
+          this.type = 'detail';
+          this.title = '年级详情'; 
+          let params = {
+            gradecode: row.gradecode
+          }
+          gradeServer.detailGrade(params).then(res=>{
+          if(res.status === 200){
+            this.handleData = Object.assign({},res.resultMap)
+           }
+          })
+         this.handle_dialog = true;
+        }else if(statu === "del"){
+          this.$confirm("是否删除当前学校?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+            .then(() => {
+              gradeServer.delGrade(row.gradecode).then(res=>{
+                if(res.status === 200){
+                 this.tip('success','删除成功')
+                 this.query()
+                }
+              })
+            })
+            .catch(() => {
+              this.tip('info','已取消删除')
+            });
+        }else if(statu === "moreDel"){
+          if(this.multipleSelection.length === 0){
+            this.tip('info','请选择需要删除的学校')
+          }else{
+            this.$confirm("是否删除当前选中学校?", "提示", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            })
+              .then(() => {
+                let gradecodes = [];
+                this.multipleSelection.forEach(item=>{
+                  gradecodes.push(item.gradecode)
+                })
+                gradeServer.delmoreGrade(gradecodes.join()).then(res=>{
+                  if(res.status === 200){
+                    this.tip('success','批量删除成功')
+                    this.$refs.table.clearSelection();
+                    this.query()
+                  }
+                })
+              })
+              .catch(() => {
+                this.tip('info','已取消删除')
+              });
+          }
+        }
+      },
+      //处理操作
+      handle(type,formName){
+        this.handleData.schoolcode = this.ids.schoolcode
+        let params = Object.assign({},this.handleData);
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+       if(type === "add"){
+          gradeServer.addGrade(params).then(res =>{
+              if(res.status === 200){
+                this.tip('success','新增成功')
+                this.query()
+                this.handle_dialog = false;
+              }
+            })
+          }else if(type === "edit"){
+          gradeServer.editGrade(params).then(res => {
+            if(res.status === 200){
+              this.tip('success',res.message)
+              this.query()
+              this.handle_dialog = false;
+            }
+          })
+       }
+      }else {
+        this.tip('error','有不合法的输入')
+        return false;
+      }
+       })
+      }, 
       //选中
       handleSelectionChange(val){
         this.multipleSelection = val;
