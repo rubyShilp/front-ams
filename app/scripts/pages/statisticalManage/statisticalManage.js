@@ -10,6 +10,7 @@ export default {
       page:1,
       pageSize:10,//每頁顯示條數
       data: [],
+      scoolType:0,//類型(學校,年級,班級)
       schoolcode:'',
       gradecode:'',
       classcode:''
@@ -68,6 +69,7 @@ export default {
     },
     //根據學校查詢考勤統計信息
     schoolDataQuery(page,type){
+      this.scoolType=type;
       let params={
         starttime: formDate(new Date('2020-11-10'), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date('2020-11-20'), "yyyy-MM-dd hh:mm:ss"),
@@ -92,6 +94,21 @@ export default {
     //跳轉的頁碼
     handleCurrentChange(page){
       this.page=page;
+    },
+    //删除統計信息
+    statisticalRemove(list) {
+      this.$confirm('是否删除当前統計信息?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });          
+      });
     },
   },
 };

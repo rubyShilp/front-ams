@@ -64,7 +64,13 @@
                 </el-table-column>
                 <el-table-column
                   prop="basename"
-                  label="学校名称"
+                  :label="
+                    scoolType == 1
+                      ? '学校名称'
+                      : scoolType == 2
+                      ? '年級名称'
+                      : '班級名称'
+                  "
                   :show-overflow-tooltip="true"
                   sortable
                   width="110"
@@ -127,13 +133,16 @@
                 >
                 </el-table-column>
                 <el-table-column label="操作" width="200">
-                  <template class="table-operation">
+                  <template class="table-operation" slot-scope="scope">
                     <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
                     <span>|</span>
                     <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
                     <span>|</span>
-                    <a href="javaScript:;"
-                      ><i class="el-icon-delete"></i>删除</a
+                    <a
+                      href="javaScript:;"
+                      @click="statisticalRemove(scope.row)"
+                    >
+                      <i class="el-icon-delete"></i>删除</a
                     >
                   </template>
                 </el-table-column>

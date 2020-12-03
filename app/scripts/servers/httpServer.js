@@ -37,6 +37,7 @@ axios.interceptors.response.use(
           type: "warning",
           message: response.data.message,
         });
+        sessionStorage.removeItem('homeIndex')
         router.push('/login');
         return response;
       }
