@@ -5,8 +5,14 @@ export const headerData=async (params)=>{
     return result.data;
 }
 
-//图表数据
+//图表数据   考勤异常
 export const echartData=async (params)=>{
     let result=await post('/alading/api/statistics/statisticsAbAttendTop',params);
+    return result.data;
+}
+
+//图表数据   健康异常
+export const healthData=async (params)=>{
+    let result=await post('/alading/api/statistics/statisticsAbHealthTop',params);
     return result.data;
 }
