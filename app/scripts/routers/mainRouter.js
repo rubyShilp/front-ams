@@ -42,6 +42,32 @@ const mainRouter = [
         ],
       },
       {
+        path: "/home/accountCenter",
+        component: () =>
+          import("@/pages/accountCenter/accountCenter.vue"),
+        meta: { scrollToTop: true },
+        children:[
+          {
+            path: "/home/user",
+            component: () =>
+              import("@/pages/accountCenter/userManage/userManage.vue"),
+            meta: { scrollToTop: true },
+          },
+          {
+            path: "/home/role",
+            component: () =>
+              import("@/pages/accountCenter/roleManage/roleManage.vue"),
+            meta: { scrollToTop: true },
+          },
+          {
+            path: "/home/resources",
+            component: () =>
+              import("@/pages/accountCenter/resourcesManage/resourcesManage.vue"),
+            meta: { scrollToTop: true },
+          }
+        ]
+      },
+      {
         path: "/home/collegeManage",
         component: () =>
           import("@/pages/collegeManage/collegeManage.vue"),

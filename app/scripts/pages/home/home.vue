@@ -43,7 +43,7 @@
               <a
                 href="javaScript:;"
                 :class="{ cur: index == 4 }"
-                @click="selectRouter('/home/homePage', 4)"
+                @click="selectRouter('/home/user', 4)"
                 ><i class="el-icon-s-custom"></i>账号中心</a
               >
             </li>
