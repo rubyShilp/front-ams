@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </div>
-              <div class="left-trend chart1">
+              <div class="left-trend chart1" style="position:relative;">
                 <ams-chart
                   v-if="isOne"
                   :chartData="chartData_one"
@@ -148,7 +148,7 @@
               </div>
               <el-container style="width:100%">
                 <el-aside width="750px">
-                  <div class="right-school chart2">
+                  <div class="right-school chart2" style="position:relative;">
                     <ams-chart
                       v-if="isTwo"
                       :chartData="chartData_two"
@@ -158,7 +158,7 @@
                       theme="main"
                     ></ams-chart>
                   </div>
-                  <div class="right-school marign-top chart3">
+                  <div class="right-school marign-top chart3" style="position:relative;">
                     <ams-chart
                       v-if="isThree"
                       :chartData="chartData_three"
@@ -170,7 +170,7 @@
                   </div>
                 </el-aside>
                 <el-main style="padding-top: 0px">
-                  <div class="right-temperature chart4">
+                  <div class="right-temperature chart4" style="position:relative;">
                     <ams-chart
                       v-if="isFour"
                       :chartData="chartData_four"
@@ -179,7 +179,7 @@
                       theme="main"
                     ></ams-chart>
                   </div>
-                  <div class="right-healthy chart5">
+                  <div class="right-healthy chart5" style="position:relative;">
                     <ams-chart
                       v-if="isFive"
                       :chartData="chartData_five"

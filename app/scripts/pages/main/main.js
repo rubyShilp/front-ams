@@ -142,7 +142,7 @@ export default {
     },
     //图标数据为空
     emptyData(classname,title){
-      var html = '<div style="padding:10px;"><span style="font-size: 18px;font-weight: bold;color: #2991d0;">'+ title +'</span><span  style="position: absolute;top: 40%;margin-left: 10%;color:#fff; font-size: 20px;">暂无数据</span></div>'
+      var html = '<div style="padding:10px;"><span style="font-size: 18px;font-weight: bold;color: #2991d0;">'+ title +'</span><span  style="position: absolute;top: 46%;left: 42%;color:#ccc; font-size: 20px;">暂无数据</span></div>'
       document.getElementsByClassName(classname)[0].innerHTML = html
       document.getElementsByClassName(classname)[0].removeAttribute('_echarts_instance_')
     },

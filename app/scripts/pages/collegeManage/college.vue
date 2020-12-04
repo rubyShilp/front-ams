@@ -6,7 +6,7 @@
           :data="data"
           :props="defaultProps"
           highlight-current
-          default-expand-all
+          :default-expand-all="false"
           :expand-on-click-node="false"
           @node-click="selectTreeDate"
         ></el-tree>

@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <div class="main-tabs chart2">
+        <div class="main-tabs chart2" style="position:relative;">
           <ams-chart
             v-if="isTwo"
             :chartData="chartData_two"
@@ -62,7 +62,7 @@
             :h5="true"
           ></ams-chart>
         </div>
-        <div class="main-tabs chart3">
+        <div class="main-tabs chart3" style="position:relative;">
           <ams-chart
             v-if="isThree"
             :chartData="chartData_three"
@@ -72,7 +72,7 @@
             :h5="true"
           ></ams-chart>
         </div>
-        <div class="main-tabs chart1">
+        <div class="main-tabs chart1" style="position:relative;">
           <ams-chart
             v-if="isOne"
             :chartData="chartData_one"
@@ -81,7 +81,7 @@
             :seriesData="series_one"
           ></ams-chart>
         </div>
-        <div class="main-tabs chart5">
+        <div class="main-tabs chart5" style="position:relative;">
           <ams-chart
             v-if="isFive"
             :chartData="chartData_five"
@@ -117,17 +117,17 @@
                   <td>早退</td>
                   <td>体温异常</td>
                   <td>心率异常</td>
-                  <td>详情</td>
+                  <!-- <td>详情</td> -->
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="list of [1, 2, 3, 4, 5, 6, 7, 8]" :key="list">
-                  <td>学校</td>
-                  <td>迟到</td>
-                  <td>早退</td>
-                  <td>体温异常</td>
-                  <td>心率异常</td>
-                  <td>详情</td>
+                <tr v-for="(item,index) in dataList" :key="index">
+                  <td>{{item.basename}}</td>
+                  <td>{{item.sumbelatecount}}</td>
+                  <td>{{item.sumleaveearlycount}}</td>
+                  <td>{{item.sumtempecount}}</td>
+                  <td>{{item.sumheartratecount}}</td>
+                   <!-- <td>详情</td> -->
                 </tr>
               </tbody>
             </table>

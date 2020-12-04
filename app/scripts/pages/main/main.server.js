@@ -44,3 +44,11 @@ export const statisticsRealAttend = async (params) => {
   );
   return result.data;
 };
+//根据学校ID年级ID班级ID查询统计考勤异常数据
+export const querystaticsAttend = async (params) => {
+  let result = await post(
+    "/alading/api/statistics/getStatisticsAbAttendSumList",
+    params
+  );
+  return result.data;
+};
