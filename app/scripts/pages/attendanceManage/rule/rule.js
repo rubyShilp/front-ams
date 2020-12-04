@@ -68,15 +68,15 @@ export default {
     attendRolAdd(){
       this.isRule=true;
       this.isDetail=false;
-      this.isAddOrUpdae=true;
+      this.isAddOrUpdate=true;
       this.ruleInfo={schoolname:'',morschtime:'',morhometime:'',minschtime:'',minhometime:'',nightschtime:'',nighthometime:''};
     },
      //编辑或新增设备信息
      attendRoleAddOrUpdate(){
       if(this.isAddOrUpdate){
-        this.attendRoleUpdate();
-      }else{
         this.attendRoleAdd();
+      }else{
+        this.attendRoleUpdate();
       }
     },
     //编辑考勤规则信息
