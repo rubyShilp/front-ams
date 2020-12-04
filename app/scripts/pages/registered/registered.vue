@@ -10,7 +10,7 @@
         <i class="el-icon-arrow-left"></i>
         <a href="/login">返回</a>
       </div>
-      <div class="login-form">
+      <div class="login-form registered-form">
         <h1>欢迎注册阿拉町</h1>
         <ul class="login-regrit-list">
           <li>

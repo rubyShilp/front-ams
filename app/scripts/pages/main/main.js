@@ -7,6 +7,10 @@ export default {
   },
   data() {
     return {
+      userInfo:JSON.parse(sessionStorage.getItem('userInfo')),
+      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
+      endtime:new Date(),
+      querytype:1,
       isOne: false,
       isThree: false,
       isTwo: false,
@@ -29,11 +33,16 @@ export default {
       time: "",
       date: "",
       schoolcode: "",
+      gradecode:'',
+      classcode:'',
       schoolList: [], //所有学校信息
     };
   },
   beforeMount() {
     var timerID = setInterval(this.updateTime, 1000);
+    this.schoolcode=this.userInfo.roles[0].schoolcode,
+    this.gradecode=this.userInfo.roles[0].gradecode,
+    this.classcode=this.userInfo.roles[0].classcode,
     this.updateTime();
     this.initGetSchool();
   },
@@ -67,34 +76,24 @@ export default {
     },
     //统计考勤异常数据
     initAttendTop(type) {
+      if (type == 1) {
+        this.starttime=new Date(new Date().getTime()-7*24*60*60*1000);
+        this.endtime=new Date();
+      } else {
+        this.starttime=new Date();
+        this.endtime=new Date();
+      }
       let params = {
-        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
-        querytype: "2",
+        gradecode:this.gradecode,
+        classcode:this.classcode,
+        querytype: this.querytype,
         sorttype: "1",
         page: "1",
         pagesize: "10",
       };
-      if (type == 1) {
-        params.starttime = formDate(
-          new Date("2020-11-10"),
-          "yyyy-MM-dd hh:mm:ss"
-        );
-        params.endtime = formDate(
-          new Date("2020-11-20"),
-          "yyyy-MM-dd hh:mm:ss"
-        );
-      } else {
-        params.starttime = formDate(
-          new Date("2020-11-10"),
-          "yyyy-MM-dd hh:mm:ss"
-        );
-        params.endtime = formDate(
-          new Date("2020-11-20"),
-          "yyyy-MM-dd hh:mm:ss"
-        );
-      }
       mainServer.attendTop(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.abAttendTop;
@@ -148,11 +147,20 @@ export default {
     },
     //统计健康异常数据
     initHealthTop(type) {
+      if (type == 1) {
+        this.starttime=new Date(new Date().getTime()-7*24*60*60*1000);
+        this.endtime=new Date();
+      } else {
+        this.starttime=new Date();
+        this.endtime=new Date();
+      }
       let params = {
-        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
-        querytype: "2",
+        gradecode:this.gradecode,
+        classcode:this.classcode,
+        querytype: this.querytype,
         sorttype: "5",
         page: "1",
         pagesize: "10",
@@ -202,10 +210,12 @@ export default {
     //初始化考勤异常数据汇总
     initSumTop() {
       let params = {
-        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
-        querytype: "3",
+        gradecode:this.gradecode,
+        classcode:this.classcode,
+        querytype:this.querytype,
       };
       mainServer.sumTop(params).then((res) => {
         if (res.success) {
@@ -216,8 +226,8 @@ export default {
     //初始化统计体温分布
     initStatisticsTemper() {
       let params = {
-        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
       };
       mainServer.statisticsTemper(params).then((res) => {
@@ -239,8 +249,8 @@ export default {
     //初始化考勤实时异常数据统计
     initStatisticsReal(number) {
       let params = {
-        starttime: formDate(new Date("2020-11-10"), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date("2020-11-20"), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         page: number,
         pagesize: 10,

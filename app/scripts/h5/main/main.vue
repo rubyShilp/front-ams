@@ -9,13 +9,23 @@
       <div class="h5-main">
         <div class="main-tabs">
           <ul>
-            <li class="cur">学校</li>
-            <li>年级</li>
-            <li>班级</li>
+            <li @click="initStatistics(1)" :class="{ cur: querytype == 1 }">
+              学校
+            </li>
+            <li @click="initStatistics(2)" :class="{ cur: querytype == 2 }">
+              年级
+            </li>
+            <li @click="initStatistics(3)" :class="{ cur: querytype == 3 }">
+              班级
+            </li>
           </ul>
           <div class="main-jiank">
             <h1>学校考勤健康情况</h1>
-            <p>最新数据更新至2020-12-20 10:00 <span>数据说明</span></p>
+            <p>
+              最新数据更新至
+              {{ new Date().getTime() | Date("yyyy-MM-dd hh:mm:ss") }}
+              <span>数据说明</span>
+            </p>
           </div>
           <div class="main-number">
             <div>
@@ -93,20 +103,24 @@
         <div class="main-table">
           <div class="main-table-tabs">
             <ul>
-              <li class="cur">
+              <li @click="initStatistics(1)" :class="{ cur: querytype == 1 }">
                 学校
               </li>
-              <li>
+              <li @click="initStatistics(2)" :class="{ cur: querytype == 2 }">
                 年级
               </li>
-              <li>
+              <li @click="initStatistics(3)" :class="{ cur: querytype == 3 }">
                 班级
               </li>
             </ul>
           </div>
           <div class="main-jiank">
             <h1>学校考勤健康统计汇总</h1>
-            <p>最新数据更新至2020-12-20 10:00 <span>数据说明</span></p>
+            <p>
+              最新数据更新至
+              {{ new Date().getTime() | Date("yyyy-MM-dd hh:mm:ss") }}
+              <span>数据说明</span>
+            </p>
           </div>
           <div class="table-min">
             <table cellpadding="0" cellspacing="0">
@@ -121,13 +135,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item,index) in dataList" :key="index">
-                  <td>{{item.basename}}</td>
-                  <td>{{item.sumbelatecount}}</td>
-                  <td>{{item.sumleaveearlycount}}</td>
-                  <td>{{item.sumtempecount}}</td>
-                  <td>{{item.sumheartratecount}}</td>
-                   <!-- <td>详情</td> -->
+                <tr v-for="(item, index) in dataList" :key="index">
+                  <td>{{ item.basename }}</td>
+                  <td>{{ item.sumbelatecount }}</td>
+                  <td>{{ item.sumleaveearlycount }}</td>
+                  <td>{{ item.sumtempecount }}</td>
+                  <td>{{ item.sumheartratecount }}</td>
+                  <!-- <td>详情</td> -->
                 </tr>
               </tbody>
             </table>

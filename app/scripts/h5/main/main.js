@@ -9,16 +9,22 @@ export default {
   data() {
     return {
       dataList: [],
-      userInfo:JSON.parse(sessionStorage.getItem('userInfo')),
-      querytype:1,
-      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
-      endtime:new Date(),
     };
   },
   beforeMount(){
     this.querystaticsA()
   },
   methods: {
+    //数据统计列表查询
+    initStatistics(type){
+      this.querytype=type,
+      this.initSumTop();
+      this.initAttendTop(1);
+      this.initAttendTop(2);
+      this.initHealthTop(2);
+      this.querystaticsA();
+    },
+    //考情异常数据统计
     querystaticsA(){
       let params = {
         starttime: this.starttime,

@@ -71,8 +71,8 @@ export default {
     schoolDataQuery(page,type){
       this.scoolType=type;
       let params={
-        starttime: formDate(new Date('2020-11-10'), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date('2020-11-20'), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode:dataCode(this.schoolcode),
         gradecode:dataCode(this.gradecode),
         classcode:dataCode(this.classcode),
