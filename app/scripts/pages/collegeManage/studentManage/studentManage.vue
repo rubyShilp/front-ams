@@ -15,11 +15,6 @@
                 <el-button  @click="show('add')" size="mini">新增</el-button>
               </el-form-item>
               <el-form-item>
-                <!-- <form method="post" name='form1' action="/alading/api/student/importStudents" enctype="multipart/form-data">
-                  <input type="file"  accept=".xlsx,.xls" id="file"/>
-                  <el-button  @click="testFile" size="mini">导入学生</el-button>
-                   <button  @click="testFile">导入学生</button>
-                </form> -->
                 <a href="javaScript:;" style="background: #ed7d32;padding: 5px 10px 7px;font-size: 12px;border-radius: 5px;color: #fff;">
                   导入学生
                    <input type="file" @change="uploadFile($event)" v-ams-file='workFile' style="opacity:0;position: absolute;width: 63px;left: 0px;top: 9px;cursor: pointer;"/>

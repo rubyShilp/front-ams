@@ -226,16 +226,6 @@ export default {
             }
             this.workFile='';
           }
-          // document.forms[0].target="rfFrame";
-          // var f = document.getElementById("file").files;  
-          //  //上次修改时间  
-          //   console.log(f[0].lastModifiedDate);  
-          //  //名称  
-          //   console.log(f[0].name);  
-          //   //大小 字节  
-          //   console.log(f[0].size);  
-          //  //类型  
-          //   console.log(f[0].type);  
         }
     },
   };
