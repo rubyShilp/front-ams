@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { token, sessionOut } from "./../util/core";
+import { token, isPc } from "./../util/core";
 import mainRouter from "./mainRouter.js";
 Vue.use(VueRouter);
 const originalPush = VueRouter.prototype.push;
@@ -29,12 +29,12 @@ const loginRouter = [
   { path: "/", redirect: "/login" },
   {
     path: "/login",
-    component: () => import("@/pages/login/login.vue"),
+    component: () => isPc()?import("@/h5/login/login.vue"):import("@/pages/login/login.vue"),
     meta: { scrollToTop: true },
   },
   {
     path: "/registered",
-    component: () => import("@/pages/registered/registered.vue"),
+    component: () =>  isPc()?import("@/h5/registered/registered.vue"):import("@/pages/registered/registered.vue"),
     meta: { scrollToTop: true },
   },
   {

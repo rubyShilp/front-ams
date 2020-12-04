@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="login-form">
-        <h1>欢迎登陆阿拉町</h1>
+        <h1>欢迎登录阿拉町</h1>
         <ul class="login-regrit-list">
           <li>
             <p class="login-regrit-input-title">手机号</p>
@@ -30,6 +30,7 @@
               placeholder="请输入密码"
               autocomplete="off"
               type="password"
+              maxlength="16"
             />
           </li>
         </ul>

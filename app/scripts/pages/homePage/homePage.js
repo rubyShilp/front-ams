@@ -7,7 +7,7 @@ export default {
       name: "平湖学院",
       treList: [],
       arrs: {},
-      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
+      starttime:new Date(new Date().getTime()-30*24*60*60*1000),
       endtime:new Date(),
       tabs: [
         {id: 1,name: "学校"},

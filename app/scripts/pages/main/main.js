@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       userInfo:JSON.parse(sessionStorage.getItem('userInfo')),
-      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
+      starttime:new Date(new Date().getTime()-30*24*60*60*1000),
       endtime:new Date(),
       querytype:1,
       isOne: false,
@@ -77,7 +77,7 @@ export default {
     //统计考勤异常数据
     initAttendTop(type) {
       if (type == 1) {
-        this.starttime=new Date(new Date().getTime()-7*24*60*60*1000);
+        this.starttime=new Date(new Date().getTime()-30*24*60*60*1000);
         this.endtime=new Date();
       } else {
         this.starttime=new Date();
@@ -148,7 +148,7 @@ export default {
     //统计健康异常数据
     initHealthTop(type) {
       if (type == 1) {
-        this.starttime=new Date(new Date().getTime()-7*24*60*60*1000);
+        this.starttime=new Date(new Date().getTime()-30*24*60*60*1000);
         this.endtime=new Date();
       } else {
         this.starttime=new Date();

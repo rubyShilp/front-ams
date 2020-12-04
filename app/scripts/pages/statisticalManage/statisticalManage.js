@@ -3,7 +3,7 @@ import { formDate,dataCode } from "@/util/core.js";
 export default {
   data() {
     return {
-      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
+      starttime:new Date(new Date().getTime()-30*24*60*60*1000),
       endtime:new Date(),
       dataList: [],
       totalCount:0,//總條數

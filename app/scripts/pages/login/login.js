@@ -1,5 +1,6 @@
 import * as loginServer from "./login.server.js";
 import { isMobile } from "@/util/tools.js";
+import { isPc } from "@/util/core";
 export default {
   data() {
     return {
@@ -22,7 +23,11 @@ export default {
         if (res.success) {
           sessionStorage.setItem("TOKEN", res.resultMap.userKey);
           sessionStorage.setItem("userInfo", JSON.stringify(res.resultMap));
-          this.$router.push("/home/homePage");
+          if(isPc()){
+            this.$router.push("/h5/main");
+          }else{
+            this.$router.push("/home/homePage");
+          }
         }
       });
     },

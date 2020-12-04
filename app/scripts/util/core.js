@@ -153,3 +153,11 @@ export function dataCode(val) {
     return "";
   }
 }
+//判断当前是否是pc端或手机端
+export function isPc(){
+  if(/Android|webOS|iPhone|iPad|iPad|BlackBerry/i.test(navigator.userAgent)) {
+    return true;
+  } else {
+    return false;
+  }
+}

@@ -9,7 +9,7 @@ export default {
       page:1,
       pageSize:10,//每頁顯示條數
       schoolcode:'',
-      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
+      starttime:new Date(new Date().getTime()-30*24*60*60*1000),
       endtime:new Date(),
       isEquipment:false,//是否展开详情信息
       isDetail:false,//是否是详情
