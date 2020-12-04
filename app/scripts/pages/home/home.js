@@ -1,16 +1,17 @@
-import {loginOut} from './home.server.js';
-import * as mainServer from '@/pages/main/main.server.js';
+import { loginOut } from "./home.server.js";
+import * as mainServer from "@/pages/main/main.server.js";
 export default {
   data() {
     return {
-      schoolList:"",
-      schoolcode:"",
+      schoolList: "",
+      schoolcode: "",
       index: 0,
       treList: [],
     };
   },
   beforeMount() {
     this.initGetSchool();
+    this.alerts();
     if (sessionStorage.getItem("homeIndex")) {
       this.index = sessionStorage.getItem("homeIndex");
     }
@@ -33,20 +34,28 @@ export default {
       mainServer.getSchool(params).then((res) => {
         if (res.success) {
           this.schoolList = res.resultMap.schools;
-          sessionStorage.setItem('schoolList',JSON.stringify(this.schoolList))
-          this.schoolcode=this.schoolList[0].schoolcode
+          sessionStorage.setItem("schoolList", JSON.stringify(this.schoolList));
+          this.schoolcode = this.schoolList[0].schoolcode;
         }
       });
     },
     //退出登录
-    loginOut(){
-      loginOut().then(res=>{
-        if(res.success){
-          sessionStorage.removeItem('TOKEN')
-          sessionStorage.removeItem("userInfo")
-          this.$router.push('/login');
+    loginOut() {
+      loginOut().then((res) => {
+        if (res.success) {
+          sessionStorage.removeItem("TOKEN");
+          sessionStorage.removeItem("userInfo");
+          this.$router.push("/login");
         }
-      })
-    }
+      });
+    },
+    alerts() {
+      this.$notify({
+        title: "提示",
+        message: "这是一条不会自动关闭的消息",
+        duration: 0,
+        offset: 75,
+      });
+    },
   },
 };

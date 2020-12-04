@@ -67,7 +67,7 @@
           </a>
           <a href="javaScript:;" class="ams-cut-word" @click="loginOut()">
             <span class="ams-cut-text">
-              <i class="el-icon-s-tools"></i>
+              <i class="use-drop-exit"></i>
             </span>
             <span class="ams-cut-title" style="right: 20px">退出</span>
           </a>

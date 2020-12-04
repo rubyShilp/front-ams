@@ -6,7 +6,9 @@
           <img src="./../../../images/logo.png" />
         </div>
         <div class="regrit">
-          <el-button type="primary" plain>注&nbsp;册</el-button>
+          <el-button type="primary" @click="registered()" plain
+            >注&nbsp;册</el-button
+          >
         </div>
       </div>
       <div class="login-form">
@@ -35,10 +37,13 @@
           <p><a href="javaScript:;">忘记密码？</a></p>
         </div>
         <div class="button-box">
-          <el-button type="primary" @click="login()">登录</el-button>
+          <el-button type="primary" @click="login()">
+            登&nbsp;&nbsp;录
+          </el-button>
         </div>
       </div>
     </div>
+    <!--忘记密码-->
   </div>
 </template>
 <script src="./login.js"></script>

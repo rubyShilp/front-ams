@@ -1,4 +1,5 @@
 import * as loginServer from "./login.server.js";
+import { isMobile } from "@/util/tools.js";
 export default {
   data() {
     return {
@@ -12,6 +13,10 @@ export default {
   methods: {
     //登录
     login() {
+      if (!isMobile(this.user.account)) {
+        this.$message.warning("请输入正确的手机号");
+        return false;
+      }
       let params = this.user;
       loginServer.login(params).then((res) => {
         if (res.success) {
@@ -20,6 +25,10 @@ export default {
           this.$router.push("/home/homePage");
         }
       });
+    },
+    //注册
+    registered() {
+      this.$router.push("/registered");
     },
   },
 };

@@ -33,6 +33,11 @@ const loginRouter = [
     meta: { scrollToTop: true },
   },
   {
+    path: "/registered",
+    component: () => import("@/pages/registered/registered.vue"),
+    meta: { scrollToTop: true },
+  },
+  {
     path: "/main",
     component: () => import("@/pages/main/main.vue"),
     meta: { scrollToTop: true },
