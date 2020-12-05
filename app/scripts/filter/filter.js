@@ -11,3 +11,17 @@ Vue.filter('sexName',function(value){
         return '女';
     }
 })
+Vue.filter('resourceType',function(value){
+    if(value==1){
+        return '按钮';
+    }else{
+        return '菜单';
+    }
+})
+Vue.filter('resourceStatu',function(value){
+    if(value==1){
+        return '启用';
+    }else{
+        return '未启用';
+    }
+})

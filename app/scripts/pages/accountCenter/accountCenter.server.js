@@ -49,3 +49,23 @@ export const saveroleResource = async (params) => {
     let result = await post("/alading/api/role/saveRoleResource", params);
     return result.data;
 };
+//删除资源信息接口
+export const delResource = async (params) => {
+    let result = await get("/alading/api/resource/removeResource?resourcecode="+params);
+    return result.data;
+};
+//批量删除资源信息接口
+export const delmoreResource = async (params) => {
+    let result = await get("/alading/api/resource/batchRemoveResource?resourcecodes=", params);
+    return result.data;
+};
+//创建资源接口
+export const addResource = async (params) => {
+    let result = await post("/alading/api/resource/createResource", params);
+    return result.data;
+};
+//编辑资源接口
+export const editResource = async (params) => {
+    let result = await post("/alading/api/resource/updateResourceInfo", params);
+    return result.data;
+};

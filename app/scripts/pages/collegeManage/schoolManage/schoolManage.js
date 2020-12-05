@@ -8,8 +8,6 @@ export default {
           school: ""
         },
         multipleSelection: [],
-        detailData: {},
-        //分页参数
          //分页参数
         currentPage: 1,
         total: 0,
