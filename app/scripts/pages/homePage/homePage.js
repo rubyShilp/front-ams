@@ -1,11 +1,29 @@
 import charts from '@/components/charts'
 import * as homeServer from "./homePage.server";
 import { formDate } from "@/util/core.js";
+import { TimePicker } from 'element-ui';
 export default {
+  props: {
+    school: {
+      type: Number,
+      default: ""
+    }
+  },
+  watch:{
+    school(newVal){
+      console.log(newVal)
+      this.$nextTick(()=>{
+        this.getheadData(newVal);
+        this.getEchartData('1',newVal);
+        this.getEchartData('2',newVal);
+      })
+    }
+  },
   data() {
     return {
       name: "平湖学院",
       treList: [],
+      userType: JSON.parse(sessionStorage.getItem("userInfo")).userType,
       arrs: {},
       starttime:new Date(new Date().getTime()-30*24*60*60*1000),
       endtime:new Date(),
@@ -14,8 +32,9 @@ export default {
         {id: 2,name: "年级"},
         {id: 3,name: "班级"}
       ],
+      tagflag: false,
       tabType: 1,
-      schoolcode: (JSON.parse(sessionStorage.getItem("userInfo"))).roles[0].schoolcode,
+      schoolcode: "",
       //echarts信息
       tabPosition: "line",
       chartData_one: [[], [0,50,100,150]],
@@ -31,17 +50,26 @@ export default {
     charts
   },
   beforeMount() {
-    this.getheadData();
-    this.getEchartData('1');
-    this.getEchartData('2');
+    this.getheadData(this.school);
+    this.getEchartData('1',this.school);
+    this.getEchartData('2',this.school);
   },
   methods: {
+    clear(){
+      this.chartData_one = [[], [0,50,100,150]];
+      this.series_one = [['迟到','早退','旷课','请假'],[[], [],[],[]],"1"];
+      this.chartData_two = [[],[],[],[]];
+      this.chartData_three = [[], [0,5,10,15]];
+      this.series_three =  [['迟到','早退','旷课','请假'],[ [],[],[],[]],"2"];
+      this.chartData_four = [[], [0,5,10,15]];
+      this.series_four = [['温度','心率','活动量差'],[ [],[],[]],"3"];
+    },
     //获取头部数据
-    getheadData(){
+    getheadData(code){
       let params = {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        schoolcode:this.schoolcode,
+        schoolcode:code,
         querytype: this.tabType
       }
       homeServer.headerData(params).then(res=>{
@@ -50,18 +78,13 @@ export default {
         }
       })
     },
-    //图标数据为空
-    emptyData(classname,title){
-      var html = '<div style="padding:10px;"><span style="font-size: 18px;font-weight: bold;color: #2991d0;">'+ title +'</span><span  style="position: absolute;top: 50%;left: 45%;color:#ccc; font-size: 20px;">暂无数据</span></div>'
-      document.getElementsByClassName(classname)[0].innerHTML = html
-      document.getElementsByClassName(classname)[0].removeAttribute('_echarts_instance_')
-    },
     //获取图表数据
-    getEchartData(type){
+    getEchartData(type,code){
+      this.clear();
       let params = {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        schoolcode: this.schoolcode,
+        schoolcode: code,
         querytype: this.tabType,
         sorttype: "1",
         page: "1",
@@ -86,11 +109,11 @@ export default {
                 this.series_three[1][2].push(list[i].sumtruantcount)
                 this.series_three[1][3].push(list[i].sumleavecount)
               }
-            if(this.chartData_one[0].length === 0 || this.series_one[1][0].length === 0){
-              this.emptyData('chart1','当前考勤异常学校TOP10')
-            }
-            if(this.chartData_three[0].length === 0 || this.series_three[1][0].length === 0){
-              this.emptyData('chart3','学校考勤异常周趋势')
+            if(list.length === 0){
+              this.$message({
+                type: "error",
+                message: "暂无图表数据"
+              })
             }
           }
         })
@@ -102,30 +125,32 @@ export default {
               for(let i=0;i<list.length;i++){
                 //健康异常学校TOP10
                 this.chartData_two[3].push(list[i].basename)
-                this.chartData_two[0][0].push(list[i].sumtempecount)
-                this.chartData_two[0][1].push(list[i].sumheartratecount)
-                this.chartData_two[0][2].push(list[i].sumlessactivitycount)
+                this.chartData_two[0].push(list[i].sumtempecount)
+                this.chartData_two[1].push(list[i].sumheartratecount)
+                this.chartData_two[2].push(list[i].sumlessactivitycount)
                 //健康异常周趋势
                 this.chartData_four[0].push(list[i].createtime)
                 this.series_four[1][0].push(list[i].sumtempecount)
                 this.series_four[1][1].push(list[i].sumheartratecount)
                 this.series_four[1][2].push(list[i].sumlessactivitycount)
               }
-            if(this.chartData_two[3].length === 0){
-              this.emptyData('chart2','当前健康异常学校TOP10')
-            }
-            if(this.chartData_four[0].length === 0 || this.series_four[1][0].length === 0){
-              this.emptyData('chart4','学校健康异常周趋势')
-            }
+              if(list.length === 0){
+                this.$message({
+                  type: "error",
+                  message: "暂无图表数据"
+                })
+              }
           }
         })
       }
     },
     changeType(type){
       this.tabType = type;
-      this.getheadData();
-      this.getEchartData("1");
-      this.getEchartData("2");
+      this.$nextTick(()=>{
+        this.getheadData(this.school);
+        this.getEchartData("1",this.school);
+        this.getEchartData("2",this.school);
+      })
     }
   },
 };

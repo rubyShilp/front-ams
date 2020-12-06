@@ -34,8 +34,13 @@ export default {
       mainServer.getSchool(params).then((res) => {
         if (res.success) {
           this.schoolList = res.resultMap.schools;
+          let userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+          if(userInfo.userType === 2){
+             this.schoolcode = this.schoolList[0].schoolcode;
+          }else{
+            this.schoolcode = "";
+          }
           sessionStorage.setItem("schoolList", JSON.stringify(this.schoolList));
-          this.schoolcode = this.schoolList[0].schoolcode;
         }
       });
     },

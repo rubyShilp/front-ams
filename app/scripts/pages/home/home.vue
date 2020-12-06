@@ -75,7 +75,7 @@
       </div>
     </header>
     <el-scrollbar class="main-center">
-      <router-view></router-view>
+      <router-view :school="schoolcode"></router-view>
     </el-scrollbar>
   </div>
 </template>
