@@ -59,11 +59,11 @@
             >
             </el-option>
           </el-select>
-          <a href="javaScript:;" class="ams-cut-word">
+          <a href="/main" class="ams-cut-word">
             <span class="ams-cut-text">
-              <i class="el-icon-s-tools"></i>
+              <i class="el-icon-platform-eleme"></i>
             </span>
-            <span class="ams-cut-title">设置</span>
+            <span class="ams-cut-title">首页</span>
           </a>
           <a href="javaScript:;" class="ams-cut-word" @click="loginOut()">
             <span class="ams-cut-text">

@@ -194,7 +194,7 @@
           </el-container>
         </div>
         <div class="ams-bottom-text">
-          —— 本数据有深圳阿拉町科技发展有限公司提供技术支持 ——
+          —— 本数据由深圳阿拉町科技发展有限公司提供技术支持 ——
         </div>
       </el-scrollbar>
     </div>
