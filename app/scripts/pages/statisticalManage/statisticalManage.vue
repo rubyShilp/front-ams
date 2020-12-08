@@ -41,7 +41,7 @@
                   </el-date-picker>
                 </el-form-item>
                 <el-form-item>
-                  <el-button @click="onSubmit" size="mini">查询</el-button>
+                  <el-button @click="schoolDataQuery" size="mini">查询</el-button>
                 </el-form-item>
                 <el-form-item label="">
                   <el-button size="mini">批量删除</el-button>
@@ -134,7 +134,7 @@
                 </el-table-column>
                 <el-table-column label="操作" width="200">
                   <template class="table-operation" slot-scope="scope">
-                    <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
+                    <a href="javaScript:;" @click="detail"><i class="el-icon-view"></i>详情</a>
                     <span>|</span>
                     <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
                     <span>|</span>
@@ -160,6 +160,128 @@
                 </el-pagination>
               </div>
             </div>
+             <!-- 操作模态框 -->
+                <el-dialog :title="title"
+                width="50%"
+                top="5vh"
+                :close-on-click-modal="false"
+                :visible.sync="handle_dialog"
+                :show-close='false'
+                class="static_dialog"
+                >
+                 <div class="dialog-body">
+                   <h2>详情</h2>
+                   <div class="from-right">
+                   <el-form :inline="true">
+                      <el-form-item label="时间">
+                        <el-date-picker
+                          v-model="detail_starttime"
+                          type="date"
+                          placeholder="开始日期"
+                          size="mini"
+                        >
+                        </el-date-picker>
+                        --
+                        <el-date-picker
+                          v-model="detail_endtime"
+                          type="date"
+                          placeholder="结束日期"
+                          size="mini"
+                        >
+                        </el-date-picker>
+                      </el-form-item>
+                      <el-form-item>
+                        <el-button @click="detailQuery" size="mini">查询</el-button>
+                      </el-form-item>
+                    </el-form>
+                   </div>
+                      <div class="static_left">
+                         <charts :chartData="chartData" chartType="pie" theme="static"></charts>
+                      </div>
+                      <!-- 右侧的表格 -->
+                      <el-scrollbar class="static_right">
+                         <el-table
+                          :data="right_data"
+                          size="mini"
+                          stripe
+                           height="100%"
+                          :header-cell-style="{'color':'#fff','background':'#ed7d32','font-weight':'bold'}"
+                          style="width: 100%">
+                          <el-table-column
+                            prop="name"
+                            label="考勤健康"
+                            width="180">
+                          </el-table-column>
+                          <el-table-column
+                            prop="count"
+                            label="人数">
+                          </el-table-column>
+                        </el-table>
+                      </el-scrollbar>
+                      <!-- 下面的表格 -->
+                      <el-scrollbar class="static_bottom">
+                         <el-table
+                          :data="bottom_data"
+                          size="mini"
+                          style="width: 100%">
+                          <el-table-column
+                            fixed
+                            prop="id"
+                            label="学号">
+                          </el-table-column>
+                          <el-table-column
+                            prop="name"
+                            label="姓名">
+                          </el-table-column>
+                          <el-table-column
+                            prop="kaostatu"
+                            label="考勤状态">
+                          </el-table-column>
+                          <el-table-column
+                            prop="cstatu"
+                            label="体温状态">
+                          </el-table-column>
+                          <el-table-column
+                            prop="heartstatu"
+                            label="心率状态">
+                          </el-table-column>
+                          <el-table-column
+                            prop="school"
+                            width="110"
+                            label="学校">
+                          </el-table-column>
+                          <el-table-column
+                            prop="class"
+                            label="班级">
+                          </el-table-column>
+                          <el-table-column
+                            prop="prantphone"
+                            width="110"
+                            label="家长联系方式">
+                          </el-table-column>
+                          <el-table-column
+                            prop="prantname"
+                            label="家长姓名">
+                          </el-table-column>
+                          <el-table-column
+                            prop="time"
+                            width="110"
+                            label="时间">
+                          </el-table-column>
+                        </el-table>
+                      </el-scrollbar>
+                       <pagination
+                          style="padding-left: 28%;"
+                          :total="detailtotal"
+                          :page.sync="detailpage"
+                          :limit.sync="depageSize"
+                          @pagination="detailQuery"
+                        ></pagination>
+                 </div>
+                <div slot="footer" class="dialog-footer">
+                  <el-button size="small" @click="handle_dialog=false">关闭</el-button>
+                </div>
+                </el-dialog>
           </div>
         </div>
       </el-container>

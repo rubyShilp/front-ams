@@ -423,7 +423,150 @@ export default {
     },
     //饼图配置
     generatorPieOption() {
-      if (this.theme !== "main") {
+      if (this.theme == "main") {
+        let pieData = [];
+        for (let index in this.xAxisData) {
+          pieData.push({
+            value: this.xAxisData[index],
+            name: this.yAxisData[index],
+          });
+        }
+        return {
+          title: {
+            text: this.titleText,
+            x: "10px",
+            y: "10px",
+            textStyle: {
+              fontSize: 17,
+              fontWeight: "bold",
+              fontStyle: "normal",
+              color: "#2991d0",
+            },
+          },
+          tooltip: {
+            trigger: "item",
+            formatter: "{a} <br/>{b}: {c} ({d}%)",
+          },
+          legend: {
+            data: this.yAxisData,
+            orient: "vertical",
+            left: 20,
+            bottom: 0,
+            icon: "rect",
+            itemWidth: 10,
+            itemHeight: 10,
+            itemGap: 10,
+            textStyle: {
+              //图例文字的样式
+              color: "#fff",
+            },
+          },
+          series: [
+            {
+              name: "体温概括",
+              type: "pie",
+              radius: ["30%", "80%"],
+              center: ["57%", "52%"],
+              data: pieData,
+              label: {
+                //饼图图形上的文本标签
+                normal: {
+                  show: true,
+                  position: "inner", //标签的位置
+                  textStyle: {
+                    fontWeight: 300,
+                    fontSize: 12, //文字的字体大小
+                    color: "#111",
+                  },
+                  formatter: "{c}",
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              itemStyle: {
+                normal: {
+                  //每根柱子颜色设置
+                  color: function(params) {
+                    let colorList = ["#fbdb27", "#01edfb", "#ed7d31", "#ccc"];
+                    return colorList[params.dataIndex];
+                  },
+                },
+              },
+            },
+          ],
+        };
+      } else if(this.theme === "static") {
+          let pieData = [];
+        for (let index in this.xAxisData) {
+          pieData.push({
+            value: this.xAxisData[index],
+            name: this.yAxisData[index],
+          });
+        }
+        console.log(pieData)
+        return {
+          tooltip: {
+            // trigger: "item",
+            // formatter: "{a} <br/>{b}: {c} ({d}%)",
+          },
+          legend: {
+            data: this.yAxisData,
+           orient: "horizontal",
+            x: "center",
+            y: "bottom",
+            icon: "rect",
+            itemWidth: 10,
+            itemHeight: 10,
+            itemGap: 10,
+            textStyle: {
+              //图例文字的样式
+              color: "#111",
+            },
+          },
+          series: [
+            {
+              name: "",
+              type: "pie",
+              radius: "75%",
+              center: ["40%", "38%"],
+              data: pieData,
+              label: {
+                //饼图图形上的文本标签
+                normal: {
+                  show: true,
+                  position: "inner", //标签的位置
+                  textStyle: {
+                    fontWeight: 300,
+                    fontSize: 12, //文字的字体大小
+                    color: "#111",
+                  },
+                  formatter: "{c}",
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              itemStyle: {
+                normal: {
+                  //每根柱子颜色设置
+                  color: function(params) {
+                    let colorList = [
+                      "#057bfb",
+                      "#fbdb27",
+                      "#f3f3f3",
+                      "#ed7d31",
+                      "#276ef9",
+                      "#08a21d",
+                      "#01edfb",];
+                    return colorList[params.dataIndex];
+                  },
+                },
+              },
+            },
+          ],
+        };
+      }else{
         let [pieData1, pieData2, pieData3] = [[], [], []];
         let temperature = this.chartData.slice(0, 1);
         let heartRate = this.chartData.slice(1, 2);
@@ -595,79 +738,6 @@ export default {
                       "#08a21d",
                       "#01edfb",
                     ];
-                    return colorList[params.dataIndex];
-                  },
-                },
-              },
-            },
-          ],
-        };
-      } else {
-        let pieData = [];
-        for (let index in this.xAxisData) {
-          pieData.push({
-            value: this.xAxisData[index],
-            name: this.yAxisData[index],
-          });
-        }
-        return {
-          title: {
-            text: this.titleText,
-            x: "10px",
-            y: "10px",
-            textStyle: {
-              fontSize: 17,
-              fontWeight: "bold",
-              fontStyle: "normal",
-              color: "#2991d0",
-            },
-          },
-          tooltip: {
-            trigger: "item",
-            formatter: "{a} <br/>{b}: {c} ({d}%)",
-          },
-          legend: {
-            data: this.yAxisData,
-            orient: "vertical",
-            left: 20,
-            bottom: 0,
-            icon: "rect",
-            itemWidth: 10,
-            itemHeight: 10,
-            itemGap: 10,
-            textStyle: {
-              //图例文字的样式
-              color: "#fff",
-            },
-          },
-          series: [
-            {
-              name: "体温概括",
-              type: "pie",
-              radius: ["30%", "80%"],
-              center: ["57%", "52%"],
-              data: pieData,
-              label: {
-                //饼图图形上的文本标签
-                normal: {
-                  show: true,
-                  position: "inner", //标签的位置
-                  textStyle: {
-                    fontWeight: 300,
-                    fontSize: 12, //文字的字体大小
-                    color: "#111",
-                  },
-                  formatter: "{c}",
-                },
-              },
-              labelLine: {
-                show: false,
-              },
-              itemStyle: {
-                normal: {
-                  //每根柱子颜色设置
-                  color: function(params) {
-                    let colorList = ["#fbdb27", "#01edfb", "#ed7d31", "#ccc"];
                     return colorList[params.dataIndex];
                   },
                 },
