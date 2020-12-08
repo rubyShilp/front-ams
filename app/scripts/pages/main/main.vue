@@ -43,7 +43,7 @@
                     <span class="top10-span">异常实时数据</span>异常100人
                   </p>
                   <div class="top10-table">
-                    <table cellspacing="0">
+                      <table cellspacing="0">
                       <thead>
                         <tr>
                           <td>学号</td>
@@ -56,7 +56,7 @@
                         </tr>
                       </thead>
                     </table>
-                    <div class="table-div">
+                    <el-scrollbar class="table-div" style="height:21rem;">
                       <table cellspacing="0">
                         <tbody>
                           <tr
@@ -65,7 +65,9 @@
                             :key="list.sno"
                           >
                             <td>{{ list.sno }}</td>
-                            <td>{{ list.stuname }}</td>
+                            <td>
+                              <div>{{ list.stuname }}</div>
+                            </td>
                             <td>{{ list.attendstate }}</td>
                             <td>{{ list.heartrate }}</td>
                             <td>{{ list.temperature }}</td>
@@ -78,18 +80,18 @@
                           </tr>
                         </tbody>
                       </table>
-                    </div>
+                    </el-scrollbar>
                   </div>
                 </div>
               </div>
               <div class="left-trend chart1" style="position:relative;">
                 <ams-chart
-                  v-if="isOne"
                   :chartData="chartData_one"
                   chartType="line"
                   titleText="当前考勤异常周趋势"
                   :seriesData="series_one"
                   theme="main"
+                  v-if="chartData_one[0].length!=0"
                 ></ams-chart>
               </div>
             </el-aside>
@@ -150,8 +152,8 @@
                 <el-aside width="750px">
                   <div class="right-school chart2" style="position:relative;">
                     <ams-chart
-                      v-if="isTwo"
                       :chartData="chartData_two"
+                      v-if="chartData_two[0].length!=0"
                       chartType="bar"
                       titleText="当前考勤异常学校TOP10"
                       :seriesData="series_two"
@@ -160,8 +162,8 @@
                   </div>
                   <div class="right-school marign-top chart3" style="position:relative;">
                     <ams-chart
-                      v-if="isThree"
                       :chartData="chartData_three"
+                      v-if="chartData_three[0].length!=0"
                       chartType="bar"
                       titleText="当前健康异常学校TOP10"
                       :seriesData="series_three"
@@ -172,8 +174,8 @@
                 <el-main style="padding-top: 0px">
                   <div class="right-temperature chart4" style="position:relative;">
                     <ams-chart
-                      v-if="isFour"
                       :chartData="chartData_four"
+                      v-if="chartData_four[0].length!=0"
                       chartType="pie"
                       titleText="当前体温概括"
                       theme="main"
@@ -181,9 +183,9 @@
                   </div>
                   <div class="right-healthy chart5" style="position:relative;">
                     <ams-chart
-                      v-if="isFive"
                       :chartData="chartData_five"
                       :indicatorData="indicator_five"
+                       v-if="chartData_five[0].length!=0"
                       chartType="radar"
                       titleText="学校健康异常周趋势"
                     ></ams-chart>

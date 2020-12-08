@@ -716,7 +716,7 @@ export default {
               color: "#fff",
             },
           },
-          center: ["60%", "55%"],
+          center: ["56%", "50%"],
           indicator: indData,
           splitArea: {
             show: false,
