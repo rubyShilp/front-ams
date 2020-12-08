@@ -39,6 +39,7 @@ export default {
              this.schoolcode = this.schoolList[0].schoolcode;
           }else{
             this.schoolcode = "";
+            this.schoolList.unshift({schoolcode: "",schoolname: "全部"})
           }
           sessionStorage.setItem("schoolList", JSON.stringify(this.schoolList));
         }

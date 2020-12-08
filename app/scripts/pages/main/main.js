@@ -40,9 +40,10 @@ export default {
   },
   beforeMount() {
     var timerID = setInterval(this.updateTime, 1000);
-    this.schoolcode=this.userInfo.roles[0].schoolcode,
-    this.gradecode=this.userInfo.roles[0].gradecode,
-    this.classcode=this.userInfo.roles[0].classcode,
+    console.log(this.userInfo)
+    // this.schoolcode=this.userInfo.roles[0].schoolcode,
+    // this.gradecode=this.userInfo.roles[0].gradecode,
+    // this.classcode=this.userInfo.roles[0].classcode,
     this.updateTime();
     this.initGetSchool();
   },
