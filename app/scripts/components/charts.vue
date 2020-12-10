@@ -529,7 +529,7 @@ export default {
               name: "",
               type: "pie",
               radius: "75%",
-              center: ["40%", "38%"],
+              center: ["40%", "42%"],
               data: pieData,
               label: {
                 //饼图图形上的文本标签

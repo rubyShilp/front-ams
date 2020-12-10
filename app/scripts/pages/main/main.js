@@ -18,18 +18,18 @@ export default {
       isFive: false,
       attendanceList: [], //考勤实时数据
       attendanceInfo: {}, //考勤异常数据汇总
-      chartData_one: [[], [0, 5, 10, 15]],
+      chartData_one: [[], [10, 50, 100, 150]],
       series_one: [["迟到", "早退", "旷课", "请假"], [[],[],[],[]], "3"],
-      chartData_two: [[], [0, 5, 10, 15]],
+      chartData_two: [[], [10, 50, 100, 150]],
       series_two: [["迟到", "早退", "旷课", "请假"], [[], [], [], []], "2"],
-      chartData_three: [[], [0, 50, 100, 150]],
+      chartData_three: [[], [50, 150, 300, 550]],
       series_three: [["温度", "心率", "活动量差"], [[], [], []], "1"],
       chartData_four: [
         [],
         ["35.9°C以下", "36°C-37.2°C", "37°C-38°C", "38°C-39°C"],
       ],
       indicator_five: [[], [], [], ["温度", "心率", "活动量差"]],
-      chartData_five: [[], [100, 100, 100, 100, 100, 100, 100]],
+      chartData_five: [[], [1000, 1000, 1000, 1000, 1000, 1000, 1000]],
       time: "",
       date: "",
       schoolcode: "",
@@ -70,22 +70,22 @@ export default {
       });
     },
     clear() {
-      this.chartData_one = [[], [0, 5, 10, 15]];
+      this.chartData_one = [[], [10, 50, 100, 150]];
       this.series_one = [["迟到", "早退", "旷课", "请假"], [[],[],[],[]], "3"];
-      this.chartData_two = [[], [0, 5, 10, 15]];
+      this.chartData_two = [[], [10, 50, 100, 150]];
       this.series_two = [
         ["迟到", "早退", "旷课", "请假"],
         [[], [], [], []],
         "2",
       ];
-      this.chartData_three = [[], [0, 50, 100, 150]];
+      this.chartData_three = [[], [50, 150, 300, 550]];
       this.series_three = [["温度", "心率", "活动量差"], [[], [], []], "1"];
       this.chartData_four = [
         [],
         ["35.9°C以下", "36°C-37.2°C", "37°C-38°C", "38°C-39°C"],
       ];
       this.indicator_five = [[], [], [], ["温度", "心率", "活动量差"]];
-      this.chartData_five = [[], [100, 100, 100, 100, 100, 100, 100]];
+      this.chartData_five = [[], [1000, 1000, 1000, 1000, 1000, 1000, 1000]];
     },
     //选择学校查询信息
     selectSchool() {

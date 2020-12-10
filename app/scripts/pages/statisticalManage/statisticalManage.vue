@@ -219,57 +219,60 @@
                         </el-table>
                       </el-scrollbar>
                       <!-- 下面的表格 -->
-                      <el-scrollbar class="static_bottom">
+                      <div class="static_bottom">
                          <el-table
                           :data="bottom_data"
                           size="mini"
+                          height="250"
                           style="width: 100%">
                           <el-table-column
                             fixed
-                            prop="id"
+                            prop="sno"
                             label="学号">
                           </el-table-column>
                           <el-table-column
-                            prop="name"
+                            prop="stuname"
+                            width="100"
                             label="姓名">
                           </el-table-column>
                           <el-table-column
-                            prop="kaostatu"
+                            prop="attendstate"
                             label="考勤状态">
                           </el-table-column>
                           <el-table-column
-                            prop="cstatu"
+                            prop="temperature"
                             label="体温状态">
                           </el-table-column>
                           <el-table-column
-                            prop="heartstatu"
+                            prop="heartrate"
                             label="心率状态">
                           </el-table-column>
                           <el-table-column
-                            prop="school"
-                            width="110"
+                            prop="schoolname"
+                            width="126"
                             label="学校">
                           </el-table-column>
                           <el-table-column
-                            prop="class"
+                            prop="gradeclassname"
+                             width="120"
                             label="班级">
                           </el-table-column>
                           <el-table-column
-                            prop="prantphone"
+                            prop="phone"
                             width="110"
                             label="家长联系方式">
                           </el-table-column>
                           <el-table-column
-                            prop="prantname"
+                            prop="patriarch"
                             label="家长姓名">
                           </el-table-column>
                           <el-table-column
-                            prop="time"
-                            width="110"
+                            prop="createtime"
+                            width="130"
                             label="时间">
                           </el-table-column>
                         </el-table>
-                      </el-scrollbar>
+                      </div>
                        <pagination
                           style="padding-left: 28%;"
                           :total="detailtotal"

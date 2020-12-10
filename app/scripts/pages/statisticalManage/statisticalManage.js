@@ -19,30 +19,8 @@ export default {
       handle_dialog: false,
       detail_starttime: new Date(new Date().getTime()-30*24*60*60*1000),
       detail_endtime: new Date(),
-      chartData: [[80,60,40,48,18,20,100],["迟到人数","早退人数","旷课人数","请假人数","体温异常","心率异常","活动量差"]],
-      right_data: [
-        {
-          id: "1", name: "迟到人数",count: 80
-        },
-        {
-          id: "2", name: "早退人数",count: 60
-        },
-        {
-          id: "3", name: "旷课人数",count: 40
-        },
-        {
-          id: "4", name: "请假人数",count: 48
-        },
-        {
-          id: "5", name: "体温异常",count: 18
-        },
-        {
-          id: "6", name: "心率异常",count: 20
-        },
-        {
-          id: "7", name: "活动量差",count: 100
-        }
-      ],
+      chartData: [[],["迟到人数","早退人数","旷课人数","请假人数","体温异常","心率异常","活动量差"]],
+      right_data: [],
       bottom_data: [],
       detailtotal: 0,
       detailpage: 1,
@@ -138,11 +116,64 @@ export default {
         }
       })
     },
-    detail(){
-      this.handle_dialog = true;
+    detail(type){
+      let schoolcode = ""
+      let gradecode = ""
+      let classcode = ""
+      if(this.schoolcode){
+        schoolcode = this.schoolcode.slice(3)
+      }
+      if(this.gradecode){
+        gradecode = this.gradecode.slice(2)
+      }
+      if(this.classcode){
+        classcode = this.classcode.slice(2)
+      }
+      let params = {
+        starttime: formDate(new Date(this.detail_starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.detail_endtime), "yyyy-MM-dd hh:mm:ss"),
+        schoolcode: schoolcode,
+        gradecode: gradecode,
+        classcode: classcode,
+        querytype: this.scoolType,
+        page: this.detailpage,
+        pagesize: this.depageSize
+      }
+      statisticalServer.getStatisticsList(params).then(res=>{
+        if(res.success){
+          let result = res.resultMap.abnormalNums;
+          //左侧饼图数据
+            this.chartData[0].push(result.sumbelatecount);
+            this.chartData[0].push(result.sumleaveearlycount)
+            this.chartData[0].push(result.sumtruantcount)
+            this.chartData[0].push(result.sumleavecount)
+            this.chartData[0].push(result.sumtempecount)
+            this.chartData[0].push(result.sumheartratecount)
+            this.chartData[0].push(result.sumlessactivitycount)
+          //右侧列表数据
+          if(this.chartData[0].length != 0){
+             this.chartData[0].forEach((item,index)=>{
+              this.right_data.push({
+                id: index,
+                name: this.chartData[1][index],
+                count: item
+              })
+             })
+             //详情表格数据
+             this.bottom_data = [...res.resultMap.realattends];
+             this.detailtotal = res.resultMap.total;
+            if(type !== 1){
+              this.handle_dialog = true;
+            }
+          }else{
+            this.$message.error("暂无数据")
+          }
+        }
+      })
     },
     detailQuery(){
       //详情查询
+      this.detail(1)
     },
     //每頁顯示條數
     handleSizeChange(pageSize){

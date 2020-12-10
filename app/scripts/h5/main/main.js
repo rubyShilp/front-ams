@@ -20,7 +20,7 @@ export default {
       this.querytype=type,
       this.initSumTop();
       this.initAttendTop(1);
-      this.initAttendTop(2);
+      // this.initAttendTop(2);
       this.initHealthTop(2);
       this.querystaticsA();
     },

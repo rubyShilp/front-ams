@@ -12,3 +12,8 @@ export const attendTop = async (params) => {
     );
     return result.data;
 };
+//根据学校ID年级ID班级ID查询统计考勤异常数据
+export const getStatisticsList = async (params) => {
+  let result = await post("/alading/api/statistics/getStatisticsAbAttendDetail", params);
+  return result.data;
+};

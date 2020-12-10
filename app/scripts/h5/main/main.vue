@@ -64,8 +64,8 @@
         </div>
         <div class="main-tabs chart2" style="position:relative;">
           <ams-chart
-            v-if="isTwo"
             :chartData="chartData_two"
+            v-if="chartData_two[0].length!=0"
             chartType="bar"
             titleText="当前学校考勤状态TOP10"
             :seriesData="series_two"
@@ -74,8 +74,8 @@
         </div>
         <div class="main-tabs chart3" style="position:relative;">
           <ams-chart
-            v-if="isThree"
             :chartData="chartData_three"
+            v-if="chartData_three[0].length!=0"
             chartType="bar"
             titleText="当前学校健康异常TOP10"
             :seriesData="series_three"
@@ -84,20 +84,20 @@
         </div>
         <div class="main-tabs chart1" style="position:relative;">
           <ams-chart
-            v-if="isOne"
             :chartData="chartData_one"
             chartType="line"
             titleText="当前健康异常周趋势"
             :seriesData="series_one"
+            v-if="chartData_one[0].length!=0"
           ></ams-chart>
         </div>
         <div class="main-tabs chart5" style="position:relative;">
           <ams-chart
-            v-if="isFive"
             :chartData="chartData_five"
             :indicatorData="indicator_five"
             chartType="radar"
             titleText="学校考勤异常周趋势"
+            v-if="chartData_five[0].length!=0"
           ></ams-chart>
         </div>
         <div class="main-table">
