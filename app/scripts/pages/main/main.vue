@@ -68,9 +68,9 @@
                             <td>
                               <div>{{ list.stuname }}</div>
                             </td>
-                            <td>{{ list.attendstate }}</td>
-                            <td>{{ list.heartrate }}</td>
-                            <td>{{ list.temperature }}</td>
+                            <td :class="{'attendsnormalColor':list.attendstate==='0','attendsabnormalColor':list.attendstate!=='0'}">{{ list.attendstate |kaoqinStatu}}</td>
+                            <td :class="{'temperaturenormalColor': list.temperature<=37.3 || list.temperature>=34,'temperatureabnormalColor': list.temperature>37.3||list.temperature<34}">{{ list.temperature }}</td>
+                            <td :class="{'heartnormalColor': list.heartrate<=120 || list.heartrate>=60,'heartabnormalColor': list.heartrate>120||list.heartrate<60}">{{ list.heartrate }}</td>
                             <td>
                               <div>{{ list.schoolname }}</div>
                             </td>
@@ -107,43 +107,50 @@
                   <li>
                     <div class="right-name">迟到人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumbelatecount }}</h1>
+                      <h1 style="color: #ed7d31;" v-if="attendanceInfo.sumbelatecount!=0">{{ attendanceInfo.sumbelatecount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumbelatecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">早退人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
+                      <h1 style="color: #ed7d31;" v-if="attendanceInfo.sumleaveearlycount!=0">{{ attendanceInfo.sumleaveearlycount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumleaveearlycount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">旷课人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumtruantcount }}</h1>
+                      <h1 style="color: #ed7d31;" v-if="attendanceInfo.sumtruantcount!=0">{{ attendanceInfo.sumtruantcount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumtruantcount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">请假人数</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumleavecount }}</h1>
+                      <h1 style="color: #ed7d31;" v-if="attendanceInfo.sumleavecount!=0">{{ attendanceInfo.sumleavecount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumleavecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">体温异常</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumtempecount }}</h1>
+                      <h1 style="color: red;" v-if="attendanceInfo.sumtempecount!=0">{{ attendanceInfo.sumtempecount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumtempecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">心率异常</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumheartratecount }}</h1>
+                      <h1 style="color: red;"  v-if="attendanceInfo.sumheartratecount!=0">{{ attendanceInfo.sumheartratecount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumheartratecount }}</h1>
                     </div>
                   </li>
                   <li>
                     <div class="right-name">活动量差</div>
                     <div class="right-number">
-                      <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
+                      <h1 style="color: red;" v-if="attendanceInfo.sumlessactivitycount!=0">{{ attendanceInfo.sumlessactivitycount }}</h1>
+                      <h1 v-else>{{ attendanceInfo.sumlessactivitycount }}</h1>
                     </div>
                   </li>
                 </ul>

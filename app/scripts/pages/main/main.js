@@ -18,11 +18,11 @@ export default {
       isFive: false,
       attendanceList: [], //考勤实时数据
       attendanceInfo: {}, //考勤异常数据汇总
-      chartData_one: [[], [10, 50, 100, 150]],
+      chartData_one: [[], []],
       series_one: [["迟到", "早退", "旷课", "请假"], [[],[],[],[]], "3"],
-      chartData_two: [[], [10, 50, 100, 150]],
+      chartData_two: [[], []],
       series_two: [["迟到", "早退", "旷课", "请假"], [[], [], [], []], "2"],
-      chartData_three: [[], [50, 150, 300, 550]],
+      chartData_three: [[], []],
       series_three: [["温度", "心率", "活动量差"], [[], [], []], "1"],
       chartData_four: [
         [],
@@ -70,15 +70,15 @@ export default {
       });
     },
     clear() {
-      this.chartData_one = [[], [10, 50, 100, 150]];
+      this.chartData_one = [[], []];
       this.series_one = [["迟到", "早退", "旷课", "请假"], [[],[],[],[]], "3"];
-      this.chartData_two = [[], [10, 50, 100, 150]];
+      this.chartData_two = [[], []];
       this.series_two = [
         ["迟到", "早退", "旷课", "请假"],
         [[], [], [], []],
         "2",
       ];
-      this.chartData_three = [[], [50, 150, 300, 550]];
+      this.chartData_three = [[], []];
       this.series_three = [["温度", "心率", "活动量差"], [[], [], []], "1"];
       this.chartData_four = [
         [],

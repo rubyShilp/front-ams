@@ -25,3 +25,23 @@ Vue.filter('resourceStatu',function(value){
         return '未启用';
     }
 })
+Vue.filter('kaoqinStatu',function(value){
+    switch (value) {
+        case '0':
+            value = "正常"
+            break;
+        case '1':
+            value = "迟到"
+            break;
+        case '2':
+            value = "早退"
+            break;
+        case '3': 
+            value = "旷课"
+            break;
+        case '4':
+            value = "请假"
+            break;
+    }
+    return value;
+})

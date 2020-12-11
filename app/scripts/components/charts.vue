@@ -118,10 +118,10 @@ export default {
       }
       switch (this.chartType) {
         case "line":
-          chart.setOption(this.generatorLineOption());
+          chart.setOption(this.generatorLineOption(this.seriesData[1]));
           break;
         case "bar":
-          chart.setOption(this.generatorBarOption());
+          chart.setOption(this.generatorBarOption(this.seriesData[1]));
           break;
         case "pie":
           chart.setOption(this.generatorPieOption());
@@ -146,7 +146,7 @@ export default {
       });
     },
     //折线配置
-    generatorLineOption() {
+    generatorLineOption(arr) {
       return {
         title: {
           text: this.titleText,
@@ -223,15 +223,25 @@ export default {
                     },
                   },
             min: 0,
-            max: 45,
-            splitNumber: 2,
+            max: function(){
+              let newArr = [];
+              let MAX = 0;
+              for(let i=0;i<arr.length;i++){
+                 for(let j=0;j<arr[i].length;j++){
+                    newArr.push(arr[i][j])
+                 }
+              }
+              MAX = Math.max(...newArr)+100;
+              return MAX;
+            },
+            splitNumber: 3,
           },
         ],
         series: this.configSeries(this.seriesData),
       };
     },
     //柱状配置
-    generatorBarOption() {
+    generatorBarOption(arr) {
       //判断是哪个柱状图
       let flag = this.seriesData[2];
       return {
@@ -305,7 +315,17 @@ export default {
           {
             type: "value",
             min: 0,
-            max: flag === "1" ? 150 : 45,
+            max: function(){
+              let newArr = [];
+              let MAX = 0;
+              for(let i=0;i<arr.length;i++){
+                 for(let j=0;j<arr[i].length;j++){
+                    newArr.push(arr[i][j])
+                 }
+              }
+              MAX = Math.max(...newArr)+100;
+              return MAX;
+            },
             splitNumber: 2,
             axisTick: {
               show: false,
@@ -401,16 +421,14 @@ export default {
           newSeries.push({
             name: arr[0][i],
             type: "line",
-            stack: "line",
             smooth: true,
             symbolSize: 3,
             itemStyle: {
               normal: {
                 //每根柱子颜色设置
                 color: function(params) {
-                  return ["#057bfb", "#01edfb", "#ed7d31", "#fbdb27"][
-                    params.seriesIndex
-                  ];
+                  let color = ["#057bfb", "#01edfb", "#ed7d31", "#fbdb27"][params.seriesIndex];;
+                  return  color;
                 },
               },
             },
@@ -504,7 +522,6 @@ export default {
             name: this.yAxisData[index],
           });
         }
-        console.log(pieData)
         return {
           tooltip: {
             // trigger: "item",

@@ -11,11 +11,10 @@ export default {
   },
   watch:{
     school(newVal){
-      console.log(newVal)
       this.$nextTick(()=>{
         this.getheadData(newVal);
-        this.getEchartData('1',newVal);
-        this.getEchartData('2',newVal);
+        this.getEchartData(this.school,'top');
+        this.getEchartData(this.school);
       })
     }
   },
@@ -25,7 +24,7 @@ export default {
       treList: [],
       userType: JSON.parse(sessionStorage.getItem("userInfo")).userType,
       arrs: {},
-      starttime:new Date(new Date().getTime()-30*24*60*60*1000),
+      starttime:new Date(new Date().getTime()-7*24*60*60*1000),
       endtime:new Date(),
       tabs: [
         {id: 1,name: "学校"},
@@ -37,12 +36,12 @@ export default {
       schoolcode: "",
       //echarts信息
       tabPosition: "line",
-      chartData_one: [[], [0,50,100,150]],
+      chartData_one: [[], []],
       series_one: [['迟到','早退','旷课','请假'],[[], [],[],[]],"1"],
       chartData_two: [[],[],[],[]],
-       chartData_three: [[], [0,5,10,15]],
+       chartData_three: [[], []],
        series_three: [['迟到','早退','旷课','请假'],[[],[],[],[]],"2"],
-       chartData_four: [[], [0,5,10,15]],
+       chartData_four: [[], []],
        series_four: [['温度','心率','活动量差'],[ [],[],[]],"3"],
     };
   },
@@ -51,17 +50,17 @@ export default {
   },
   beforeMount() {
     this.getheadData(this.school);
-    this.getEchartData('1',this.school);
-    this.getEchartData('2',this.school);
+    this.getEchartData(this.school,'top');
+    this.getEchartData(this.school);
   },
   methods: {
     clear(){
-      this.chartData_one = [[], [0,50,100,150]];
+      this.chartData_one = [[], []];
       this.series_one = [['迟到','早退','旷课','请假'],[[], [],[],[]],"1"];
       this.chartData_two = [[],[],[],[]];
-      this.chartData_three = [[], [0,5,10,15]];
+      this.chartData_three = [[], []];
       this.series_three =  [['迟到','早退','旷课','请假'],[ [],[],[],[]],"2"];
-      this.chartData_four = [[], [0,5,10,15]];
+      this.chartData_four = [[], []];
       this.series_four = [['温度','心率','活动量差'],[ [],[],[]],"3"];
     },
     //获取头部数据
@@ -79,7 +78,7 @@ export default {
       })
     },
     //获取图表数据
-    getEchartData(type,code){
+    getEchartData(code,statu){
       this.clear();
       let params = {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
@@ -90,24 +89,29 @@ export default {
         page: "1",
         pagesize: "10",
       }
-      if(type === "1"){
+      if(statu === "top"){
+        params.starttime = formDate(new Date(new Date()), "yyyy-MM-dd hh:mm:ss")
+      }
         homeServer.echartData(params).then(res=>{
           if(res.success){
             let list = res.resultMap.abAttendTop;
               //获取考勤异常的数据
               for(let i=0;i<list.length;i++){
                 //考勤异常学校TOP10
-                this.chartData_one[0].push(list[i].basename)
-                this.series_one[1][0].push(list[i].sumbelatecount)
-                this.series_one[1][1].push(list[i].sumleaveearlycount)
-                this.series_one[1][2].push(list[i].sumtruantcount)
-                this.series_one[1][3].push(list[i].sumleavecount)
-                //考勤异常周趋势
-                this.chartData_three[0].push(list[i].createtime)
-                this.series_three[1][0].push(list[i].sumbelatecount)
-                this.series_three[1][1].push(list[i].sumleaveearlycount)
-                this.series_three[1][2].push(list[i].sumtruantcount)
-                this.series_three[1][3].push(list[i].sumleavecount)
+                if(statu === "top"){
+                  this.chartData_one[0].push(list[i].basename)
+                  this.series_one[1][0].push(list[i].sumbelatecount)
+                  this.series_one[1][1].push(list[i].sumleaveearlycount)
+                  this.series_one[1][2].push(list[i].sumtruantcount)
+                  this.series_one[1][3].push(list[i].sumleavecount)
+                }else{
+                   //考勤异常周趋势
+                  this.chartData_three[0].push(list[i].createtime)
+                  this.series_three[1][0].push(list[i].sumbelatecount)
+                  this.series_three[1][1].push(list[i].sumleaveearlycount)
+                  this.series_three[1][2].push(list[i].sumtruantcount)
+                  this.series_three[1][3].push(list[i].sumleavecount)
+                }
               }
             if(list.length === 0){
               this.$message({
@@ -117,22 +121,24 @@ export default {
             }
           }
         })
-      }else if(type === "2"){
         homeServer.healthData(params).then(res=>{
           if(res.success){
             let list = res.resultMap.abHealthTop;
               //获取健康异常的数据
               for(let i=0;i<list.length;i++){
                 //健康异常学校TOP10
-                this.chartData_two[3].push(list[i].basename)
-                this.chartData_two[0].push(list[i].sumtempecount)
-                this.chartData_two[1].push(list[i].sumheartratecount)
-                this.chartData_two[2].push(list[i].sumlessactivitycount)
-                //健康异常周趋势
-                this.chartData_four[0].push(list[i].createtime)
-                this.series_four[1][0].push(list[i].sumtempecount)
-                this.series_four[1][1].push(list[i].sumheartratecount)
-                this.series_four[1][2].push(list[i].sumlessactivitycount)
+                if(statu === "top"){
+                  this.chartData_two[3].push(list[i].basename)
+                  this.chartData_two[0].push(list[i].sumtempecount)
+                  this.chartData_two[1].push(list[i].sumheartratecount)
+                  this.chartData_two[2].push(list[i].sumlessactivitycount)
+                }else{
+                  //健康异常周趋势
+                 this.chartData_four[0].push(list[i].createtime)
+                 this.series_four[1][0].push(list[i].sumtempecount)
+                 this.series_four[1][1].push(list[i].sumheartratecount)
+                 this.series_four[1][2].push(list[i].sumlessactivitycount)
+                }
               }
               if(list.length === 0){
                 this.$message({
@@ -142,14 +148,13 @@ export default {
               }
           }
         })
-      }
     },
     changeType(type){
       this.tabType = type;
       this.$nextTick(()=>{
         this.getheadData(this.school);
-        this.getEchartData("1",this.school);
-        this.getEchartData("2",this.school);
+        this.getEchartData(this.school,'top');
+        this.getEchartData(this.school);
       })
     }
   },
