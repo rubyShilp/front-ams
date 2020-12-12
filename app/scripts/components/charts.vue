@@ -242,6 +242,7 @@ export default {
     },
     //柱状配置
     generatorBarOption(arr) {
+      let route = 0;
       //判断是哪个柱状图
       let flag = this.seriesData[2];
       return {
@@ -293,7 +294,7 @@ export default {
 
             axisLabel: {
               interval: 0, //代表显示所有x轴标签显示
-              rotate: this.h5 ? 45 : 0,
+              rotate: route = this.chartData[0].length>5 ? 45: 0,
             },
             axisLine:
               this.theme === "main"

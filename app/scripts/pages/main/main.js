@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
-      starttime: new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
+      starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
       querytype: 1,
       isOne: false,
@@ -60,9 +60,11 @@ export default {
            this.schoolList.unshift({schoolcode: "",schoolname: "全部"})
          }
           this.initSumTop();
-          this.initAttendTop(1);
+          this.initAttendTop();
+          this.initAttendTop("one");
           // this.initAttendTop(2);
-          this.initHealthTop(1);
+          this.initHealthTop();
+          this.initHealthTop("one");
           // this.initHealthTop(2);
           this.initStatisticsTemper();
           this.initStatisticsReal(0);
@@ -92,18 +94,20 @@ export default {
       this.$nextTick(() => {
         this.clear();
         this.initSumTop();
-        this.initAttendTop(1);
+        this.initAttendTop();
+        this.initAttendTop("one");
         // this.initAttendTop(2);
-        this.initHealthTop(1);
+        this.initHealthTop();
+        this.initHealthTop("one");
         // this.initHealthTop(2);
         this.initStatisticsTemper();
         this.initStatisticsReal(0);
       });
     },
     //统计考勤异常数据
-    initAttendTop() {
+    initAttendTop(statu) {
       let params = {
-        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         gradecode: this.gradecode,
@@ -113,21 +117,27 @@ export default {
         page: 0,
         pagesize: "10",
       };
+      if(statu == "one"){
+         params.starttime = formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss")
+      }
       mainServer.attendTop(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.abAttendTop;
           if(list.length !== 0){
               for (let i = 0; i < list.length; i++) {
-                this.chartData_two[0].push(list[i].basename);
-                this.series_two[1][0].push(list[i].sumbelatecount);
-                this.series_two[1][1].push(list[i].sumleavecount);
-                this.series_two[1][2].push(list[i].sumleaveearlycount);
-                this.series_two[1][3].push(list[i].sumtruantcount);
-                this.chartData_one[0].push(list[i].createtime);
-                this.series_one[1][0].push(list[i].sumbelatecount);
-                this.series_one[1][1].push(list[i].sumleavecount);
-                this.series_one[1][2].push(list[i].sumleaveearlycount);
-                this.series_one[1][3].push(list[i].sumtruantcount);
+                if(statu == "one"){
+                  this.chartData_one[0].push(list[i].createtime);
+                  this.series_one[1][0].push(list[i].sumbelatecount);
+                  this.series_one[1][1].push(list[i].sumleavecount);
+                  this.series_one[1][2].push(list[i].sumleaveearlycount);
+                  this.series_one[1][3].push(list[i].sumtruantcount);
+                }else{
+                  this.chartData_two[0].push(list[i].basename);
+                  this.series_two[1][0].push(list[i].sumbelatecount);
+                  this.series_two[1][1].push(list[i].sumleavecount);
+                  this.series_two[1][2].push(list[i].sumleaveearlycount);
+                  this.series_two[1][3].push(list[i].sumtruantcount);
+                }
               }
           }else{
             this.$message({
@@ -139,9 +149,9 @@ export default {
       });
     },
     //统计健康异常数据
-    initHealthTop(type) {
+    initHealthTop(statu) {
       let params = {
-        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         gradecode: this.gradecode,
@@ -151,19 +161,25 @@ export default {
         page: 0,
         pagesize: "10",
       };
+      if(statu == "one"){
+        params.starttime = formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss")
+     }
       mainServer.healthTop(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.abHealthTop;
           if(list.length !== 0){
               for (let i = 0; i < list.length; i++) {
-                this.chartData_three[0].push(list[i].basename);
-                this.series_three[1][0].push(list[i].sumtempecount);
-                this.series_three[1][1].push(list[i].sumheartratecount);
-                this.series_three[1][2].push(list[i].sumlessactivitycount);
-                this.chartData_five[0].push(list[i].createtime);
-                this.indicator_five[0].push(list[i].sumtempecount);
-                this.indicator_five[1].push(list[i].sumheartratecount);
-                this.indicator_five[2].push(list[i].sumlessactivitycount);
+                if(statu == "one"){
+                  this.chartData_five[0].push(list[i].createtime);
+                  this.indicator_five[0].push(list[i].sumtempecount);
+                  this.indicator_five[1].push(list[i].sumheartratecount);
+                  this.indicator_five[2].push(list[i].sumlessactivitycount);
+                }else{
+                  this.chartData_three[0].push(list[i].basename);
+                  this.series_three[1][0].push(list[i].sumtempecount);
+                  this.series_three[1][1].push(list[i].sumheartratecount);
+                  this.series_three[1][2].push(list[i].sumlessactivitycount);
+                }
               }
           }else{
             this.$message({
@@ -177,7 +193,7 @@ export default {
     //初始化考勤异常数据汇总
     initSumTop() {
       let params = {
-        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         gradecode: this.gradecode,
@@ -193,7 +209,7 @@ export default {
     //初始化统计体温分布
     initStatisticsTemper() {
       let params = {
-        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
       };

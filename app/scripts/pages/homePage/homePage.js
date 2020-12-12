@@ -66,7 +66,7 @@ export default {
     //获取头部数据
     getheadData(code){
       let params = {
-        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode:code,
         querytype: this.tabType
