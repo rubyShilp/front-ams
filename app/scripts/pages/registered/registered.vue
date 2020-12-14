@@ -34,15 +34,23 @@
             />
           </li>
           <li>
-            <p class="login-regrit-input-title">确认密码</p>
+            <p class="login-regrit-input-title">验证码</p>
             <input
-              v-model="user.againPwd"
-              placeholder="请输入确认密码"
+              v-model="user.smsKey"
+              placeholder="请输入验证码"
               autocomplete="off"
-              type="password"
-              minlength="8"
-              maxlength="16"
+              type="text"
+              maxlength="6"
+              style="width: 242px"
             />
+            <el-button
+              type="primary"
+              @click="smsSendCode()"
+              style="width:142px"
+              id="codeSms"
+            >
+              获取验证码
+            </el-button>
           </li>
         </ul>
         <div class="button-box" style="margin-top:40px">

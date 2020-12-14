@@ -29,25 +29,28 @@ export function restTime(id) {
   var resetbtn = document.getElementById(id),
     count = 30,
     iTimer = 0,
-    ibtn = true;
+    ibtn = true
   if (ibtn) {
-    ibtn = false;
-    clearInterval(iTimer);
-    // resetbtn.disabled=true;
-    $("#" + id).attr("disabled", "true");
-    iTimer = setInterval(
-      function() {
-        if (count == 1) {
-          resetbtn.innerHTML = "重新发送";
-          clearInterval(iTimer);
-          ibtn = true;
-          $("#" + id).removeAttr("disabled");
-          return false;
-        }
-        resetbtn.innerHTML = "发送(" + --count + ")";
-      }.bind(this),
-      1000
-    );
+    ibtn = false
+    clearInterval(iTimer)
+    resetbtn.setAttribute('disabled', 'true')
+    resetbtn.style.backgroundColor = '#ccc'
+    // resetbtn.style.cursor = 'not-allowed';
+    resetbtn.style.pointerEvents = 'none'
+    iTimer = setInterval(() => {
+      if (count == 1) {
+        resetbtn.innerHTML = '重新发送'
+        clearInterval(iTimer)
+        ibtn = true
+        resetbtn.removeAttribute('disabled')
+        resetbtn.removeAttribute('disable')
+        resetbtn.style.backgroundColor = ''
+        // resetbtn.style.cursor = 'pointer';
+        resetbtn.style.pointerEvents = ''
+        return false
+      }
+      resetbtn.innerHTML = '发送(' + --count + ')'
+    }, 1000)
   }
 }
 //数据是否存在

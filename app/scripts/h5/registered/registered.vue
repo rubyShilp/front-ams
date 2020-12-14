@@ -25,18 +25,30 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-input
-            v-model="user.againPwd"
-            placeholder="再次确认密码"
-            autocomplete="off"
-            type="password"
-            minlength="8"
-            maxlength="16"
-          />
+          <el-col :span="13">
+            <el-input
+              v-model="user.againPwd"
+              placeholder="再次确认密码"
+              autocomplete="off"
+              type="password"
+              minlength="8"
+              maxlength="16"
+            />
+          </el-col>
+          <el-col :span="11">
+            <el-button
+              type="primary"
+              @click="smsSendCode()"
+              style="width:90%;height:40px"
+              id="codeSms"
+            >
+              获取验证码
+            </el-button>
+          </el-col>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="registered()" style="width: 100%;">
-            登&nbsp;&nbsp;录
+            注&nbsp;&nbsp;册
           </el-button>
         </el-form-item>
       </el-form>
