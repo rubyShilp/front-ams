@@ -11,6 +11,13 @@ Vue.filter('sexName',function(value){
         return '女';
     }
 })
+Vue.filter('recordStatus',function(value){
+    if(value==1){
+        return '正常';
+    }else{
+        return '异常';
+    }
+})
 Vue.filter('resourceType',function(value){
     if(value==1){
         return '按钮';

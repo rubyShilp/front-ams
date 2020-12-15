@@ -43,9 +43,9 @@
                   查询
                 </el-button>
               </el-form-item>
-              <el-form-item label="">
+              <!-- <el-form-item label="">
                 <el-button size="mini">批量删除</el-button>
-              </el-form-item>
+              </el-form-item> -->
             </el-form>
           </div>
           <div class="table-border">
@@ -60,10 +60,15 @@
               :row-style="{ height: '40px' }"
               :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
             >
-              <el-table-column type="selection" width="100"> </el-table-column>
+              <!-- <el-table-column type="selection" width="100"> </el-table-column> -->
               <el-table-column label="序号" type="index" align="center">
               </el-table-column>
-              <el-table-column prop="imei" label="IMEI码" sortable>
+              <el-table-column
+                prop="imei"
+                label="IMEI码"
+                :show-overflow-tooltip="true"
+                sortable
+              >
               </el-table-column>
               <el-table-column prop="stuname" label="学生姓名" sortable>
               </el-table-column>
@@ -73,22 +78,37 @@
               </el-table-column>
               <el-table-column prop="classname" label="班级名称" sortable>
               </el-table-column>
-              <el-table-column prop="printtime" label="签到时间" sortable>
+              <el-table-column
+                prop="printtime"
+                label="签到时间"
+                width="150"
+                sortable
+              >
                 <template slot-scope="scope">
                   {{ scope.row.printtime | Date("yyyy-MM-dd hh:mm:ss") }}
                 </template>
               </el-table-column>
-              <el-table-column prop="inoutstate" label="进出状态" sortable>
+              <el-table-column label="进出状态" sortable>
+                <template slot-scope="scope">
+                  {{ scope.row.inoutstate | recordStatus }}
+                </template>
               </el-table-column>
-              <el-table-column prop="attendstate" label="考勤状态" sortable>
+              <el-table-column label="考勤状态" sortable>
+                <template slot-scope="scope">
+                  {{ scope.row.attendstate | recordStatus }}
+                </template>
               </el-table-column>
               <el-table-column label="操作" width="200">
-                <template class="table-operation">
-                  <a href="javaScript:;"><i class="el-icon-view"></i>详情</a>
+                <template class="table-operation" slot-scope="scope">
+                  <a href="javaScript:;" @click="detailRecord(scope.row)"
+                    ><i class="el-icon-view"></i>详情</a
+                  >
                   <span>|</span>
-                  <a href="javaScript:;"><i class="el-icon-edit"></i>编辑</a>
-                  <span>|</span>
-                  <a href="javaScript:;"><i class="el-icon-delete"></i>删除</a>
+                  <a href="javaScript:;" @click="updateRecord(scope.row)"
+                    ><i class="el-icon-edit"></i>修正</a
+                  >
+                  <!-- <span>|</span>
+                  <a href="javaScript:;"><i class="el-icon-delete"></i>删除</a> -->
                 </template>
               </el-table-column>
             </el-table>
@@ -108,6 +128,44 @@
         </div>
       </div>
     </el-container>
+    <el-dialog
+      title="考勤记录详情"
+      width="500px"
+      :visible.sync="isRecordDetail"
+    >
+      <el-form
+        ref="equipmentFrom"
+        :model="recordDetail"
+        size="mini"
+        label-width="100px"
+        class="equipement-from"
+      >
+        <el-form-item label="IMEI码：">
+          {{ recordDetail.imei }}
+        </el-form-item>
+        <el-form-item label="学生姓名：">
+          {{ recordDetail.stuname }}
+        </el-form-item>
+        <el-form-item label="学号：">
+          {{ recordDetail.sno }}
+        </el-form-item>
+        <el-form-item label="年级名称：">
+          {{ recordDetail.gradename }}
+        </el-form-item>
+        <el-form-item label="班级名称：">
+          {{ recordDetail.classname }}
+        </el-form-item>
+        <el-form-item label="签到时间：">
+          {{ recordDetail.printtime | Date("yyyy-MM-dd hh:mm:ss") }}
+        </el-form-item>
+        <el-form-item label="进出状态：">
+          {{ recordDetail.inoutstate | recordStatus }}
+        </el-form-item>
+        <el-form-item label="考勤状态：">
+          {{ recordDetail.attendstate | recordStatus }}
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script src="./record.js"></script>
