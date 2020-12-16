@@ -282,7 +282,7 @@
                         ></pagination>
                  </div>
                 <div slot="footer" class="dialog-footer">
-                  <el-button size="small" @click="handle_dialog=false">关闭</el-button>
+                  <el-button size="small" @click="handle_dialog=false;right_data=[];chartData[0]=[]">关闭</el-button>
                 </div>
                 </el-dialog>
           </div>
