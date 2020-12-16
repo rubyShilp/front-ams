@@ -69,3 +69,43 @@ export const editResource = async (params) => {
     let result = await post("/alading/api/resource/updateResourceInfo", params);
     return result.data;
 };
+//查询用户列表接口
+export const queryUser = async (params) => {
+    let result = await post("/alading/api/user/getAllUsers", params);
+    return result.data;
+};
+//创建用户接口
+export const createUser = async (params) => {
+    let result = await post("/alading/api/user/createUser", params);
+    return result.data;
+};
+//查询用户详情
+export const detailUser = async (params) => {
+    let result = await post("/alading/api/user/getUserDetail", params);
+    return result.data;
+};
+//编辑用户信息接口
+export const editlUser = async (params) => {
+    let result = await post("/alading/api/user/updateUserInfo", params);
+    return result.data;
+};
+//批量删除用户信息接口
+export const delmoreRUser = async (params) => {
+    let result = await get("/alading/api/user/batchRemoveUsers?usercodes=", params);
+    return result.data;
+};
+//删除用户接口
+export const delUser = async (params) => {
+    let result = await get("/alading/api/user/removeUser?usercode="+params);
+    return result.data;
+};
+//分配角色给用户--查询（角色及学校、年级、班级的树）
+export const getUserRole = async (params) => {
+    let result = await post("/alading/api/role/getUserRole",params);
+    return result.data;
+};
+//分配角色给用户--保存
+export const saveUserRelation = async (params) => {
+    let result = await post("/alading/api/role/saveUserRelation",params);
+    return result.data;
+};

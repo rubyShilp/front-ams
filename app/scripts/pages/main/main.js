@@ -8,7 +8,7 @@ export default {
   data() {
     return {
       userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
-      starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
+      starttime: new Date(new Date().getTime() - 6 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
       querytype: 1,
       isOne: false,

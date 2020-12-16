@@ -99,6 +99,7 @@ export default {
     //根據學校查詢考勤統計信息
     schoolDataQuery(page,type){
       this.scoolType=type;
+      console.log(this.schoolcode,this.gradecode,this.classcode)
       let params={
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),

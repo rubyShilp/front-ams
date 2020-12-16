@@ -25,6 +25,13 @@ Vue.filter('resourceStatu',function(value){
         return '未启用';
     }
 })
+Vue.filter('userStatu',function(value){
+    if(value==1){
+        return '禁用';
+    }else{
+        return '正常';
+    }
+})
 Vue.filter('kaoqinStatu',function(value){
     switch (value) {
         case '0':
