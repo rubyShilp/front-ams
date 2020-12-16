@@ -16,6 +16,22 @@ export const attendRecord = async (params) => {
   );
   return result.data;
 };
+//考勤信息详情
+export const detailRecord = async (params) => {
+  let result = await post(
+    "/alading/api/attend/record/getAttendRecordDetail",
+    params
+  );
+  return result.data;
+};
+//考勤信息修正
+export const updateRecord = async (params) => {
+  let result = await post(
+    "/alading/api/attend/record/updateAttendRecord",
+    params
+  );
+  return result.data;
+};
 /**
  *
  * 考勤设备接口调用

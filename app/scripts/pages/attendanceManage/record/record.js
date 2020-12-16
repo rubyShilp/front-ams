@@ -9,6 +9,8 @@ export default {
       page:1,
       pageSize:10,//每頁顯示條數
       data: [],
+      isRecordDetail:false,//是否显示考勤记录详情
+      recordDetail:{},//考勤记录详情
       starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
       schoolcodeId:'',
@@ -90,5 +92,27 @@ export default {
       this.page=page;
       this.initAttendTop(page-1);
     },
+    //详情
+    detailRecord(list){
+      this.recordDetail=list;
+      this.isRecordDetail=true;
+      // let params={attendcode:list.attendcode};
+      // attendanceServer.detailRecord(params).then(res=>{
+      //   if(res.success){
+      //    this.recordDetail=res.resultMap;
+      //    this.isRecordDetail=true;
+      //   }
+      // })
+    },
+    //恢复
+    updateRecord(list){
+      let params={attendcode:list.attendcode};
+      attendanceServer.updateRecord(params).then(res=>{
+        if(res.success){
+          this.$message.success('修正成功');
+          this.initAttendTop(0);
+        }
+      })
+    }
   },
 };
