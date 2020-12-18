@@ -35,10 +35,8 @@
              @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
-            <!-- <el-table-column label="序号" type="index" align="center">
-            </el-table-column> -->
-            <el-table-column label="序号" prop="rolecode" align="center">
-            </el-table-column>
+            <el-table-column label="序号" type="index" align="center">
+              </el-table-column>
             <el-table-column
               prop="rolename"
               label="角色名称"

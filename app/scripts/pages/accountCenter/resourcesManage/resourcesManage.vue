@@ -35,8 +35,8 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
-            <el-table-column label="序号" prop="resourcecode" align="center">
-            </el-table-column>
+            <el-table-column label="序号" type="index" align="center">
+              </el-table-column>
             <el-table-column
               prop="resourcename"
               label="资源名称"

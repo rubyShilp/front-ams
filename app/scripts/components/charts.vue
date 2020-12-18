@@ -677,7 +677,7 @@ export default {
             {
               type: "pie",
               radius: 70,
-              center: ["20%", "62%"],
+              center: ["20%", "58%"],
               data: pieData1,
               label: {
                 normal: {
@@ -697,6 +697,12 @@ export default {
                       "#276ef9",
                       "#08a21d",
                       "#01edfb",
+                      "#fa5a5a",
+                      "#f0d264",
+                      "#82c8a0",
+                      "#7fccde",
+                      "#6698cb",
+                      "#cb99c5"
                     ];
                     return colorList[params.dataIndex];
                   },
@@ -706,7 +712,7 @@ export default {
             {
               type: "pie",
               radius: 70,
-              center: ["50%", "62%"],
+              center: ["50%", "58%"],
               data: pieData2,
               label: {
                 normal: {
@@ -719,13 +725,19 @@ export default {
                   //每根柱子颜色设置
                   color: function(params) {
                     let colorList = [
-                      "#057bfb",
+                       "#057bfb",
                       "#fbdb27",
                       "#f3f3f3",
                       "#ed7d31",
                       "#276ef9",
                       "#08a21d",
                       "#01edfb",
+                      "#fa5a5a",
+                      "#f0d264",
+                      "#82c8a0",
+                      "#7fccde",
+                      "#6698cb",
+                      "#cb99c5"
                     ];
                     return colorList[params.dataIndex];
                   },
@@ -735,7 +747,7 @@ export default {
             {
               type: "pie",
               radius: 70,
-              center: ["80%", "62%"],
+              center: ["80%", "58%"],
               data: pieData3,
               label: {
                 normal: {
@@ -748,13 +760,19 @@ export default {
                   //每根柱子颜色设置
                   color: function(params) {
                     let colorList = [
-                      "#057bfb",
+                       "#057bfb",
                       "#fbdb27",
                       "#f3f3f3",
                       "#ed7d31",
                       "#276ef9",
                       "#08a21d",
                       "#01edfb",
+                      "#fa5a5a",
+                      "#f0d264",
+                      "#82c8a0",
+                      "#7fccde",
+                      "#6698cb",
+                      "#cb99c5"
                     ];
                     return colorList[params.dataIndex];
                   },

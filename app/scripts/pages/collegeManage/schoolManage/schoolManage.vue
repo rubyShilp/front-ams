@@ -33,7 +33,7 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
-            <el-table-column prop="schoolcode" label="序号"  align="center">
+            <el-table-column label="序号" type="index" align="center">
             </el-table-column>
             <el-table-column prop="schoolname" label="学校名称" sortable>
             </el-table-column>
