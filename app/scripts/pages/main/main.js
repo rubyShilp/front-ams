@@ -19,7 +19,7 @@ export default {
       attendanceList: [], //考勤实时数据
       attendanceInfo: {}, //考勤异常数据汇总
       chartData_one: [[], []],
-      series_one: [["迟到", "早退", "旷课", "请假"], [[],[],[],[]], "3"],
+      series_one: [["迟到", "早退", "旷课", "请假"], [[], [], [], []], "3"],
       chartData_two: [[], []],
       series_two: [["迟到", "早退", "旷课", "请假"], [[], [], [], []], "2"],
       chartData_three: [[], []],
@@ -36,6 +36,7 @@ export default {
       gradecode: "",
       classcode: "",
       schoolList: [], //所有学校信息
+      timer: "",
     };
   },
   beforeMount() {
@@ -45,6 +46,9 @@ export default {
     //this.classcode=this.userInfo.roles[0].classcode;
     this.updateTime();
     this.initGetSchool();
+    this.timer = setTimeout(() => {
+      this.initGetSchool();
+    }, 60 * 1000);
   },
   methods: {
     //初始化学校信息
@@ -53,12 +57,12 @@ export default {
       mainServer.getSchool(params).then((res) => {
         if (res.success) {
           this.schoolList = res.resultMap.schools;
-          if(this.userInfo.userType === 2){
+          if (this.userInfo.userType === 2) {
             this.schoolcode = this.schoolList[0].schoolcode;
-         }else{
-           this.schoolcode = "";
-           this.schoolList.unshift({schoolcode: "",schoolname: "全部"})
-         }
+          } else {
+            this.schoolcode = "";
+            this.schoolList.unshift({ schoolcode: "", schoolname: "全部" });
+          }
           this.initSumTop();
           this.initAttendTop();
           this.initAttendTop("one");
@@ -73,7 +77,11 @@ export default {
     },
     clear() {
       this.chartData_one = [[], []];
-      this.series_one = [["迟到", "早退", "旷课", "请假"], [[],[],[],[]], "3"];
+      this.series_one = [
+        ["迟到", "早退", "旷课", "请假"],
+        [[], [], [], []],
+        "3",
+      ];
       this.chartData_two = [[], []];
       this.series_two = [
         ["迟到", "早退", "旷课", "请假"],
@@ -91,18 +99,25 @@ export default {
     },
     //选择学校查询信息
     selectSchool() {
+      clearTimeout(this.timer);
       this.$nextTick(() => {
-        this.clear();
-        this.initSumTop();
-        this.initAttendTop();
-        this.initAttendTop("one");
-        // this.initAttendTop(2);
-        this.initHealthTop();
-        this.initHealthTop("one");
-        // this.initHealthTop(2);
-        this.initStatisticsTemper();
-        this.initStatisticsReal(0);
+        this.initFunction();
+        this.timer = setTimeout(() => {
+          this.initFunction();
+        }, 60 * 1000);
       });
+    },
+    initFunction() {
+      this.clear();
+      this.initSumTop();
+      this.initAttendTop();
+      this.initAttendTop("one");
+      // this.initAttendTop(2);
+      this.initHealthTop();
+      this.initHealthTop("one");
+      // this.initHealthTop(2);
+      this.initStatisticsTemper();
+      this.initStatisticsReal(0);
     },
     //统计考勤异常数据
     initAttendTop(statu) {
@@ -117,33 +132,36 @@ export default {
         page: 0,
         pagesize: "10",
       };
-      if(statu == "one"){
-         params.starttime = formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss")
+      if (statu == "one") {
+        params.starttime = formDate(
+          new Date(this.starttime),
+          "yyyy-MM-dd hh:mm:ss"
+        );
       }
       mainServer.attendTop(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.abAttendTop;
-          if(list.length !== 0){
-              for (let i = 0; i < list.length; i++) {
-                if(statu == "one"){
-                  this.chartData_one[0].push(list[i].createtime);
-                  this.series_one[1][0].push(list[i].sumbelatecount);
-                  this.series_one[1][1].push(list[i].sumleavecount);
-                  this.series_one[1][2].push(list[i].sumleaveearlycount);
-                  this.series_one[1][3].push(list[i].sumtruantcount);
-                }else{
-                  this.chartData_two[0].push(list[i].basename);
-                  this.series_two[1][0].push(list[i].sumbelatecount);
-                  this.series_two[1][1].push(list[i].sumleavecount);
-                  this.series_two[1][2].push(list[i].sumleaveearlycount);
-                  this.series_two[1][3].push(list[i].sumtruantcount);
-                }
+          if (list.length !== 0) {
+            for (let i = 0; i < list.length; i++) {
+              if (statu == "one") {
+                this.chartData_one[0].push(list[i].createtime);
+                this.series_one[1][0].push(list[i].sumbelatecount);
+                this.series_one[1][1].push(list[i].sumleavecount);
+                this.series_one[1][2].push(list[i].sumleaveearlycount);
+                this.series_one[1][3].push(list[i].sumtruantcount);
+              } else {
+                this.chartData_two[0].push(list[i].basename);
+                this.series_two[1][0].push(list[i].sumbelatecount);
+                this.series_two[1][1].push(list[i].sumleavecount);
+                this.series_two[1][2].push(list[i].sumleaveearlycount);
+                this.series_two[1][3].push(list[i].sumtruantcount);
               }
-          }else{
+            }
+          } else {
             this.$message({
               type: "error",
-              message: "暂无图表数据"
-            })
+              message: "暂无图表数据",
+            });
           }
         }
       });
@@ -161,31 +179,34 @@ export default {
         page: 0,
         pagesize: "10",
       };
-      if(statu == "one"){
-        params.starttime = formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss")
-     }
+      if (statu == "one") {
+        params.starttime = formDate(
+          new Date(this.starttime),
+          "yyyy-MM-dd hh:mm:ss"
+        );
+      }
       mainServer.healthTop(params).then((res) => {
         if (res.success) {
           let list = res.resultMap.abHealthTop;
-          if(list.length !== 0){
-              for (let i = 0; i < list.length; i++) {
-                if(statu == "one"){
-                  this.chartData_five[0].push(list[i].createtime);
-                  this.indicator_five[0].push(list[i].sumtempecount);
-                  this.indicator_five[1].push(list[i].sumheartratecount);
-                  this.indicator_five[2].push(list[i].sumlessactivitycount);
-                }else{
-                  this.chartData_three[0].push(list[i].basename);
-                  this.series_three[1][0].push(list[i].sumtempecount);
-                  this.series_three[1][1].push(list[i].sumheartratecount);
-                  this.series_three[1][2].push(list[i].sumlessactivitycount);
-                }
+          if (list.length !== 0) {
+            for (let i = 0; i < list.length; i++) {
+              if (statu == "one") {
+                this.chartData_five[0].push(list[i].createtime);
+                this.indicator_five[0].push(list[i].sumtempecount);
+                this.indicator_five[1].push(list[i].sumheartratecount);
+                this.indicator_five[2].push(list[i].sumlessactivitycount);
+              } else {
+                this.chartData_three[0].push(list[i].basename);
+                this.series_three[1][0].push(list[i].sumtempecount);
+                this.series_three[1][1].push(list[i].sumheartratecount);
+                this.series_three[1][2].push(list[i].sumlessactivitycount);
               }
-          }else{
+            }
+          } else {
             this.$message({
               type: "error",
-              message: "暂无图表数据"
-            })
+              message: "暂无图表数据",
+            });
           }
         }
       });
@@ -225,8 +246,8 @@ export default {
           } else {
             this.$message({
               type: "error",
-              message: "体温概括暂无图表数据"
-            })
+              message: "体温概括暂无图表数据",
+            });
           }
         }
       });

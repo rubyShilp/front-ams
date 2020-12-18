@@ -1,6 +1,7 @@
 import charts from "@/components/charts";
 import * as mainServer from "@/pages/main/main.server.js";
 import main from "@/pages/main/main.js";
+import { formDate } from "@/util/core.js";
 export default {
   mixins: [main],
   components: {
