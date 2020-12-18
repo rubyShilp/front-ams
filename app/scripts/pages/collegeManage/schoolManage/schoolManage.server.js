@@ -29,3 +29,8 @@ export const detailSchool = async (params) => {
   let result = await post("/alading/api/school/getSchoolDetail",params);
   return result.data
 }
+//获取省份地区信息
+export const getAllProvinces = async (params) => {
+  let result = await post("/alading/api/map/getAllProvinces",params);
+  return result.data
+}

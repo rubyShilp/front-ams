@@ -22,6 +22,8 @@ export default {
           {id: 1,value: '中职'},
           {id: 2,value: '其它'}
         ],
+        procity: [],
+        options: [],
         school_rules: {
           schoolname: [
               { required: true, message: '学校名称不能为空', trigger: 'blur' }
@@ -34,7 +36,7 @@ export default {
           ],
           schooltype: [
             { required: true, message: '请选择学校类型', trigger: 'blur' }
-        ]
+        ],
         }
       };
     },
@@ -79,11 +81,22 @@ export default {
         for(let key in this.handleData){
           this.handleData[key] = ""
         }
+        //获取省份地区信息
+        schoolServer.getAllProvinces({}).then(res=>{
+          if(res.success){
+            this.options = res.resultMap.options
+          }
+        })
         if(statu === 'add'){
           this.type = 'add';
           this.title = '新增学校';
           this.handle_dialog = true;
         }else if(statu === 'edit'){
+          console.log(row)
+          if(row.provcode && row.citycode){
+            this.procity[0] = row.provcode;
+            this.procity[1] = row.citycode;
+          }
           this.type = 'edit';
           this.title = '编辑学校';
           this.handleData = Object.assign({},row)
@@ -147,8 +160,14 @@ export default {
       },
       //处理操作
       handle(type,formName){
+        if(this.procity.length === 0){
+           this.tip('error','请选择省份及地区')  
+           return 
+        }
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.handleData.provcode = this.procity[0]
+            this.handleData.citycode = this.procity[1]
        if(type === "add"){
             schoolServer.addSchool(this.handleData).then(res =>{
               if(res.status === 200){
@@ -176,6 +195,9 @@ export default {
       //表格选中
       handleSelectionChange(val){
         this.multipleSelection = val;
+      },
+      procityChange(value){
+        console.log(value);
       }
     }
   };

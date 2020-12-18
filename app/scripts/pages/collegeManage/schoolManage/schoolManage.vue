@@ -104,6 +104,17 @@
                </el-option>
             </el-select>
            </el-form-item>
+           <el-form-item label="所属省市" prop="procity" label-width="100px">
+            <el-cascader
+            :disabled="type === 'detail'"
+            v-model="procity"
+             placeholder="试试搜索：北京"
+            :options="options"
+            @change="procityChange"
+            clearable
+            filterable>
+            </el-cascader>
+           </el-form-item>
        </el-form>
        <div slot="footer" class="dialog-footer">
          <el-button size="small" @click="cancel('handleForm')">关闭</el-button>
