@@ -7,6 +7,7 @@ export default {
       schoolcode: "",
       index: 0,
       treList: [],
+      nickname: ""
     };
   },
   beforeMount() {
@@ -35,6 +36,7 @@ export default {
         if (res.success) {
           this.schoolList = res.resultMap.schools;
           let userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+          this.nickname = userInfo.nickname;
           if(userInfo.userType === 2){
              this.schoolcode = this.schoolList[0].schoolcode;
           }else{

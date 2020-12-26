@@ -41,7 +41,7 @@ export const editroletreeSave = async (params) => {
 };
 //查询当前用户的资源信息接口
 export const queryuserResource = async (params) => {
-    let result = await post("/alading/api/resource/getResources", params);
+    let result = await post("/alading/api/resource/getAllResources", params);
     return result.data;
 };
 //绑定角色与资源关系--保存
@@ -56,7 +56,7 @@ export const delResource = async (params) => {
 };
 //批量删除资源信息接口
 export const delmoreResource = async (params) => {
-    let result = await get("/alading/api/resource/batchRemoveResource?resourcecodes=", params);
+    let result = await get("/alading/api/resource/batchRemoveResource?resourcecodes="+params);
     return result.data;
 };
 //创建资源接口
@@ -107,5 +107,10 @@ export const getUserRole = async (params) => {
 //分配角色给用户--保存
 export const saveUserRelation = async (params) => {
     let result = await post("/alading/api/role/saveUserRelation",params);
+    return result.data;
+};
+//查询资源名称接口
+export const selectResourcename = async (params) => {
+    let result = await post("/alading/api/resource/selectResourcename",params);
     return result.data;
 };

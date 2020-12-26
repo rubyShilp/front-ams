@@ -46,7 +46,8 @@ export default{
               resourceicon: [
                 { required: true, message: '资源icon图标不能为空', trigger: 'blur' }
               ]
-            }
+            },
+            parentIds: []
         }
     },
     beforeMount(){
@@ -58,14 +59,14 @@ export default{
     methods:{
         query(){
             let params = {
-              resourcecode: "",
+              resourcename: this.resourcename,
               page: 0,
               pagesize: this.pageSize
             }
             accountCenterServer.queryuserResource(params).then(res => {
                   if(res.status === 200){
                     this.dataList = [...res.resultMap.resources]
-                    this.total = this.dataList.length
+                    this.total = res.total
                   }
             })
         },
@@ -86,6 +87,12 @@ export default{
             for(let key in this.handleData){
               this.handleData[key] = ""
             }
+             //获取父资源ID
+             accountCenterServer.selectResourcename({}).then(res=>{
+              if(res.status === 200){
+                this.parentIds = [...res.resultMap.resourcenames]
+              }
+            })
             if(statu === 'add'){
               this.type = 'add';
               this.title = '新增资源';

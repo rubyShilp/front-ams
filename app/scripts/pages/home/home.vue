@@ -65,6 +65,9 @@
             </span>
             <span class="ams-cut-title">首页</span>
           </a>
+          <a href="javaScript:;" class="ams-cut-word">
+            <span class="ams-cut-text">{{ nickname }}</span>
+          </a>
           <a href="javaScript:;" class="ams-cut-word" @click="loginOut()">
             <span class="ams-cut-text">
               <i class="use-drop-exit"></i>
