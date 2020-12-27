@@ -48,20 +48,6 @@
               sortable
             >
             </el-table-column>
-            <!-- <el-table-column
-              prop="resourcecode"
-              label="资源ID"
-              v-show="false"
-              :show-overflow-tooltip="true"
-              sortable
-            >
-            </el-table-column> -->
-            <!-- <el-table-column
-              prop="resourceparentcode"
-              label="父节点ID"
-              sortable
-            >
-            </el-table-column> -->
             <el-table-column prop="resourceurl" label="资源路径" sortable>
             </el-table-column>
             <el-table-column label="资源状态" sortable>

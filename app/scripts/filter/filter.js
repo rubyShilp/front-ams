@@ -39,6 +39,28 @@ Vue.filter('userStatu',function(value){
         return '正常';
     }
 })
+Vue.filter('schoolFil',function(value){
+    if(value==0){
+        return 'K12';
+    }else if(value==1){
+        return '中职';
+    }else if(value==2){
+        return '其他';
+    }else{
+        return '不详';
+    }
+})
+Vue.filter('userTypeFil',function(value){
+    if(value==0){
+        return '超级管理员';
+    }else if(value==1){
+        return '普通管理员';
+    }else if(value==2){
+        return '教职工';
+    }else{
+        return '不详';
+    }
+})
 Vue.filter('kaoqinStatu',function(value){
     switch (value) {
         case '0':

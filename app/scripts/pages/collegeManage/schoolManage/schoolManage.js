@@ -51,7 +51,7 @@ export default {
       query(){
         let params = {
           schoolname: this.initData.school,
-          page: 0,
+          page: this.currentPage,
           pageSize: this.pageSize
         }
             schoolServer.querySchool(params).then(res => {

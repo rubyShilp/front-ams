@@ -79,6 +79,7 @@ export default {
       attendanceServer.attendRecord(params).then((res) => {
         if (res.success) {
           this.dataList = res.resultMap.attendrecords;
+          this.totalCount = res.resultMap.total;
         }
       });
     },

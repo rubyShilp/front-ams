@@ -60,13 +60,13 @@ export default{
         query(){
             let params = {
               resourcename: this.resourcename,
-              page: 0,
+              page: this.currentPage,
               pagesize: this.pageSize
             }
             accountCenterServer.queryuserResource(params).then(res => {
                   if(res.status === 200){
                     this.dataList = [...res.resultMap.resources]
-                    this.total = res.total
+                    this.total = res.resultMap.total
                   }
             })
         },

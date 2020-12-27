@@ -91,7 +91,7 @@ export const editlUser = async (params) => {
 };
 //批量删除用户信息接口
 export const delmoreRUser = async (params) => {
-    let result = await get("/alading/api/user/batchRemoveUsers?usercodes=", params);
+    let result = await get("/alading/api/user/batchRemoveUsers?usercodes="+params);
     return result.data;
 };
 //删除用户接口

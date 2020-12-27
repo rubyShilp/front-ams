@@ -50,13 +50,13 @@ export default {
           gradeId: this.ids.gradeId,
           classId: this.ids.classId,
           gradename: this.initData.gradename,
-          page: 0,
+          page: this.currentPage,
           pageSize: this.pageSize
         }
         gradeServer.queryGrade(params).then(res => {
           if(res.status === 200){
             this.dataList = res.resultMap.grades;
-            this.total = this.dataList.length;
+            this.total = res.resultMap.total;
           }
          })
         },

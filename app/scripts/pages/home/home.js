@@ -7,17 +7,24 @@ export default {
       schoolcode: "",
       index: 0,
       treList: [],
-      nickname: ""
+      nickname: "",
+      showDialog: false,
+      userData: {}
     };
   },
   beforeMount() {
     this.initGetSchool();
     this.alerts();
+    let userinfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    this.userData = Object.assign({},userinfo)
     if (sessionStorage.getItem("homeIndex")) {
       this.index = sessionStorage.getItem("homeIndex");
     }
   },
   methods: {
+    showUserInfo(){
+      this.showDialog = true;
+    },
     selectRouter(pathUrl, index) {
       this.index = index;
       sessionStorage.setItem("homeIndex", index);

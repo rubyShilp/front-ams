@@ -59,7 +59,7 @@ export default{
           accountCenterServer.queryRole(params).then(res=>{
               if(res.success){
                  this.dataList = res.resultMap.roles;
-                 this.total = this.dataList.length;
+                 this.total = res.resultMap.total;
               }
           })  
        },

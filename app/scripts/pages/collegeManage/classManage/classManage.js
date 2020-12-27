@@ -51,13 +51,13 @@ export default {
           gradeId: this.ids.gradeId,
           classId: this.ids.classId,
           classname: this.initData.classname,
-          page: 0,
+          page: this.currentPage,
           pageSize: this.pageSize
         }
         classServer.queryClass(params).then(res => {
           if(res.status === 200){
             this.dataList = [...res.resultMap.classes];
-            this.total = this.dataList.length;
+            this.total = res.resultMap/total;
           }
          })
       },

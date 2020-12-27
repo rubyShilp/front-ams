@@ -28,7 +28,7 @@ export default {
           remark: "" 
         },
          //分页参数
-         currentPage: 0,
+         currentPage: 1,
          total: 0,
          pageSize: 10,
          multipleSelection: [],
@@ -80,13 +80,13 @@ export default {
           gradecode: this.ids.gradeId,
           classcode: this.ids.classId,
           stuname: this.initData.stuname,
-          page: 0,
+          page: this.currentPage,
           pageSize: this.pageSize
         }
         studentServer.queryStudent(params).then(res => {
           if(res.status === 200){
             this.dataList = [...res.resultMap.students];
-            this.total = this.dataList.length;
+            this.total = res.resultMap.total;
           }
          })
       },

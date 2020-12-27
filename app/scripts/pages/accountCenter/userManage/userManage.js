@@ -8,7 +8,7 @@ export default{
               nickname:""
             },
             dataList:[],
-            currentPage:0,
+            currentPage:1,
             pagesize:10,
             total:0,
             handleData: {
