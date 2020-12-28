@@ -1,15 +1,37 @@
 import mapChart from "@/servers/map.server.js";
-import roundCake from "@/servers/gauge.server.js";
 import cityList from "@/util/chinaCity.json";
+import * as mainMap from './mainMap.server.js';
 export default {
   data() {
-    return {};
+    return {
+      provinceList:[],//省数据
+      cityList:[],
+      attendanceInfo:{}
+    };
   },
   mounted() {
     this.mapInit();
-    this.random("showNum");
+    this.initProvcode();
+    //this.initCity();
   },
   methods: {
+    //获取当前省份数据
+    initProvcode(){
+      mainMap.getAllProvinces().then(res=>{
+        if(res.success){
+          this.provinceList=res.resultMap.options;
+        }
+      })
+    },
+    //获取当前市区数据
+    initCity(){
+      let params={provcode:''}
+      mainMap.getAllCitysByProvcode(params).then(res=>{
+        if(res.success){
+
+        }
+      })
+    },
     mapInit() {
       let options = {
         type: "map",
@@ -22,31 +44,6 @@ export default {
       };
       let scrollMap = document.getElementById("scrollMap");
       mapChart(scrollMap, options);
-    },
-    //随机数
-    random(str) {
-      let colorList = [
-        "",
-        "#0094AC",
-        "#A95F01",
-        "#4C9EEA",
-        "#065B4D",
-        "#1AC8B5",
-      ];
-      for (let i = 1; i < 6; i++) {
-        let canvasName = "canvasId";
-        let id = str + "0" + i;
-        canvasName = canvasName + "0" + i;
-        let domId = document.getElementById(id);
-        let canvasId = document.getElementById(canvasName);
-        let showNum = Math.random() * (0.99 - 0.95) + 99.95;
-        domId.innerText = showNum.toFixed(2);
-        let options = {
-          color: colorList[i],
-          value: showNum,
-        };
-        roundCake(canvasId, options);
-      }
     },
   },
 };
