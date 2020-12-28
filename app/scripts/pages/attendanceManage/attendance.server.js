@@ -115,13 +115,13 @@ export const attendRoleQuery = async (params) => {
 };
 //删除学校的考勤规则信息
 export const attendRoleRemove = async (params) => {
-  let result = await post("/alading/api/attend/rule/removeAttendRule", params);
+  let result = await get("/alading/api/attend/rule/removeAttendRule?rulecode="+params);
   return result.data;
 };
 //批量删除学校的考勤规则信息
 export const attendRoleBatchRemove = async (params) => {
-  let result = await post(
-    "/alading/api/attend/rule/batchRemoveAttendRule",
+  let result = await get(
+    "/alading/api/attend/rule/batchRemoveAttendRule?rulecodes="+
     params
   );
   return result.data;

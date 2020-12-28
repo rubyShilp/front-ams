@@ -1,5 +1,4 @@
 import * as schoolServer from "./schoolManage.server";
-import pagination from '@/components/pagination/index'
 export default {
     data() {
       return {
@@ -40,18 +39,15 @@ export default {
         }
       };
     },
-    components: {
-      pagination
-    },
     beforeMount() {
       //初始化查询
-      this.query()
+      this.query(0)
     },
     methods: {
-      query(){
+      query(page){
         let params = {
           schoolname: this.initData.school,
-          page: this.currentPage,
+          page: page,
           pageSize: this.pageSize
         }
             schoolServer.querySchool(params).then(res => {
@@ -123,7 +119,7 @@ export default {
               schoolServer.delSchool(row.schoolcode).then(res=>{
                 if(res.status === 200){
                  this.tip('success','删除成功')
-                 this.query()
+                 this.query(0)
                 }
               })
             })
@@ -148,7 +144,7 @@ export default {
                   if(res.status === 200){
                     this.tip('success','批量删除成功')
                     this.$refs.table.clearSelection();
-                    this.query()
+                    this.query(0)
                   }
                 })
               })
@@ -172,7 +168,7 @@ export default {
             schoolServer.addSchool(this.handleData).then(res =>{
               if(res.status === 200){
                 this.tip('success','新增成功')
-                this.query()
+                this.query(0)
                 this.handle_dialog = false;
               }
             })
@@ -181,7 +177,7 @@ export default {
           schoolServer.editSchool(params).then(res => {
             if(res.status === 200){
               this.tip('success','修改成功')
-              this.query()
+              this.query(0)
               this.handle_dialog = false;
             }
           })
@@ -196,9 +192,16 @@ export default {
       handleSelectionChange(val){
         this.multipleSelection = val;
       },
-      procityChange(value){
-        console.log(value);
-      }
+       //每頁顯示條數
+      handleSizeChange(pageSize){
+        this.pageSize=pageSize;
+        this.query(0);
+      },
+      //跳轉的頁碼
+      handleCurrentChange(page){
+        this.currentPage=page;
+        this.query(page-1);
+      },
     }
   };
   

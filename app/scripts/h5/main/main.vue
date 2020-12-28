@@ -30,35 +30,35 @@
           <div class="main-number">
             <div>
               <div>总人数</div>
-              <h1>{{ attendanceInfo.sumbelatecount }}</h1>
-            </div>
-            <div>
-              <div>迟到人数</div>
-              <h1>{{ attendanceInfo.sumheartratecount }}</h1>
-            </div>
-            <div>
-              <div>早退人数</div>
-              <h1>{{ attendanceInfo.sumleavecount }}</h1>
-            </div>
-            <div>
-              <div>旷课人数</div>
-              <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
-            </div>
-            <div>
-              <div>请假数</div>
-              <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
-            </div>
-            <div>
-              <div>体温异常</div>
               <h1>{{ attendanceInfo.sumschoolcount }}</h1>
             </div>
             <div>
-              <div>心率异常</div>
+              <div>迟到人数</div>
+              <h1>{{ attendanceInfo.sumbelatecount }}</h1>
+            </div>
+            <div>
+              <div>早退人数</div>
+              <h1>{{ attendanceInfo.sumleaveearlycount }}</h1>
+            </div>
+            <div>
+              <div>旷课人数</div>
+              <h1>{{ attendanceInfo.sumtruantcount }}</h1>
+            </div>
+            <div>
+              <div>请假数</div>
+              <h1>{{ attendanceInfo.sumleavecount }}</h1>
+            </div>
+            <div>
+              <div>体温异常</div>
               <h1>{{ attendanceInfo.sumtempecount }}</h1>
             </div>
             <div>
+              <div>心率异常</div>
+              <h1>{{ attendanceInfo.sumheartratecount }}</h1>
+            </div>
+            <div>
               <div>活动量差</div>
-              <h1>{{ attendanceInfo.sumtruantcount }}</h1>
+              <h1>{{ attendanceInfo.sumlessactivitycount }}</h1>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@
               ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button @click="query" size="mini">查询</el-button>
+              <el-button @click="query(0)" size="mini">查询</el-button>
             </el-form-item>
             <el-form-item>
               <el-button size="mini" @click="show('add')">新增</el-button>
@@ -75,13 +75,18 @@
               </template>
             </el-table-column>
           </el-table>
-          <pagination
-            v-show="total > 0"
-            :total="total"
-            :page.sync="currentPage"
-            :limit.sync="pageSize"
-            @pagination="query"
-          ></pagination>
+           <div class="pagination">
+              <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total"
+                  >
+              </el-pagination>
+           </div>
         </div>
         <!-- 操作模态框 -->
         <el-dialog

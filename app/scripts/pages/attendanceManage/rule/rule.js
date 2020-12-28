@@ -105,8 +105,7 @@ export default {
         type: "warning",
       })
         .then(() => {
-          let params = { rulecode: list.rulecode };
-          attendanceServer.attendRoleRemove(params).then((res) => {
+          attendanceServer.attendRoleRemove(list.rulecode).then((res) => {
             if (res.success) {
               this.$message({
                 type: "success",
@@ -137,7 +136,7 @@ export default {
       let params={
         rulecodes:this.selectDataList.join(',')
       }
-      attendanceServer.attendRoleBatchRemove(params).then((res) => {
+      attendanceServer.attendRoleBatchRemove(params.rulecodes).then((res) => {
         if (res.success) {
           this.initAttendRoleQuery(0);
         }

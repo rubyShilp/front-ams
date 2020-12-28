@@ -114,6 +114,7 @@ export default {
       statisticalServer.attendTop(params).then(res=>{
         if(res.success){
           this.dataList=res.resultMap.abAttendSumList;
+          this.totalCount = res.resultMap.total;
         }
       })
     },
@@ -173,6 +174,8 @@ export default {
       })
     },
     detailQuery(){
+      this.right_data=[];
+      this.chartData[0]=[]
       //详情查询
       this.detail(1)
     },

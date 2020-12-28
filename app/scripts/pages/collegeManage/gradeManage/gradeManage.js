@@ -1,5 +1,4 @@
 import * as gradeServer from "./gradeManage.server";
-import pagination from '@/components/pagination/index'
 export default {
     props: {
       ids: {
@@ -37,26 +36,23 @@ export default {
         }
       };
     },
-    components: {
-      pagination
-    },
     beforeMount() {
-      this.query()
+      this.query(0)
     },
     methods: {
-      query(){
+      query(page){
         let params = {
           schoolcode: this.ids.schoolcode,
           gradeId: this.ids.gradeId,
           classId: this.ids.classId,
           gradename: this.initData.gradename,
-          page: this.currentPage,
+          page: page,
           pageSize: this.pageSize
         }
         gradeServer.queryGrade(params).then(res => {
           if(res.status === 200){
             this.dataList = res.resultMap.grades;
-            this.total = res.resultMap.total;
+            this.total = this.dataList.length;
           }
          })
         },
@@ -111,7 +107,7 @@ export default {
               gradeServer.delGrade(row.gradecode).then(res=>{
                 if(res.status === 200){
                  this.tip('success','删除成功')
-                 this.query()
+                 this.query(0)
                 }
               })
             })
@@ -136,7 +132,7 @@ export default {
                   if(res.status === 200){
                     this.tip('success','批量删除成功')
                     this.$refs.table.clearSelection();
-                    this.query()
+                    this.query(0)
                   }
                 })
               })
@@ -156,7 +152,7 @@ export default {
           gradeServer.addGrade(params).then(res =>{
               if(res.status === 200){
                 this.tip('success','新增成功')
-                this.query()
+                this.query(0)
                 this.handle_dialog = false;
               }
             })
@@ -164,7 +160,7 @@ export default {
           gradeServer.editGrade(params).then(res => {
             if(res.status === 200){
               this.tip('success',res.message)
-              this.query()
+              this.query(0)
               this.handle_dialog = false;
             }
           })
@@ -178,7 +174,17 @@ export default {
       //选中
       handleSelectionChange(val){
         this.multipleSelection = val;
-      }
+      },
+       //每頁顯示條數
+       handleSizeChange(pageSize){
+        this.pageSize=pageSize;
+        this.query(0);
+      },
+      //跳轉的頁碼
+      handleCurrentChange(page){
+        this.currentPage=page;
+        this.query(page-1);
+      },
     },
   };
   

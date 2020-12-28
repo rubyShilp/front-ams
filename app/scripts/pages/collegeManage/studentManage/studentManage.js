@@ -1,5 +1,4 @@
 import * as studentServer from "./studentManage.server";
-import pagination from '@/components/pagination/index'
 import { formDate, dateTime,upladFile,dataCode} from "@/util/core.js";
 export default {
   props: {
@@ -66,27 +65,24 @@ export default {
          workFile:'',//上传文件
       };
     },
-    components: {
-      pagination
-    },
     beforeMount() {
-      this.query()
+      this.query(0)
     },
     methods: {
       //查询
-      query(){
+      query(page){
         let params = {
           schoolcode: this.ids.schoolcode,
           gradecode: this.ids.gradeId,
           classcode: this.ids.classId,
           stuname: this.initData.stuname,
-          page: this.currentPage,
+          page: page,
           pageSize: this.pageSize
         }
         studentServer.queryStudent(params).then(res => {
           if(res.status === 200){
             this.dataList = [...res.resultMap.students];
-            this.total = res.resultMap.total;
+            this.total = this.dataList.length;
           }
          })
       },
@@ -138,7 +134,7 @@ export default {
                 studentServer.delStudent(row.stucode).then(res=>{
                   if(res.status === 200){
                    this.tip('success','删除成功')
-                   this.query()
+                   this.query(0)
                   }
                 })
               })
@@ -163,7 +159,7 @@ export default {
                     if(res.status === 200){
                       this.tip('success','批量删除成功')
                       this.$refs.table.clearSelection();
-                      this.query()
+                      this.query(0)
                     }
                   })
                 })
@@ -186,7 +182,7 @@ export default {
           studentServer.addStudent(params).then(res =>{
                 if(res.status === 200){
                   this.tip('success','新增成功')
-                  this.query()
+                  this.query(0)
                   this.handle_dialog = false;
                 }
               })
@@ -194,7 +190,7 @@ export default {
               studentServer.editStudent(params).then(res => {
               if(res.status === 200){
                 this.tip('success','编辑成功')
-                this.query()
+                this.query(0)
                 this.handle_dialog = false;
               }
             })
@@ -226,7 +222,17 @@ export default {
             }
             this.workFile='';
           }
-        }
+        },
+          //每頁顯示條數
+       handleSizeChange(pageSize){
+        this.pageSize=pageSize;
+        this.query(0);
+        },
+        //跳轉的頁碼
+        handleCurrentChange(page){
+          this.currentPage=page;
+          this.query(page-1);
+        },
     },
   };
   
