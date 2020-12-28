@@ -1,0 +1,68 @@
+<template>
+  <div class="login-main">
+    <div class="login-wrap">
+      <div class="login-header">
+        <div class="login">
+          <img src="./../../../images/logo.png" />
+        </div>
+      </div>
+      <div class="back">
+        <i class="el-icon-arrow-left"></i>
+        <a href="/login">返回</a>
+      </div>
+      <div class="login-form registered-form">
+        <h1>找回密码</h1>
+        <ul class="login-regrit-list">
+          <li>
+            <p class="login-regrit-input-title">手机号</p>
+            <input
+              v-model="user.phone"
+              placeholder="请输入手机号"
+              autocomplete="off"
+              maxlength="11"
+            />
+          </li>
+          <li>
+            <p class="login-regrit-input-title">新密码</p>
+            <input
+              v-model="user.loginpwd"
+              placeholder="请输入密码"
+              autocomplete="off"
+              type="password"
+              minlength="8"
+              maxlength="16"
+            />
+          </li>
+          <li>
+            <p class="login-regrit-input-title">验证码</p>
+            <input
+              v-model="user.smscode"
+              placeholder="请输入验证码"
+              autocomplete="off"
+              type="text"
+              maxlength="6"
+              style="width: 242px"
+            />
+            <el-button
+              type="primary"
+              @click="smsSendCode()"
+              style="width:142px"
+              id="codeSms"
+            >
+              获取验证码
+            </el-button>
+          </li>
+        </ul>
+        <div class="button-box" style="margin-top:40px">
+          <el-button type="primary" @click="confirmUpdate()">
+            确&nbsp;&nbsp;认
+          </el-button>
+        </div>
+        <p class="go-login" style="color:#9ea0a3">
+          已有账号？<a href="/login">直接登录</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+<script src="./retrieve.js"></script>

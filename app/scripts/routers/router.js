@@ -29,12 +29,31 @@ const loginRouter = [
   { path: "/", redirect: "/login" },
   {
     path: "/login",
-    component: () => isPc()?import("@/h5/login/login.vue"):import("@/pages/login/login.vue"),
+    component: () =>
+      isPc()
+        ? import("@/h5/login/login.vue")
+        : import("@/pages/login/login.vue"),
     meta: { scrollToTop: true },
   },
   {
     path: "/registered",
-    component: () =>  isPc()?import("@/h5/registered/registered.vue"):import("@/pages/registered/registered.vue"),
+    component: () =>
+      isPc()
+        ? import("@/h5/registered/registered.vue")
+        : import("@/pages/registered/registered.vue"),
+    meta: { scrollToTop: true },
+  },
+  {
+    path: "/retrieve",
+    component: () =>
+      isPc()
+        ? import("@/h5/retrieve/retrieve.vue")
+        : import("@/pages/retrieve/retrieve.vue"),
+    meta: { scrollToTop: true },
+  },
+  {
+    path: "/mainMap",
+    component: () => import("@/pages/mainMap/mainMap.vue"),
     meta: { scrollToTop: true },
   },
   {

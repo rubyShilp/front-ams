@@ -29,28 +29,28 @@ export function restTime(id) {
   var resetbtn = document.getElementById(id),
     count = 30,
     iTimer = 0,
-    ibtn = true
+    ibtn = true;
   if (ibtn) {
-    ibtn = false
-    clearInterval(iTimer)
-    resetbtn.setAttribute('disabled', 'true')
-    resetbtn.style.backgroundColor = '#ccc'
+    ibtn = false;
+    clearInterval(iTimer);
+    resetbtn.setAttribute("disabled", "true");
+    resetbtn.style.backgroundColor = "#ccc";
     // resetbtn.style.cursor = 'not-allowed';
-    resetbtn.style.pointerEvents = 'none'
+    resetbtn.style.pointerEvents = "none";
     iTimer = setInterval(() => {
       if (count == 1) {
-        resetbtn.innerHTML = '重新发送'
-        clearInterval(iTimer)
-        ibtn = true
-        resetbtn.removeAttribute('disabled')
-        resetbtn.removeAttribute('disable')
-        resetbtn.style.backgroundColor = ''
+        resetbtn.innerHTML = "重新发送";
+        clearInterval(iTimer);
+        ibtn = true;
+        resetbtn.removeAttribute("disabled");
+        resetbtn.removeAttribute("disable");
+        resetbtn.style.backgroundColor = "";
         // resetbtn.style.cursor = 'pointer';
-        resetbtn.style.pointerEvents = ''
-        return false
+        resetbtn.style.pointerEvents = "";
+        return false;
       }
-      resetbtn.innerHTML = '发送(' + --count + ')'
-    }, 1000)
+      resetbtn.innerHTML = "发送(" + --count + ")";
+    }, 1000);
   }
 }
 //数据是否存在
@@ -157,10 +157,24 @@ export function dataCode(val) {
   }
 }
 //判断当前是否是pc端或手机端
-export function isPc(){
-  if(/Android|webOS|iPhone|iPad|iPad|BlackBerry/i.test(navigator.userAgent)) {
+export function isPc() {
+  if (/Android|webOS|iPhone|iPad|iPad|BlackBerry/i.test(navigator.userAgent)) {
     return true;
   } else {
     return false;
+  }
+}
+// 大数据数字处理
+export function outputdollars(number) {
+  if (number.length <= 3) return number == "" ? "0" : number;
+  else {
+    var mod = number.length % 3;
+    var output = mod == 0 ? "" : number.substring(0, mod);
+    for (let i = 0; i < Math.floor(number.length / 3); i++) {
+      if (mod == 0 && i == 0)
+        output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+      else output += "," + number.substring(mod + 3 * i, mod + 3 * i + 3);
+    }
+    return output;
   }
 }

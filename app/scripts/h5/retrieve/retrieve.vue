@@ -3,7 +3,7 @@
     <div class="h5-login-logo">
       <img src="./../../../images/logo.png" />
     </div>
-    <h1 class="h5-login-h1">欢迎注册阿拉町</h1>
+    <h1 class="h5-login-h1">找回密码</h1>
     <div class="h5-login-form">
       <el-form>
         <el-form-item>
@@ -16,8 +16,8 @@
         </el-form-item>
         <el-form-item>
           <el-input
-            v-model="user.loginPwd"
-            placeholder="请输入密码"
+            v-model="user.loginpwd"
+            placeholder="请输入新密码"
             autocomplete="off"
             type="password"
             minlength="8"
@@ -27,10 +27,10 @@
         <el-form-item>
           <el-col :span="13">
             <el-input
-              v-model="user.smsKey"
-              placeholder="请输入验证码"
+              v-model="user.smscode"
+              placeholder="再次确认密码"
               autocomplete="off"
-              type="text"
+              type="password"
               minlength="8"
               maxlength="16"
             />
@@ -47,8 +47,12 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="registered()" style="width: 100%;">
-            注&nbsp;&nbsp;册
+          <el-button
+            type="primary"
+            @click="confirmUpdate()"
+            style="width: 100%;"
+          >
+            确&nbsp;&nbsp;认
           </el-button>
         </el-form-item>
       </el-form>
@@ -59,8 +63,8 @@
   </div>
 </template>
 <script>
-import registered from "@/pages/registered/registered.js";
+import retrieve from "@/pages/retrieve/retrieve.js";
 export default {
-  mixins: [registered],
+  mixins: [retrieve],
 };
 </script>

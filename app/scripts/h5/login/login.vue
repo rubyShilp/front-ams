@@ -30,7 +30,7 @@
         </el-form-item>
       </el-form>
       <div style="text-align: right;font-size: 0.818rem">
-        <a href="javaScript:;">忘记密码?</a>
+        <a href="/retrieve">忘记密码?</a>
       </div>
       <div style="text-align: left;font-size: 0.818rem;color: #959595;">
         还没有账号?<a href="/registered">立即注册</a>

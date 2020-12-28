@@ -35,7 +35,7 @@
           </li>
         </ul>
         <div class="login-auto-li">
-          <p><a href="javaScript:;">忘记密码？</a></p>
+          <p><a href="/retrieve">忘记密码？</a></p>
         </div>
         <div class="button-box">
           <el-button type="primary" @click="login()">
