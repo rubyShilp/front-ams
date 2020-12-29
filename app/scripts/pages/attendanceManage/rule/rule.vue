@@ -62,7 +62,7 @@
             }"
             :row-style="{ height: '40px' }"
             :cell-style="{ padding: 0 + 'px', 'text-align': 'center' }"
-            @selection-change="seletData"
+            @selection-change="selectData"
           >
             <el-table-column type="selection" width="100"> </el-table-column>
             <el-table-column label="序号" type="index" align="center">

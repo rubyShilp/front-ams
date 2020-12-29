@@ -238,6 +238,9 @@
                           <el-table-column
                             prop="attendstate"
                             label="考勤状态">
+                            <template v-slot="scope">
+                              {{scope.row.attendstate | kaoqinStatu}}
+                            </template>
                           </el-table-column>
                           <el-table-column
                             prop="temperature"

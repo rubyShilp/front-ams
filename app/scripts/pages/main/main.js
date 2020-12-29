@@ -259,7 +259,7 @@ export default {
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         page: number,
-        pagesize: 10,
+        pagesize: 100,
       };
       mainServer.statisticsRealAttend(params).then((res) => {
         if (res.success) {

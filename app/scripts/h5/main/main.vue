@@ -4,21 +4,32 @@
     <div class="h5-center">
       <div class="amsh5-top">
         <img src="./../../../images/logo.png" />
-        <span>学生考勤健康服务平台</span>
+        <span>大数据考勤健康服务平台</span>
       </div>
       <div class="h5-main">
         <div class="main-tabs">
-          <ul>
-            <li @click="initStatistics(1)" :class="{ cur: querytype == 1 }">
+          <!-- <ul>
+            <li @click="initStatistics('top',1)" :class="{ cur: querytype == 1 }">
               学校
             </li>
-            <li @click="initStatistics(2)" :class="{ cur: querytype == 2 }">
+            <li @click="initStatistics('top',2)" :class="{ cur: querytype == 2 }">
               年级
             </li>
-            <li @click="initStatistics(3)" :class="{ cur: querytype == 3 }">
+            <li @click="initStatistics('top',3)" :class="{ cur: querytype == 3 }">
               班级
             </li>
-          </ul>
+            <li>
+              <el-select v-model="schoolcode" @change="selectSchool()">
+                <el-option
+                  v-for="item in schoolList"
+                  :key="item.schoolname"
+                  :label="item.schoolname"
+                  :value="item.schoolcode"
+                >
+                </el-option>
+              </el-select>
+            </li>
+          </ul> -->
           <div class="main-jiank">
             <h1>学校考勤健康情况</h1>
             <p>
@@ -45,7 +56,7 @@
               <h1>{{ attendanceInfo.sumtruantcount }}</h1>
             </div>
             <div>
-              <div>请假数</div>
+              <div>请假人数</div>
               <h1>{{ attendanceInfo.sumleavecount }}</h1>
             </div>
             <div>
@@ -126,7 +137,7 @@
             <table cellpadding="0" cellspacing="0">
               <thead>
                 <tr>
-                  <td>学校</td>
+                  <td>{{tagname}}</td>
                   <td>迟到</td>
                   <td>早退</td>
                   <td>体温异常</td>
@@ -135,7 +146,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in dataList" :key="index">
+                <tr v-for="(item, index) in showdetailList" :key="index">
                   <td>{{ item.basename }}</td>
                   <td>{{ item.sumbelatecount }}</td>
                   <td>{{ item.sumleaveearlycount }}</td>
@@ -146,8 +157,55 @@
               </tbody>
             </table>
           </div>
-          <div class="table-duo">
-            查看更多<i class="el-icon-arrow-down"></i>
+          <div class="table-duo" v-if="dataList.length > 7" @click="changeFoldState(1)">
+            {{brandFold?'查看更多':'收起'}}<i v-show="brandFold===true" class="el-icon-arrow-down"></i>
+            <i v-show="brandFold===false" class="el-icon-arrow-up"></i>
+          </div>
+        </div>
+        <div class="main-table2">
+          <div class="main-jiank">
+             <h1>异常实时数据</h1>
+          </div>
+          <div class="table-min">
+            <table cellpadding="0" cellspacing="0">
+              <thead>
+                <tr>
+                  <td>姓名</td>
+                  <td>考勤状态</td>
+                  <td>体温(℃)</td>
+                  <td>心率(次/分钟)</td>
+                  <td>学校</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="list of showdetailList2" :key="list.sno">
+                  <td>{{ list.stuname }}</td>
+                  <td  :class="{
+                                attendsnormalColor: list.attendstate === '0',
+                                attendsabnormalColor: list.attendstate !== '0',
+                              }">{{ list.attendstate | kaoqinStatu }}</td>
+                  <td :class="{
+                                temperaturenormalColor:
+                                  list.temperature <= 37.3 ||
+                                  list.temperature >= 34,
+                                temperatureabnormalColor:
+                                  list.temperature > 37.3 ||
+                                  list.temperature < 34,
+                              }">{{ list.temperature }}</td>
+                  <td :class="{
+                                heartnormalColor:
+                                  list.heartrate <= 120 || list.heartrate >= 60,
+                                heartabnormalColor:
+                                  list.heartrate > 120 || list.heartrate < 60,
+                              }">{{ list.heartrate }}</td>
+                  <td>{{ list.schoolname }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-duo" v-if="attendanceList.length > 7" @click="changeFoldState(2)">
+            {{brandFold2?'查看更多':'收起'}}<i v-show="brandFold2===true" class="el-icon-arrow-down"></i>
+            <i v-show="brandFold2===false" class="el-icon-arrow-up"></i>
           </div>
         </div>
       </div>
