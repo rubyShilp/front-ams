@@ -5,7 +5,7 @@ export default (el, options) => {
   let optionMap = {
     title: {
       padding: [25, 0, 0, 0],
-      text: "学生运动轨迹",
+      text: "",
       textStyle: {
         color: "rgba(160,185,237,1)",
         fontSize: 14,
@@ -14,6 +14,7 @@ export default (el, options) => {
     geo: {
       map: "china",
       hoverable: false,
+      zoom:1.2,
       label: {
         emphasis: {
           //动态展示的样式

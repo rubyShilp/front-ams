@@ -111,16 +111,25 @@ export function token() {
 }
 //下载文件
 export function dowandFile(res, fileName) {
-  var blob = new Blob([res]);
-  if ("download" in document.createElement("a")) {
-    var a = window.document.createElement("a");
-    var url = window.URL.createObjectURL(blob);
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    window.URL.revokeObjectURL(url);
+  let blob = new Blob([res])
+  if ('download' in document.createElement('a')) {
+    let a = window.document.createElement('a')
+    let url = null
+    if ('msSaveOrOpenBlob' in navigator) {
+      url = window.navigator.msSaveOrOpenBlob(res, fileName)
+    } else {
+      url = window.URL.createObjectURL(blob)
+    }
+    a.addEventListener('click', function(e) {
+      a.download = fileName
+      a.href = url
+    })
+    let e = document.createEvent('MouseEvents')
+    e.initEvent('click', false, false)
+    a.dispatchEvent(e)
+    window.URL.revokeObjectURL(url)
   } else {
-    navigator.msSaveBlob(blob, fileName);
+    navigator.msSaveBlob(blob, fileName)
   }
 }
 export function upladFile(e, size) {

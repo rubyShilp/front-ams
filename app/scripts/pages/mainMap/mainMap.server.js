@@ -1,11 +1,11 @@
 import { post } from "@/servers/httpServer.js";
-//获取省份数据
-export const getAllProvinces = async (params) => {
-    let result = await post("/alading/api/map/getAllProvinces", params);
+//获取全国考情异常数据
+export const getAllRecordSum = async (params) => {
+    let result = await post("/alading/api/map/getProvAttendRecordSum", params);
     return result.data;
   };
-//根据省份ID获取市区数据
-export const getAllCitysByProvcode = async (params) => {
-  let result = await post("/alading/api/map/getAllCitysByProvcode", params);
+//获取各个市区人员总数
+export const getCityAttendRecords = async (params) => {
+  let result = await post("/alading/api/map/getCityAttendRecords", params);
   return result.data;
 };

@@ -1,5 +1,5 @@
 import * as studentServer from "./studentManage.server";
-import { formDate, dateTime,upladFile,dataCode} from "@/util/core.js";
+import { formDate, dateTime,upladFile,dataCode,dowandFile} from "@/util/core.js";
 export default {
   props: {
     ids: {
@@ -69,6 +69,11 @@ export default {
       this.query(0)
     },
     methods: {
+      download(){
+        studentServer.download({}).then(res=>{
+          dowandFile(res,"导入模板下载.xlsx")
+        })
+      },
       //查询
       query(page){
         let params = {
