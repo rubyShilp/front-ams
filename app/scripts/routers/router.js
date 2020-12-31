@@ -57,6 +57,11 @@ const loginRouter = [
     meta: { scrollToTop: true },
   },
   {
+    path: "/mapGL",
+    component: () => import("@/pages/mapGL/mapGL.vue"),
+    meta: { scrollToTop: true },
+  },
+  {
     path: "/main",
     component: () => import("@/pages/main/main.vue"),
     meta: { scrollToTop: true },
