@@ -63,6 +63,14 @@ export default {
           ],
          },
          workFile:'',//上传文件
+         visibleImei:false,
+         studentMapImei:'',//手表唯一标识
+         map: {
+          center: { lng: 113.763924, lat: 22.938634 },
+          zoom: 18,
+          show: true,
+          dragging: true,
+        },
       };
     },
     beforeMount() {
@@ -103,6 +111,70 @@ export default {
             this.$refs[formName].resetFields();
           }
           this.handle_dialog = false;
+        },
+        //学生行程轨迹
+        studentImei(list){
+          this.visibleImei=true;
+          this.studentMapImei=list.imei;
+        },
+        handler({ BMap, map }) {
+          let starttime=new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
+          let endtime=new Date();
+          let params={
+            studentMapImei:studentMapImei,
+            starttime: formDate(new Date(starttime), "yyyy-MM-dd hh:mm:ss"),
+            endtime: formDate(new Date(endtime), "yyyy-MM-dd hh:mm:ss"),
+          }
+          studentServer.getPosRecordsByImei(params).then(res=>{
+            if(res.success){
+              let data=res.resultMap.positions
+              this.map.center={ lng: data[0].lon, lat:  data[0].let};
+              // 鼠标缩放
+              map.enableScrollWheelZoom(true);
+              // 点击事件获取经纬度
+              var path = []; //本人的示例是要走规定经过的路线，所以中间有多经过点
+              for(let i=0;i<data.length;i++){
+                path.push([data[i].lon, data[i].let])
+              }
+              map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+              for (let i = 0; i < path.length; i += 2) {
+                var walking = new BMap.WalkingRoute(map, {
+                  renderOptions: {
+                    map: map,
+                    autoViewport: true,
+                  },
+                  onPolylinesSet: function(routes) {
+                    let searchRoute = routes[0].getPolyline(); //导航路线
+                    map.removeOverlay(searchRoute); //移除查询出来 的路线
+                  },
+                  onMarkersSet: function(routes) {
+                    map.removeOverlay(routes[0].marker); //删除起点
+                    map.removeOverlay(routes[routes.length - 1].marker); //删除终点
+                  },
+                });
+                let _this = this;
+                var start = new BMap.Point(path[i][0], path[i][1]);
+                var end = new BMap.Point(path[i + 1][0], path[i + 1][1]);
+                walking.search(start, end);
+                walking.setSearchCompleteCallback(function() {
+                  var plan = walking.getResults().getPlan(0);
+                  for (let j = 0; j < plan.getNumRoutes(); j++) {
+                    var pts = plan.getRoute(j).getPath();
+                    var polyline = new BMap.Polyline(pts, {
+                      strokeColor: "#ff0000",
+                      strokeWeight: 5,
+                      strokeOpacity: 1,
+                    }); //重新划路线
+                    map.addOverlay(polyline);
+                  }
+                });
+              }
+              map.addEventListener("click", function(e) {
+                // 点击地点获取经纬度
+                console.log(e.point.lng, e.point.lat);
+              });
+            }
+          })
         },
         show(statu,row){
           for(let key in this.handleData){

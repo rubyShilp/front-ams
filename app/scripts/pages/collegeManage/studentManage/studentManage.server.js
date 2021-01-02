@@ -39,3 +39,8 @@ export const download = async (params) => {
   let result = await postDownload("/alading/api/student/download",params);
   return result.data
 }
+//获取学生行动轨迹
+export const  getPosRecordsByImei= async (params) => {
+  let result = await post("/alading/api/health/getPosRecordsByImei",params);
+  return result.data
+} 
