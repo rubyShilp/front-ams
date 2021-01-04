@@ -73,10 +73,10 @@
               {{ scope.row.stusex | sexName }}
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="200">
+          <el-table-column label="操作" width="230">
             <template class="table-operation" v-slot="scope">
               <a href="javaScript:;" @click="studentImei(scope.row)"
-                ><i class="el-icon-view"></i>imei</a
+                ><i class="el-icon-map-location"></i>imei</a
               >
               <span>|</span>
               <a href="javaScript:;" @click="show('detail', scope.row)"
@@ -214,6 +214,7 @@
     >
       <div class="content">
         <baidu-map
+          v-if="visibleImei"
           class="map"
           :center="map.center"
           :zoom="map.zoom"
