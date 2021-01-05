@@ -1,6 +1,14 @@
 <template>
   <div class="ams-main-screen">
     <div class="bg">
+      <div class="map-log">
+        <div class="img">
+          <img src="./../../../images/logo.png" />
+        </div>
+        <div class="title">
+          <h1>大数据考勤健康服务平台</h1>
+        </div>
+      </div>
       <div class="sub-map">
         <p>
           迟到人数：
@@ -56,7 +64,6 @@
         </p>
       </div>
       <div class="sub-tab">
-        <h1>大数据考勤健康服务平台</h1>
         <el-form label-width="120px" size="mini" style="text-align: center;">
           <el-form-item label="迟到人数:">
             <span

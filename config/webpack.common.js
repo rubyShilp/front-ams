@@ -137,7 +137,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: "./static",
+        from: "../static",
         to: "./static",
         ignore: [".*"],
       },
