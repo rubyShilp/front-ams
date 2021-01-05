@@ -77,11 +77,15 @@
               :show-overflow-tooltip="true"
             >
             </el-table-column>
-            <el-table-column prop="acceptorcode" label="接收机编号" sortable>
+            <el-table-column prop="rfidno" label="接收机编号" sortable>
             </el-table-column>
             <el-table-column prop="rfidlocation" label="接收机位置" sortable>
             </el-table-column>
-            <el-table-column prop="rfidno" label="接收机方向" sortable>
+            <el-table-column label="接收机方向" sortable>
+               <template slot-scope="scope">
+                <div v-if="scope.row.rfiddirect === 0">门外</div>
+                <div v-else>门内</div>
+              </template>
             </el-table-column>
             <el-table-column prop="rfidgroupid" label="接收机组" sortable>
             </el-table-column>

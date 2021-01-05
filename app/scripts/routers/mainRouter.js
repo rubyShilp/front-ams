@@ -111,6 +111,12 @@ const mainRouter = [
     component: () =>
       import("@/h5/main/main.vue"),
     meta: { scrollToTop: true },
+  },
+  {
+    path: "/h5/mainMap",
+    component: () =>
+      import("@/h5/h5mainMap/h5mainMap.vue"),
+    meta: { scrollToTop: true },
   }
 ];
 export default mainRouter;

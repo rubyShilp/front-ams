@@ -34,7 +34,7 @@ export default {
       attendanceServer.acceptorQuery(params).then((res) => {
         if (res.success) {
           this.dataList = res.resultMap.attendDevs;
-          //this.totalCount=res.resultMap.totalCount;
+          this.totalCount=res.resultMap.total;
         }
       });
     },

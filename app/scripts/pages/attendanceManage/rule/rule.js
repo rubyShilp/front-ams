@@ -34,6 +34,7 @@ export default {
       attendanceServer.attendRoleQuery(params).then((res) => {
         if (res.success) {
           this.dataList = res.resultMap.attendRules;
+          this.totalCount = res.resultMap.total;
           for (let i = 0; i < this.dataList.length; i++) {
             if (this.dataList[i].rulestate == 0) {
               this.dataList[i].isRuleState = true;
@@ -130,18 +131,31 @@ export default {
     },
     //批量删除学校考勤规则信息
     attendRoleBatchRemove() {
-      if(this.selectDataList.length==0){
-        this.$message.warning('请选择要删除的数据')
-        return false;
-      }
-      let params={
-        rulecodes:this.selectDataList.join(',')
-      }
-      attendanceServer.attendRoleBatchRemove(params.rulecodes).then((res) => {
-        if (res.success) {
-          this.initAttendRoleQuery(0);
-        }
-      });
+      this.$confirm("是否删除选中规则信息?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          if(this.selectDataList.length==0){
+            this.$message.warning('请选择要删除的数据')
+            return false;
+          }
+          let params={
+            rulecodes:this.selectDataList.join(',')
+          }
+          attendanceServer.attendRoleBatchRemove(params.rulecodes).then((res) => {
+            if (res.success) {
+              this.initAttendRoleQuery(0);
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
     //启动考勤规则
     attendRoleApply(list) {

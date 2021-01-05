@@ -100,9 +100,9 @@
        class="school_dialog"
        >
        <el-form class="form" :model="handleData" :rules="user_rules" ref="handleForm" v-if="type !== 'giverole'">
-           <el-form-item label="用户ID" prop="usercode" label-width="120px" v-if="type === 'edit'">
+           <!-- <el-form-item label="用户ID" prop="usercode" label-width="120px" v-if="type === 'edit'">
             <el-input v-model="handleData.usercode"></el-input>
-           </el-form-item>
+           </el-form-item> -->
            <el-form-item label="用户昵称" prop="nickname" label-width="120px">
             <el-input v-model="handleData.nickname" autocomplete="off"></el-input>
            </el-form-item>

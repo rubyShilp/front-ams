@@ -54,7 +54,11 @@
                 {{ scope.row.schooltype | schoolFil }}
               </template>
             </el-table-column>
-            <el-table-column prop="schoolstate" label="学校状态" sortable>
+            <el-table-column label="学校状态" sortable>
+               <template class="table-operation" v-slot="scope">
+                <div v-if="scope.row.schoolstate===0">开学中</div>
+                <div v-else>放假中</div>
+              </template>
             </el-table-column>
             <el-table-column prop="address" label="学校地址" sortable>
             </el-table-column>

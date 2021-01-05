@@ -11,7 +11,7 @@ export default {
       data: [],
       isRecordDetail:false,//是否显示考勤记录详情
       recordDetail:{},//考勤记录详情
-      starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
+      starttime: new Date(new Date().toLocaleDateString()),
       endtime: new Date(),
       schoolcodeId:'',
       schoolcode: "", //学校id
@@ -107,7 +107,7 @@ export default {
     },
     //恢复
     updateRecord(list){
-      let params={attendcode:list.attendcode};
+      let params={attendcode:list.attendcode,attendstate: 1,inoutstate:1};
       attendanceServer.updateRecord(params).then(res=>{
         if(res.success){
           this.$message.success('修正成功');

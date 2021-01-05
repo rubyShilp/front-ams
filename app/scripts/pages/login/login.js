@@ -5,8 +5,8 @@ export default {
   data() {
     return {
       user: {
-        account: "15927933331",
-        code: "123456",
+        account: "",
+        code: "",
         loginType: 2,
       },
     };
