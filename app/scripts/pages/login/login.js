@@ -23,9 +23,9 @@ export default {
         if (res.success) {
           sessionStorage.setItem("TOKEN", res.resultMap.userKey);
           sessionStorage.setItem("userInfo", JSON.stringify(res.resultMap));
-          if(isPc()){
+          if (isPc()) {
             this.$router.push("/h5/main");
-          }else{
+          } else {
             this.$router.push("/home/homePage");
           }
         }

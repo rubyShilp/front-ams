@@ -20,7 +20,7 @@ export default {
       }
       let params = {
         phone: this.user.phone,
-        type: 1,
+        type: 3,
       };
       loginServer.smsSendCode(params).then((res) => {
         if (res.success) {

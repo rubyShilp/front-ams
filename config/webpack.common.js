@@ -3,6 +3,7 @@ const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 module.exports = {
   entry: {
@@ -134,6 +135,13 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[name].bundle[hash:7].css",
     }),
+    new CopyWebpackPlugin([
+      {
+        from: "./static",
+        to: "./static",
+        ignore: [".*"],
+      },
+    ]),
     new HtmlWebpackPlugin({
       template: "./index.html",
       favicon: "./favicon.ico",
