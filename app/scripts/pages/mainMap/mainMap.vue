@@ -1,7 +1,7 @@
 <template>
   <div class="ams-main-screen">
     <div class="bg">
-      <div class="map-log">
+      <div class="map-log" style="z-index:999">
         <div class="img">
           <img src="./../../../images/logo.png" @click="login()" />
         </div>
@@ -9,7 +9,7 @@
           <h1>大数据考勤健康服务平台</h1>
         </div>
       </div>
-      <div class="sub-map">
+      <!-- <div class="sub-map">
         <p>
           迟到人数：
           <span
@@ -62,7 +62,7 @@
             >{{ attendanceInfo.lessactivitycount }}</span
           >
         </p>
-      </div>
+      </div> -->
       <div class="sub-tab">
         <el-form label-width="120px" size="mini" style="text-align: center;">
           <el-form-item label="迟到人数:">
