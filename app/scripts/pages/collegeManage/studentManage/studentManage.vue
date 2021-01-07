@@ -60,7 +60,7 @@
           <el-table-column type="selection" width="100"> </el-table-column>
           <el-table-column label="序号" type="index" align="center">
           </el-table-column>
-          <el-table-column prop="stucode" label="学生编号" sortable>
+          <el-table-column prop="sno" label="学生编号" sortable>
           </el-table-column>
           <el-table-column prop="imei" label="IMEI码" sortable>
           </el-table-column>
@@ -76,7 +76,7 @@
           <el-table-column label="操作" width="230">
             <template class="table-operation" v-slot="scope">
               <a href="javaScript:;" @click="studentImei(scope.row)"
-                ><i class="el-icon-map-location"></i>imei</a
+                ><i class="el-icon-map-location"></i>定位</a
               >
               <span>|</span>
               <a href="javaScript:;" @click="show('detail', scope.row)"

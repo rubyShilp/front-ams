@@ -125,7 +125,7 @@ export default {
       let starttime = new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
       let endtime = new Date();
       let params = {
-        studentMapImei: studentMapImei,
+        imei: this.studentMapImei,
         starttime: formDate(new Date(starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(endtime), "yyyy-MM-dd hh:mm:ss"),
       };
