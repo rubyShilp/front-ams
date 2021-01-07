@@ -14,7 +14,7 @@ export default {
   },
   beforeMount() {
     this.initGetSchool();
-    this.alerts();
+    // this.alerts();
     let userinfo = JSON.parse(sessionStorage.getItem("userInfo"));
     this.userData = Object.assign({},userinfo)
     if (sessionStorage.getItem("homeIndex")) {
@@ -64,13 +64,13 @@ export default {
         }
       });
     },
-    alerts() {
-      this.$notify({
-        title: "提示",
-        message: "这是一条不会自动关闭的消息",
-        duration: 0,
-        offset: 75,
-      });
-    },
+    // alerts() {
+    //   this.$notify({
+    //     title: "提示",
+    //     message: "这是一条不会自动关闭的消息",
+    //     duration: 0,
+    //     offset: 75,
+    //   });
+    // },
   },
 };
