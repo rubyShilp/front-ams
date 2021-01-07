@@ -71,9 +71,7 @@ export default{
       //配置初始背景色
       getRegions(colorArr,type){
         let newArr = [];
-        console.log(colorArr)
         for(let i=0;i<colorArr.length;i++){
-          console.log((type === 1?colorArr[i].provname:colorArr[i].cityname).substr(0,(type === 1?colorArr[i].provname:colorArr[i].cityname).length-1))
           if(colorArr[i].count <= 0){
             newArr.push({
               name: (type === 1?colorArr[i].provname.substr(0,colorArr[i].provname.length-1):colorArr[i].cityname),
@@ -163,6 +161,7 @@ export default{
        // 配置渲染map
     mapChart(map) {
         let myChart = echarts.init(document.getElementById("container"));
+        myChart.off('click')
         window.addEventListener("resize", ()=>{
           myChart.resize();
         });
@@ -251,6 +250,7 @@ export default{
         };
      myChart.setOption(option);
      var that = this;
+     console.log(info.province)
       // 点击触发
       myChart.on("click", param => {
         if (param.name in info.province) {
@@ -300,7 +300,6 @@ export default{
     //查询该省异常数据汇总
     getCityAttendRecordSum(parmas).then(res=>{
       this.chinaSum = Object.assign({}, res.resultMap.citysum)
-      console.log(res)
     })
     let url='./../../../../static/province/'+eName+'.json'
     getCityProvince(url).then(res=>{
