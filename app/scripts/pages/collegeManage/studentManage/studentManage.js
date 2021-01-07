@@ -70,11 +70,12 @@ export default {
       visibleImei: false,
       studentMapImei: "", //手表唯一标识
       map: {
-        center: { lng: 113.763924, lat: 22.938634 },
+        center: { lat: 22.938634, lng: 113.763924 },
         zoom: 18,
         show: true,
         dragging: true,
       },
+      lineList: [],
     };
   },
   beforeMount() {
@@ -141,48 +142,12 @@ export default {
           let path = []; //本人的示例是要走规定经过的路线，所以中间有多经过点
           for (let i = 0; i < data.length; i++) {
             path.push([data[i].lon, data[i].lat]);
-          }
-          map.centerAndZoom(new BMap.Point(data[0].lon, data[0].lat), 17);
-          for (let i = 0; i < path.length; i += 2) {
-            var walking = new BMap.WalkingRoute(map, {
-              renderOptions: {
-                map: map,
-                autoViewport: true,
-              },
-              onPolylinesSet: function(routes) {
-                let searchRoute = routes[0].getPolyline(); //导航路线
-                map.removeOverlay(searchRoute); //移除查询出来 的路线
-              },
-              onMarkersSet: function(routes) {
-                map.removeOverlay(routes[0].marker); //删除起点
-                map.removeOverlay(routes[routes.length - 1].marker); //删除终点
-              },
+            this.lineList.push({
+              lat: data[i].lat,
+              lng: data[i].lon,
             });
-            let _this = this;
-            if (path[i + 1]) {
-              var start = new BMap.Point(path[i][0], path[i][1]);
-              var end = new BMap.Point(path[i + 1][0], path[i + 1][1]);
-              walking.search(start, end);
-              walking.setSearchCompleteCallback(function() {
-                if (walking.getResults()) {
-                  var plan = walking.getResults().getPlan(0);
-                  for (let j = 0; j < plan.getNumRoutes(); j++) {
-                    var pts = plan.getRoute(j).getPath();
-                    var polyline = new BMap.Polyline(pts, {
-                      strokeColor: "#ff0000",
-                      strokeWeight: 5,
-                      strokeOpacity: 1,
-                    }); //重新划路线
-                    map.addOverlay(polyline);
-                  }
-                }
-              });
-            }
           }
-          map.addEventListener("click", function(e) {
-            // 点击地点获取经纬度
-            console.log(e.point.lng, e.point.lat);
-          });
+          map.centerAndZoom(new BMap.Point(data[0].lon, data[0].lat), 11);
         }
       });
     },

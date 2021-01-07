@@ -220,21 +220,12 @@
           :zoom="map.zoom"
           @ready="handler"
         >
-          <!--缩放-->
-          <bm-navigation anchor="BMAP_ANCHOR_TOP_LEFT"></bm-navigation>
-          <!--定位-->
-          <bm-geolocation
-            anchor="BMAP_ANCHOR_BOTTOM_RIGHT"
-            :showAddressBar="true"
-            :autoLocation="true"
-          ></bm-geolocation>
-          <!--点-->
-          <bm-marker
-            :position="map.center"
-            :dragging="map.dragging"
-            animation="BMAP_ANIMATION_DROP"
-          >
-          </bm-marker>
+          <bm-polyline
+            :path="lineList"
+            stroke-color="#276ef9"
+            :stroke-opacity="0.5"
+            :stroke-weight="2"
+          ></bm-polyline>
         </baidu-map>
       </div>
     </el-dialog>
