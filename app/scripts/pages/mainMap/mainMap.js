@@ -1,14 +1,14 @@
 import mapChart from "@/servers/map.server.js";
 import cityList from "@/util/chinaCity.json";
 import { formDate } from "@/util/core.js";
-import * as mainMap from './mainMap.server.js';
+import * as mainMap from "./mainMap.server.js";
 export default {
   data() {
     return {
-      provinceList:[],//省数据
-      cityList:[],
-      attendanceInfo:{},
-      randomList:[],
+      provinceList: [], //省数据
+      cityList: [],
+      attendanceInfo: {},
+      randomList: [],
       starttime: new Date(new Date().getTime() - 6 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
     };
@@ -16,34 +16,34 @@ export default {
   mounted() {
     this.initProvcode();
     this.initMapStudent();
-    setInterval(()=>{
+    setInterval(() => {
       this.initProvcode();
       this.initMapStudent();
-    },2*60*1000)
+    }, 2 * 60 * 1000);
   },
   methods: {
     //获取当前省份数据
-    initProvcode(){
-      let params={
+    initProvcode() {
+      let params = {
         starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-      }
-      mainMap.getAllRecordSum(params).then(res=>{
-        if(res.success){
-          this.attendanceInfo=res.resultMap.provincesum;
+      };
+      mainMap.getAllRecordSum(params).then((res) => {
+        if (res.success) {
+          this.attendanceInfo = res.resultMap.provincesum;
         }
-      })
+      });
     },
     //获取全国市区人员信息
-    initMapStudent(){
-      let params={
+    initMapStudent() {
+      let params = {
         starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-      }
-      mainMap.getCityAttendRecords(params).then(res=>{
-        if(res.success){
-          let list=res.resultMap.cities;
-          let mapList=[];
+      };
+      mainMap.getCityAttendRecords(params).then((res) => {
+        if (res.success) {
+          let list = res.resultMap.cities;
+          let mapList = [];
           for (let value in cityList) {
             for (let i = 0; i < list.length; i++) {
               if (value === list[i].cityname) {
@@ -54,7 +54,7 @@ export default {
               }
             }
           }
-          console.log(mapList)
+          console.log(mapList);
           let itemList = [];
           let data = mapList.sort((a, b) => {
             return b.value - a.value;
@@ -65,9 +65,9 @@ export default {
           }
           this.mapInit(mapList, itemList);
         }
-      })
+      });
     },
-    mapInit(cityList,itemList) {
+    mapInit(cityList, itemList) {
       let options = {
         type: "map",
         barWidth: 22,
@@ -79,6 +79,9 @@ export default {
       };
       let scrollMap = document.getElementById("scrollMap");
       mapChart(scrollMap, options);
+    },
+    login() {
+      this.$router.push("/login");
     },
   },
 };

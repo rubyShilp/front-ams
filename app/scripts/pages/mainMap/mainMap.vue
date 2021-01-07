@@ -3,7 +3,7 @@
     <div class="bg">
       <div class="map-log">
         <div class="img">
-          <img src="./../../../images/logo.png" />
+          <img src="./../../../images/logo.png" @click="login()" />
         </div>
         <div class="title">
           <h1>大数据考勤健康服务平台</h1>
