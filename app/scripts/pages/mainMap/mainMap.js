@@ -54,7 +54,6 @@ export default {
               }
             }
           }
-          console.log(mapList);
           let itemList = [];
           let data = mapList.sort((a, b) => {
             return b.value - a.value;

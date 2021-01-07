@@ -34,7 +34,6 @@ export default {
 
       path.push([113.772022, 22.93014]);
       path.push([113.775806, 22.932607]);
-
       map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
       for (let i = 0; i < path.length; i += 2) {
         var walking = new BMap.WalkingRoute(map, {

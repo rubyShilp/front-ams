@@ -292,7 +292,6 @@ export default {
       };
       myChart.setOption(option);
       var that = this;
-      console.log(info.province);
       // 点击触发
       myChart.on("click", (param) => {
         if (param.name in info.province) {

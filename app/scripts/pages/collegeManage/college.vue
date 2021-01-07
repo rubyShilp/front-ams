@@ -85,7 +85,6 @@ export default {
           obj = obj.parent;
         }
       }
-      console.log(item);
       if (!obj.data) {
         this.itemIds.schoolcode = item.id;
       } else {
