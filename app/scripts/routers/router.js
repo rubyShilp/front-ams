@@ -53,12 +53,10 @@ const loginRouter = [
   },
   {
     path: "/mainMap",
-    component: () => import("@/pages/mainMap/mainMap.vue"),
-    meta: { scrollToTop: true },
-  },
-  {
-    path: "/mapGL",
-    component: () => import("@/pages/mapGL/mapGL.vue"),
+    component: () =>
+      isPc()
+        ? import("@/h5/h5mainMap/h5mainMap.vue")
+        : import("@/pages/mainMap/mainMap.vue"),
     meta: { scrollToTop: true },
   },
   {

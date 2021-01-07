@@ -6,8 +6,7 @@ const mainRouter = [
     children: [
       {
         path: "/home/homePage",
-        component: () =>
-          import("@/pages/homePage/homePage.vue"),
+        component: () => import("@/pages/homePage/homePage.vue"),
         meta: { scrollToTop: true },
       },
       {
@@ -38,15 +37,14 @@ const mainRouter = [
             component: () =>
               import("@/pages/attendanceManage/equipment/equipment.vue"),
             meta: { scrollToTop: true },
-          }
+          },
         ],
       },
       {
         path: "/home/accountCenter",
-        component: () =>
-          import("@/pages/accountCenter/accountCenter.vue"),
+        component: () => import("@/pages/accountCenter/accountCenter.vue"),
         meta: { scrollToTop: true },
-        children:[
+        children: [
           {
             path: "/home/user",
             component: () =>
@@ -62,15 +60,16 @@ const mainRouter = [
           {
             path: "/home/resources",
             component: () =>
-              import("@/pages/accountCenter/resourcesManage/resourcesManage.vue"),
+              import(
+                "@/pages/accountCenter/resourcesManage/resourcesManage.vue"
+              ),
             meta: { scrollToTop: true },
-          }
-        ]
+          },
+        ],
       },
       {
         path: "/home/collegeManage",
-        component: () =>
-          import("@/pages/collegeManage/collegeManage.vue"),
+        component: () => import("@/pages/collegeManage/collegeManage.vue"),
         meta: { scrollToTop: true },
         children: [
           {
@@ -81,10 +80,9 @@ const mainRouter = [
           },
           {
             path: "/home/college",
-            component: () =>
-              import("@/pages/collegeManage/college.vue"),
+            component: () => import("@/pages/collegeManage/college.vue"),
             meta: { scrollToTop: true },
-          }
+          },
           // {
           //   path: "/home/gradeManage",
           //   component: () => import("@/pages/collegeManage/gradeManage/gradeManage.vue"),
@@ -103,20 +101,13 @@ const mainRouter = [
           //   meta: { scrollToTop: true },
           // }
         ],
-      }
+      },
     ],
   },
   {
     path: "/h5/main",
-    component: () =>
-      import("@/h5/main/main.vue"),
+    component: () => import("@/h5/main/main.vue"),
     meta: { scrollToTop: true },
   },
-  {
-    path: "/h5/mainMap",
-    component: () =>
-      import("@/h5/h5mainMap/h5mainMap.vue"),
-    meta: { scrollToTop: true },
-  }
 ];
 export default mainRouter;
