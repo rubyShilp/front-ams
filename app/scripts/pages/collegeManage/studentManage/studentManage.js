@@ -70,7 +70,7 @@ export default {
       visibleImei: false,
       studentMapImei: "", //手表唯一标识
       map: {
-        center: { lat: 22.938634, lng: 113.763924 },
+        center: { lat: 113.87, lng: 22.27 },
         zoom: 18,
         show: true,
         dragging: true,
@@ -132,6 +132,7 @@ export default {
       };
       studentServer.getPosRecordsByImei(params).then((res) => {
         if (res.success) {
+          this.lineList = [];
           let data = res.resultMap.positions;
           if (data.length > 0) {
             this.map.center = { lng: data[0].lon, lat: data[0].lat };
@@ -147,7 +148,11 @@ export default {
               lng: data[i].lon,
             });
           }
-          map.centerAndZoom(new BMap.Point(data[0].lon, data[0].lat), 11);
+          if (data.length > 0) {
+            map.centerAndZoom(new BMap.Point(data[0].lon, data[0].lat), 11);
+          } else {
+            map.centerAndZoom(new BMap.Point(113.87, 22.27), 11);
+          }
         }
       });
     },
