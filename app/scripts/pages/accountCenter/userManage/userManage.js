@@ -233,17 +233,51 @@ export default{
                   })
               }
              else{
+                let [...tree] = this.roleTrees;
                 this.relationIds = [...this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())]
+                console.log(this.relationIds)
+                this.relationIds.forEach(item=>{
+                  if(item.indexOf("|s:") != -1 ){
+                    for(let i=0;i<tree.length;i++){
+                       if(item === tree[i].id){
+                        tree[i].chk = 1;
+                       }
+                    }
+                  }
+                  if(item.indexOf("g:") != -1 ){
+                    console.log(item)
+                    for(let i=0;i<tree.length;i++){
+                      for(let j=0;j<tree[i].children.length;j++){
+                        if(item === tree[i].children[j].id){
+                          tree[i].children[j].chk =  1
+                        }
+                      }
+                    }
+                  }
+                  if(item.indexOf("c:") != -1 ){
+                    console.log(item)
+                    for(let i=0;i<tree.length;i++){
+                      for(let j=0;j<tree[i].children.length;j++){
+                        for(let k=0;k<tree[i].children[j].children.length;k++){
+                          if(item === tree[i].children[j].children[k].id){
+                            tree[i].children[j].children[k].chk =  1
+                          }
+                        }
+                      }
+                    }
+                  }
+                })
                   let parmas = {
                     usercode: this.usercode,
                     rolecodes: this.userRole,
-                    relationIds: this.relationIds.join()
+                    treeReqVo: tree
                 }
               accountCenterServer.saveUserRelation(parmas).then(res=>{
                   if(res.success){
                       this.tip('success','分配资源成功')  
                       this.query()
                       this.handle_dialog = false;
+                      tree = [];
                   }
               })
               }
