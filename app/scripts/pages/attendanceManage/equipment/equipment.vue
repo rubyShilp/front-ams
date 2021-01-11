@@ -82,7 +82,7 @@
             <el-table-column prop="rfidlocation" label="接收机位置" sortable>
             </el-table-column>
             <el-table-column label="接收机方向" sortable>
-               <template slot-scope="scope">
+              <template slot-scope="scope">
                 <div v-if="scope.row.rfiddirect === 0">门外</div>
                 <div v-else>门内</div>
               </template>
@@ -148,7 +148,7 @@
         <el-form-item label="学校名称：">
           <span v-show="isDetail"> {{ equipmentInfo.schoolname }}</span>
           <span v-show="!isDetail">
-            <el-select v-model="equipmentInfo.schoolname">
+            <el-select v-model="equipmentInfo.schoolcode">
               <el-option
                 v-for="item of schoolList"
                 :key="item.schoolcode"
@@ -160,9 +160,9 @@
           </span>
         </el-form-item>
         <el-form-item label="接收机编号：">
-          <span v-show="isDetail"> {{ equipmentInfo.acceptorcode }}</span>
+          <span v-show="isDetail"> {{ equipmentInfo.rfidno }}</span>
           <span v-show="!isDetail">
-            <el-input v-model="equipmentInfo.acceptorcode"></el-input
+            <el-input v-model="equipmentInfo.rfidno"></el-input
           ></span>
         </el-form-item>
         <el-form-item label="接收机位置：">
@@ -172,10 +172,13 @@
           ></span>
         </el-form-item>
         <el-form-item label="接收机方向：">
-          <span v-show="isDetail"> {{ equipmentInfo.rfidno }}</span>
+          <span v-show="isDetail"> {{ equipmentInfo.rfiddirect }}</span>
           <span v-show="!isDetail">
-            <el-input v-model="equipmentInfo.rfidno"></el-input
-          ></span>
+            <el-select v-model="equipmentInfo.rfiddirect">
+              <el-option :value="0" :label="'门外'"></el-option>
+              <el-option :value="1" :label="'门内'"></el-option>
+            </el-select>
+          </span>
         </el-form-item>
         <el-form-item label="接收机组：">
           <span v-show="isDetail"> {{ equipmentInfo.rfidgroupid }}</span>
