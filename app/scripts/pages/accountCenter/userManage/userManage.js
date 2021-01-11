@@ -36,6 +36,9 @@ export default{
               ],
               nickname: [
                 { required: true, message: '昵称不能为空', trigger: 'blur' }
+               ],
+               usertype: [
+                { required: true, message: '用户类型不能为空', trigger: 'blur' }
                ] 
           },
           defaultProps: {
@@ -47,6 +50,11 @@ export default{
               { required: true, message: '请选择用户角色！', trigger: 'blur' }
            ],
           },
+          usertypes: [
+            {id: 0,value: "超级管理员"},
+            {id: 1,value: "普通管理员"},
+            {id: 2,value: "教职工"}
+          ],
           usercode: "",
           relationIds: [],
           defaultnodes: [],

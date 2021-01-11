@@ -122,6 +122,17 @@
                </el-option>
             </el-select>
            </el-form-item>
+           <el-form-item label="用户类型" prop="usertype" label-width="120px" v-if="type === 'edit'">
+           <el-select v-model="handleData.usertype" :disabled="handleData.usertype === 0">
+               <el-option
+                  v-for="item in usertypes"
+                  v-show="item.id !== 0"
+                  :key="item.id"
+                  :label="item.value"
+                  :value="item.id">
+               </el-option>
+            </el-select>
+           </el-form-item>
        </el-form>
        <!--权限分配-->
        <el-form class="form"  :rules="role_rules" style="height: 60vh;overflow: auto;" ref="roleForm" v-else>

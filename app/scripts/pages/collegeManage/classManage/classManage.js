@@ -44,8 +44,8 @@ export default {
       query(page){
         let params = {
           schoolcode: this.ids.schoolcode,
-          gradeId: this.ids.gradeId,
-          classId: this.ids.classId,
+          gradecode: this.ids.gradeId,
+          classcode: this.ids.classId,
           classname: this.initData.classname,
           page: page,
           pageSize: this.pageSize
@@ -152,6 +152,7 @@ export default {
               if(res.status === 200){
                 this.tip('success','新增成功')
                 this.query(0)
+                this.$emit('resetquery')
                 this.handle_dialog = false;
               }
             })
@@ -160,6 +161,7 @@ export default {
             if(res.status === 200){
               this.tip('success',res.message)
               this.query(0)
+              this.$emit('resetquery')
               this.handle_dialog = false;
             }
           })

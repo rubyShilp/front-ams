@@ -15,6 +15,7 @@
         v-bind:is="currentTabComponent"
         :ids="itemIds"
         :key="timer"
+        @resetquery="resetquery"
       ></component>
     </el-container>
   </div>
@@ -50,6 +51,9 @@ export default {
     this.initUserRole();
   },
   methods: {
+    resetquery(){
+      this.initUserRole()
+    },
     //初始化学校年级树形结构菜单项
     initUserRole() {
       let params = {};

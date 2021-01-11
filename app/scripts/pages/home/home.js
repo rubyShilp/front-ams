@@ -44,6 +44,7 @@ export default {
           this.schoolList = res.resultMap.schools;
           let userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
           this.nickname = userInfo.nickname;
+          console.log(userInfo)
           if(userInfo.userType === 2){
              this.schoolcode = this.schoolList[0].schoolcode;
           }else{
