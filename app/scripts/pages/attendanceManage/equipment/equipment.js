@@ -65,8 +65,8 @@ export default {
       this.isDetail = false;
       this.isAddOrUpdae = true;
       this.equipmentInfo = {
-        schoolname: "",
-        schoolcode: "",
+        schoolname: this.schoolList[1].schoolname,
+        schoolcode: this.schoolList[1].schoolcode,
         rfidno: "",
         rfidlocation: "",
         rfiddirect: "",
@@ -104,6 +104,7 @@ export default {
       attendanceServer.acceptorCreate(this.equipmentInfo).then((res) => {
         if (res.success) {
           this.initAcceptorQuery(0);
+          this.isEquipment = false;
         }
       });
     },
@@ -122,6 +123,7 @@ export default {
                 type: "success",
                 message: "删除成功!",
               });
+              this.initAcceptorQuery(0);
             }
           });
         })
@@ -134,6 +136,7 @@ export default {
     },
     //选择删除的数据
     selectData(list) {
+      this.selectDataList = [];
       for (let i = 0; i < list.length; i++) {
         this.selectDataList.push(list[i].acceptorcode);
       }
