@@ -5,18 +5,18 @@ export default {
     return {
       userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
       dataList: [],
-      totalCount:0,//總條數
-      page:1,
-      pageSize:10,//每頁顯示條數
+      totalCount: 0, //總條數
+      page: 1,
+      pageSize: 10, //每頁顯示條數
       data: [],
-      isRecordDetail:false,//是否显示考勤记录详情
-      recordDetail:{},//考勤记录详情
+      isRecordDetail: false, //是否显示考勤记录详情
+      recordDetail: {}, //考勤记录详情
       starttime: new Date(new Date().toLocaleDateString()),
       endtime: new Date(),
-      schoolcodeId:'',
+      schoolcodeId: "",
       schoolcode: "", //学校id
-      gradeId: "", //年级id
-      classId: "", //班级id
+      gradecode: "", //年级id
+      classcode: "", //班级id
     };
   },
   beforeMount() {
@@ -51,17 +51,16 @@ export default {
       }
       let parentid = item.parentid;
       if (this.schoolcode === parentid) {
-        this.gradeId = item.id;
-        this.classId = "";
+        this.gradecode = item.id;
+        this.classcode = "";
       } else {
-        if(!obj.data){
-          this.gradeId = '';
-          this.classId = '';
-        }else{
-          this.gradeId = parentid;
-          this.classId = item.id;
+        if (!obj.data) {
+          this.gradecode = "";
+          this.classcode = "";
+        } else {
+          this.gradecode = parentid;
+          this.classcode = item.id;
         }
-       
       }
       this.initAttendTop(0);
     },
@@ -71,8 +70,8 @@ export default {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
-        gradeId: this.gradeId,
-        classId: this.classId,
+        gradecode: this.gradecode,
+        classcode: this.classcode,
         page: page,
         pagesize: this.pageSize,
       };
@@ -83,20 +82,20 @@ export default {
         }
       });
     },
-     //每頁顯示條數
-     handleSizeChange(pageSize){
-      this.pageSize=pageSize;
+    //每頁顯示條數
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
       this.initAttendTop(0);
     },
     //跳轉的頁碼
-    handleCurrentChange(page){
-      this.page=page;
-      this.initAttendTop(page-1);
+    handleCurrentChange(page) {
+      this.page = page;
+      this.initAttendTop(page - 1);
     },
     //详情
-    detailRecord(list){
-      this.recordDetail=list;
-      this.isRecordDetail=true;
+    detailRecord(list) {
+      this.recordDetail = list;
+      this.isRecordDetail = true;
       // let params={attendcode:list.attendcode};
       // attendanceServer.detailRecord(params).then(res=>{
       //   if(res.success){
@@ -106,14 +105,18 @@ export default {
       // })
     },
     //恢复
-    updateRecord(list){
-      let params={attendcode:list.attendcode,attendstate: 1,inoutstate:1};
-      attendanceServer.updateRecord(params).then(res=>{
-        if(res.success){
-          this.$message.success('修正成功');
+    updateRecord(list) {
+      let params = {
+        attendcode: list.attendcode,
+        attendstate: 1,
+        inoutstate: 1,
+      };
+      attendanceServer.updateRecord(params).then((res) => {
+        if (res.success) {
+          this.$message.success("修正成功");
           this.initAttendTop(0);
         }
-      })
-    }
+      });
+    },
   },
 };

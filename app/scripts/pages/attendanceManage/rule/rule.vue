@@ -161,6 +161,11 @@
               size="mini"
               :editable="false"
               :clearable="false"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '23:30',
+              }"
             >
             </el-time-select>
           </span>
@@ -173,6 +178,11 @@
               size="mini"
               :editable="false"
               :clearable="false"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '23:30',
+              }"
             >
             </el-time-select>
           </span>
@@ -185,6 +195,11 @@
               size="mini"
               :editable="false"
               :clearable="false"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '23:30',
+              }"
             >
             </el-time-select>
           </span>
@@ -197,6 +212,11 @@
               size="mini"
               :editable="false"
               :clearable="false"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '23:30',
+              }"
             >
             </el-time-select>
           </span>
@@ -209,6 +229,11 @@
               size="mini"
               :editable="false"
               :clearable="false"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '23:30',
+              }"
             >
             </el-time-select>
           </span>
@@ -221,6 +246,11 @@
               size="mini"
               :editable="false"
               :clearable="false"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '23:30',
+              }"
             >
             </el-time-select>
           </span>
