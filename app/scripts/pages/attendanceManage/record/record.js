@@ -11,6 +11,7 @@ export default {
       data: [],
       isRecordDetail: false, //是否显示考勤记录详情
       recordDetail: {}, //考勤记录详情
+      studentname: "",
       starttime: new Date(new Date().toLocaleDateString()),
       endtime: new Date(),
       schoolcodeId: "",
@@ -67,6 +68,7 @@ export default {
     //获取当前学校或班级或年级考勤信息
     initAttendTop(page) {
       let params = {
+        stuname: this.studentname,
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,

@@ -9,6 +9,7 @@ export default {
     return {
       userInfo: JSON.parse(sessionStorage.getItem("userInfo")),
       starttime: new Date(new Date().getTime() - 6 * 24 * 60 * 60 * 1000),
+      stattime: new Date(),
       endtime: new Date(),
       querytype: 1,
       isOne: false,
@@ -255,7 +256,7 @@ export default {
     //初始化考勤实时异常数据统计
     initStatisticsReal(number) {
       let params = {
-        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(new Date(this.stattime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         page: number,

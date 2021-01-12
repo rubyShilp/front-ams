@@ -5,7 +5,7 @@ import { TimePicker } from 'element-ui';
 export default {
   props: {
     school: {
-      type: Number,
+      type: String,
       default: ""
     }
   },
@@ -13,8 +13,8 @@ export default {
     school(newVal){
       this.$nextTick(()=>{
         this.getheadData(newVal);
-        this.getEchartData(this.school,'top');
-        this.getEchartData(this.school);
+        this.getEchartData(newVal,'top');
+        this.getEchartData(newVal);
       })
     }
   },
@@ -49,9 +49,9 @@ export default {
     charts
   },
   beforeMount() {
-    this.getheadData(this.school);
-    this.getEchartData(this.school,'top');
-    this.getEchartData(this.school);
+    this.getheadData("");
+    this.getEchartData("",'top');
+    this.getEchartData("");
   },
   methods: {
     clear(){
@@ -65,25 +65,27 @@ export default {
     },
     //获取头部数据
     getheadData(code){
-      let params = {
-        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        schoolcode:code,
-        querytype: this.tabType
-      }
-      homeServer.headerData(params).then(res=>{
-        if(res.success){
-          this.arrs = res.resultMap.abnormalNums
+      let scode = code;
+        let params = {
+          starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+          endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+          schoolcode: scode,
+          querytype: this.tabType
         }
-      })
+        homeServer.headerData(params).then(res=>{
+          if(res.success){
+            this.arrs = res.resultMap.abnormalNums
+          }
+        })
     },
     //获取图表数据
     getEchartData(code,statu){
+      let scode = code;
       this.clear();
       let params = {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        schoolcode: code,
+        schoolcode: scode,
         querytype: this.tabType,
         sorttype: "1",
         page: "1",

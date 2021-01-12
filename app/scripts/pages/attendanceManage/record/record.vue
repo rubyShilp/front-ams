@@ -15,7 +15,7 @@
           <div class="from-right">
             <el-form :inline="true">
               <el-form-item label="学生姓名">
-                <el-input placeholder="学生姓名" size="mini"></el-input>
+                <el-input placeholder="学生姓名" size="mini" v-model="studentname"></el-input>
               </el-form-item>
               <el-form-item label="时间">
                 <el-date-picker

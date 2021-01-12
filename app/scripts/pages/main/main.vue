@@ -115,7 +115,7 @@
                 <ams-chart
                   :chartData="chartData_one"
                   chartType="line"
-                  titleText="当前考勤异常周趋势"
+                  titleText="考勤异常周趋势"
                   :seriesData="series_one"
                   theme="main"
                   v-if="chartData_one[0].length != 0"
@@ -224,7 +224,7 @@
                       :chartData="chartData_two"
                       v-if="chartData_two[0].length != 0"
                       chartType="bar"
-                      titleText="当前考勤异常学校TOP10"
+                      titleText="考勤异常学校TOP10"
                       :seriesData="series_two"
                       theme="main"
                     ></ams-chart>
@@ -237,7 +237,7 @@
                       :chartData="chartData_three"
                       v-if="chartData_three[0].length != 0"
                       chartType="bar"
-                      titleText="当前健康异常学校TOP10"
+                      titleText="健康异常学校TOP10"
                       :seriesData="series_three"
                       theme="main"
                     ></ams-chart>
@@ -252,7 +252,7 @@
                       :chartData="chartData_four"
                       v-if="chartData_four[0].length != 0"
                       chartType="pie"
-                      titleText="当前体温概括"
+                      titleText="体温概括"
                       theme="main"
                     ></ams-chart>
                   </div>

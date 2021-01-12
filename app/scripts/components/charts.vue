@@ -112,6 +112,7 @@ export default {
     // 绘制图表
     drawChart() {
       let chart = echarts.init(document.getElementById(this.id));
+       chart.off("click");
       if (chart == undefined) {
         console.error(`echarts init dom id ${this.id} failed`);
         return;
