@@ -22,8 +22,9 @@
                 <div class="ams-school-seting">
                   <el-select v-model="schoolcode" @change="selectSchool()">
                     <el-option
+                      v-if="schoolList.length > 0"
                       v-for="item of schoolList"
-                      :key="item.schoolname"
+                      :key="item.schoolcode"
                       :label="item.schoolname"
                       :value="item.schoolcode"
                     >
@@ -262,7 +263,7 @@
                       :indicatorData="indicator_five"
                       v-if="chartData_five[0].length != 0"
                       chartType="radar"
-                      titleText="学校健康异常周趋势"
+                      titleText="健康异常周趋势"
                     ></ams-chart>
                   </div>
                 </el-main>

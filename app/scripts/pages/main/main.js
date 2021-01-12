@@ -1,6 +1,6 @@
 import charts from "@/components/charts";
 import * as mainServer from "./main.server.js";
-import { formDate } from "@/util/core.js";
+import { formDate, dateFullTime } from "@/util/core.js";
 export default {
   components: {
     "ams-chart": charts,
@@ -55,6 +55,7 @@ export default {
     //初始化学校信息
     initGetSchool() {
       let params = {};
+      this.schoolList = [];
       mainServer.getSchool(params).then((res) => {
         if (res.success) {
           this.schoolList = res.resultMap.schools;
@@ -123,8 +124,14 @@ export default {
     //统计考勤异常数据
     initAttendTop(statu) {
       let params = {
-        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(
+          new Date(dateFullTime() + " 00:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
+        endtime: formDate(
+          new Date(dateFullTime() + " 23:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
         schoolcode: this.schoolcode,
         gradecode: this.gradecode,
         classcode: this.classcode,
@@ -170,8 +177,14 @@ export default {
     //统计健康异常数据
     initHealthTop(statu) {
       let params = {
-        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(
+          new Date(dateFullTime() + " 00:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
+        endtime: formDate(
+          new Date(dateFullTime() + " 23:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
         schoolcode: this.schoolcode,
         gradecode: this.gradecode,
         classcode: this.classcode,
@@ -215,8 +228,14 @@ export default {
     //初始化考勤异常数据汇总
     initSumTop() {
       let params = {
-        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(
+          new Date(dateFullTime() + " 00:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
+        endtime: formDate(
+          new Date(dateFullTime() + " 23:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
         schoolcode: this.schoolcode,
         gradecode: this.gradecode,
         classcode: this.classcode,
@@ -231,8 +250,14 @@ export default {
     //初始化统计体温分布
     initStatisticsTemper() {
       let params = {
-        starttime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(
+          new Date(dateFullTime() + " 00:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
+        endtime: formDate(
+          new Date(dateFullTime() + " 23:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
         schoolcode: this.schoolcode,
       };
       mainServer.statisticsTemper(params).then((res) => {
@@ -256,8 +281,14 @@ export default {
     //初始化考勤实时异常数据统计
     initStatisticsReal(number) {
       let params = {
-        starttime: formDate(new Date(this.stattime), "yyyy-MM-dd hh:mm:ss"),
-        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        starttime: formDate(
+          new Date(dateFullTime() + " 00:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
+        endtime: formDate(
+          new Date(dateFullTime() + " 23:00:00"),
+          "yyyy-MM-dd hh:mm:ss"
+        ),
         schoolcode: this.schoolcode,
         page: number,
         pagesize: 100,
