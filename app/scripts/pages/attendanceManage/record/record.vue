@@ -15,7 +15,11 @@
           <div class="from-right">
             <el-form :inline="true">
               <el-form-item label="学生姓名">
-                <el-input placeholder="学生姓名" size="mini" v-model="studentname"></el-input>
+                <el-input
+                  placeholder="学生姓名"
+                  size="mini"
+                  v-model="studentname"
+                ></el-input>
               </el-form-item>
               <el-form-item label="时间">
                 <el-date-picker
@@ -90,12 +94,20 @@
               </el-table-column>
               <el-table-column label="进出状态" sortable>
                 <template slot-scope="scope">
-                  {{ scope.row.inoutstate | recordStatus }}
+                  <span
+                    :style="{
+                      color: scope.row.inoutstate == 1 ? '#000' : 'red',
+                    }"
+                  >
+                    {{ scope.row.inoutstate | recordStatus }}</span
+                  >
                 </template>
               </el-table-column>
               <el-table-column label="考勤状态" sortable>
                 <template slot-scope="scope">
-                  {{ scope.row.attendstate | recordStatus }}
+                  <span :style="{ color: colors[scope.row.attendstate] }">{{
+                    scope.row.attendstate | attendstate
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column label="操作" width="200">

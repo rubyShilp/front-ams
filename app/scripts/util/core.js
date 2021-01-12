@@ -111,25 +111,25 @@ export function token() {
 }
 //下载文件
 export function dowandFile(res, fileName) {
-  let blob = new Blob([res])
-  if ('download' in document.createElement('a')) {
-    let a = window.document.createElement('a')
-    let url = null
-    if ('msSaveOrOpenBlob' in navigator) {
-      url = window.navigator.msSaveOrOpenBlob(res, fileName)
+  let blob = new Blob([res]);
+  if ("download" in document.createElement("a")) {
+    let a = window.document.createElement("a");
+    let url = null;
+    if ("msSaveOrOpenBlob" in navigator) {
+      url = window.navigator.msSaveOrOpenBlob(res, fileName);
     } else {
-      url = window.URL.createObjectURL(blob)
+      url = window.URL.createObjectURL(blob);
     }
-    a.addEventListener('click', function(e) {
-      a.download = fileName
-      a.href = url
-    })
-    let e = document.createEvent('MouseEvents')
-    e.initEvent('click', false, false)
-    a.dispatchEvent(e)
-    window.URL.revokeObjectURL(url)
+    a.addEventListener("click", function(e) {
+      a.download = fileName;
+      a.href = url;
+    });
+    let e = document.createEvent("MouseEvents");
+    e.initEvent("click", false, false);
+    a.dispatchEvent(e);
+    window.URL.revokeObjectURL(url);
   } else {
-    navigator.msSaveBlob(blob, fileName)
+    navigator.msSaveBlob(blob, fileName);
   }
 }
 export function upladFile(e, size) {
@@ -186,4 +186,12 @@ export function outputdollars(number) {
     }
     return output;
   }
+}
+//日期时间处理
+export function dateFullTime() {
+  let year = new Date().getFullYear();
+  let month = new Date().getMonth() + 1;
+  let day = new Date().getDate();
+  let str = year + "-" + month + "-" + day;
+  return str;
 }

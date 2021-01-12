@@ -18,6 +18,7 @@ export default {
       schoolcode: "", //学校id
       gradecode: "", //年级id
       classcode: "", //班级id
+      colors: ["#000", "#057bfb", "#01edfb", "#ed7d31", "#fbdb27"],
     };
   },
   beforeMount() {
