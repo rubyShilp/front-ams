@@ -19,7 +19,7 @@ export default {
     };
   },
   beforeMount() {
-    this.initAcceptorQuery(0);
+    this.initAcceptorQuery(1);
   },
   methods: {
     //查询学校考勤设备信息
@@ -41,12 +41,12 @@ export default {
     //每頁顯示條數
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
-      this.initAcceptorQuery(0);
+      this.initAcceptorQuery(1);
     },
     //跳轉的頁碼
     handleCurrentChange(page) {
       this.page = page;
-      this.initAcceptorQuery(page - 1);
+      this.initAcceptorQuery(page);
     },
     //查询考勤设备详情信息
     acceptorDetial(list, type) {
@@ -90,7 +90,7 @@ export default {
       );
       attendanceServer.acceptorUpdate(this.equipmentInfo).then((res) => {
         if (res.success) {
-          this.initAcceptorQuery(0);
+          this.initAcceptorQuery(1);
           this.isEquipment = false;
         }
       });
@@ -103,7 +103,7 @@ export default {
       );
       attendanceServer.acceptorCreate(this.equipmentInfo).then((res) => {
         if (res.success) {
-          this.initAcceptorQuery(0);
+          this.initAcceptorQuery(1);
           this.isEquipment = false;
         }
       });
@@ -123,7 +123,7 @@ export default {
                 type: "success",
                 message: "删除成功!",
               });
-              this.initAcceptorQuery(0);
+              this.initAcceptorQuery(1);
             }
           });
         })
@@ -152,7 +152,7 @@ export default {
       };
       attendanceServer.acceptorBatchRemove(params).then((res) => {
         if (res.success) {
-          this.initAcceptorQuery(0);
+          this.initAcceptorQuery(1);
         }
       });
     },

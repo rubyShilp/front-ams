@@ -12,9 +12,11 @@ Vue.filter("sexName", function(value) {
   }
 });
 Vue.filter("recordStatus", function(value) {
-  if (value == 1) {
+  if (value == 0) {
+    return "未知";
+  } else if (value == 1) {
     return "正常";
-  } else {
+  } else if (value == 2) {
     return "异常";
   }
 });

@@ -37,7 +37,7 @@
               </el-date-picker>
             </el-form-item>
             <el-form-item>
-              <el-button @click="initAttendRoleQuery(0)" size="mini"
+              <el-button @click="initAttendRoleQuery(1)" size="mini"
                 >查询</el-button
               >
             </el-form-item>

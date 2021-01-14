@@ -199,7 +199,7 @@ export default {
     //跳轉的頁碼
     handleCurrentChange(page) {
       this.currentPage = page;
-      this.query(page - 1);
+      this.query(page);
     },
   },
 };

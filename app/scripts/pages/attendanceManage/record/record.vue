@@ -43,7 +43,7 @@
                 </el-date-picker>
               </el-form-item>
               <el-form-item>
-                <el-button @click="initAttendTop(0)" size="mini">
+                <el-button @click="initAttendTop(1)" size="mini">
                   查询
                 </el-button>
               </el-form-item>
@@ -96,7 +96,12 @@
                 <template slot-scope="scope">
                   <span
                     :style="{
-                      color: scope.row.inoutstate == 1 ? '#000' : 'red',
+                      color:
+                        scope.row.inoutstate == 1
+                          ? '#000'
+                          : scope.row.inoutstate == 2
+                          ? 'red'
+                          : '#01edfb',
                     }"
                   >
                     {{ scope.row.inoutstate | recordStatus }}</span

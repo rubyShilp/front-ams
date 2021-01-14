@@ -38,7 +38,7 @@
               </el-date-picker>
             </el-form-item>
             <el-form-item>
-              <el-button @click="initAcceptorQuery(0)" size="mini"
+              <el-button @click="initAcceptorQuery(1)" size="mini"
                 >查询</el-button
               >
             </el-form-item>

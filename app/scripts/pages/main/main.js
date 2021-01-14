@@ -73,7 +73,7 @@ export default {
           this.initHealthTop("one");
           // this.initHealthTop(2);
           this.initStatisticsTemper();
-          this.initStatisticsReal(0);
+          this.initStatisticsReal(1);
         }
       });
     },
@@ -119,7 +119,7 @@ export default {
       this.initHealthTop("one");
       // this.initHealthTop(2);
       this.initStatisticsTemper();
-      this.initStatisticsReal(0);
+      this.initStatisticsReal(1);
     },
     //统计考勤异常数据
     initAttendTop(statu) {
@@ -137,7 +137,7 @@ export default {
         classcode: this.classcode,
         querytype: this.querytype,
         sorttype: "1",
-        page: 0,
+        page: 1,
         pagesize: "10",
       };
       if (statu == "one") {
@@ -189,8 +189,8 @@ export default {
         gradecode: this.gradecode,
         classcode: this.classcode,
         querytype: this.querytype,
-        sorttype: "1",
-        page: 0,
+        sorttype: "5",
+        page: 1,
         pagesize: "10",
       };
       if (statu == "one") {

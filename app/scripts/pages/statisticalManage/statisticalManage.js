@@ -69,7 +69,7 @@ export default {
         if (res.success) {
           this.data = res.resultMap.roleTrees;
           this.schoolcode = this.data[0].id;
-          this.schoolDataQuery(0, 1);
+          this.schoolDataQuery(1, 1);
         }
       });
     },
@@ -106,19 +106,19 @@ export default {
         this.gradecode == "" &&
         this.classcode == ""
       ) {
-        this.schoolDataQuery(0, 1);
+        this.schoolDataQuery(1, 1);
       } else if (
         this.schoolcode != "" &&
         this.gradecode != "" &&
         this.classcode == ""
       ) {
-        this.schoolDataQuery(0, 2);
+        this.schoolDataQuery(1, 2);
       } else if (
         this.schoolcode != "" &&
         this.gradecode != "" &&
         this.classcode != ""
       ) {
-        this.schoolDataQuery(0, 3);
+        this.schoolDataQuery(1, 3);
       }
     },
     //根據學校查詢考勤統計信息

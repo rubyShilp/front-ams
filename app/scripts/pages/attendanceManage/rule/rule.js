@@ -3,23 +3,23 @@ import { formDate, dateTime } from "@/util/core.js";
 export default {
   data() {
     return {
-      schoolList:JSON.parse(sessionStorage.getItem('schoolList')),
+      schoolList: JSON.parse(sessionStorage.getItem("schoolList")),
       dataList: [],
-      totalCount:0,//總條數
-      page:1,
-      pageSize:10,//每頁顯示條數
-      schoolcode:'',
+      totalCount: 0, //總條數
+      page: 1,
+      pageSize: 10, //每頁顯示條數
+      schoolcode: "",
       starttime: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
       isRule: false, //是否展开详情信息
       isDetail: false, //是否是详情
-      isAddOrUpdate:false,//是否新增或编辑
+      isAddOrUpdate: false, //是否新增或编辑
       ruleInfo: {}, //规则信息详情
-      selectDataList:[],//选择考勤规则数据
+      selectDataList: [], //选择考勤规则数据
     };
   },
   beforeMount() {
-    this.initAttendRoleQuery(0);
+    this.initAttendRoleQuery(1);
   },
   methods: {
     //查询学校考勤规则信息
@@ -27,7 +27,7 @@ export default {
       let params = {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
-        schoolcode:this.schoolcode,
+        schoolcode: this.schoolcode,
         page: page,
         pageSize: this.pageSize,
       };
@@ -46,14 +46,14 @@ export default {
       });
     },
     //每頁顯示條數
-    handleSizeChange(pageSize){
-      this.pageSize=pageSize;
-      this.initAttendRoleQuery(0);
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      this.initAttendRoleQuery(1);
     },
     //跳轉的頁碼
-    handleCurrentChange(page){
-      this.page=page;
-      this.initAttendRoleQuery(page-1);
+    handleCurrentChange(page) {
+      this.page = page;
+      this.initAttendRoleQuery(page);
     },
     //查询考勤规则详情信息
     attendRoleDetail(list, type) {
@@ -66,17 +66,25 @@ export default {
       }
     },
     //新增考勤设备信息
-    attendRolAdd(){
-      this.isRule=true;
-      this.isDetail=false;
-      this.isAddOrUpdate=true;
-      this.ruleInfo={schoolname:'',morschtime:'',morhometime:'',minschtime:'',minhometime:'',nightschtime:'',nighthometime:''};
+    attendRolAdd() {
+      this.isRule = true;
+      this.isDetail = false;
+      this.isAddOrUpdate = true;
+      this.ruleInfo = {
+        schoolname: "",
+        morschtime: "",
+        morhometime: "",
+        minschtime: "",
+        minhometime: "",
+        nightschtime: "",
+        nighthometime: "",
+      };
     },
-     //编辑或新增设备信息
-     attendRoleAddOrUpdate(){
-      if(this.isAddOrUpdate){
+    //编辑或新增设备信息
+    attendRoleAddOrUpdate() {
+      if (this.isAddOrUpdate) {
         this.attendRoleAdd();
-      }else{
+      } else {
         this.attendRoleUpdate();
       }
     },
@@ -84,7 +92,7 @@ export default {
     attendRoleUpdate() {
       attendanceServer.attendRoleUpdate(this.ruleInfo).then((res) => {
         if (res.success) {
-          this.initAttendRoleQuery(0);
+          this.initAttendRoleQuery(1);
           this.isRule = false;
         }
       });
@@ -93,7 +101,7 @@ export default {
     attendRoleAdd() {
       attendanceServer.attendRoleAdd(this.ruleInfo).then((res) => {
         if (res.success) {
-          this.initAttendRoleQuery(0);
+          this.initAttendRoleQuery(1);
           this.isRule = false;
         }
       });
@@ -112,7 +120,7 @@ export default {
                 type: "success",
                 message: "删除成功!",
               });
-              this.initAttendRoleQuery(0);
+              this.initAttendRoleQuery(1);
             }
           });
         })
@@ -124,9 +132,9 @@ export default {
         });
     },
     //选择考勤规则信息
-    selectData(list){
-      for(let i=0;i<list.length;i++){
-        this.selectDataList.push(list[i].rulecode)
+    selectData(list) {
+      for (let i = 0; i < list.length; i++) {
+        this.selectDataList.push(list[i].rulecode);
       }
     },
     //批量删除学校考勤规则信息
@@ -137,18 +145,20 @@ export default {
         type: "warning",
       })
         .then(() => {
-          if(this.selectDataList.length==0){
-            this.$message.warning('请选择要删除的数据')
+          if (this.selectDataList.length == 0) {
+            this.$message.warning("请选择要删除的数据");
             return false;
           }
-          let params={
-            rulecodes:this.selectDataList.join(',')
-          }
-          attendanceServer.attendRoleBatchRemove(params.rulecodes).then((res) => {
-            if (res.success) {
-              this.initAttendRoleQuery(0);
-            }
-          });
+          let params = {
+            rulecodes: this.selectDataList.join(","),
+          };
+          attendanceServer
+            .attendRoleBatchRemove(params.rulecodes)
+            .then((res) => {
+              if (res.success) {
+                this.initAttendRoleQuery(1);
+              }
+            });
         })
         .catch(() => {
           this.$message({
@@ -160,7 +170,7 @@ export default {
     //启动考勤规则
     attendRoleApply(list) {
       this.$confirm(
-        "是否" +(list.rulestate == 0 ? "禁用" : "启用" )+ "该考勤规则?",
+        "是否" + (list.rulestate == 0 ? "禁用" : "启用") + "该考勤规则?",
         "提示",
         {
           confirmButtonText: "确定",
@@ -172,12 +182,12 @@ export default {
           let params = {
             schoolcode: list.schoolcode,
             rulecode: list.rulecode,
-            rulestate:list.rulestate == 0?1:0
+            rulestate: list.rulestate == 0 ? 1 : 0,
           };
           attendanceServer.attendRoleApply(params).then((res) => {
             if (res.success) {
               if (res.success) {
-                this.initAttendRoleQuery(0);
+                this.initAttendRoleQuery(1);
                 this.$message({
                   type: "success",
                   message: (list.rulestate == 0 ? "禁用" : "启用") + "成功!",

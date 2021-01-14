@@ -32,7 +32,7 @@ export default {
         if (res.success) {
           this.data = res.resultMap.roleTrees;
           this.schoolcode = this.data[0].id;
-          this.initAttendTop(0);
+          this.initAttendTop(1);
         }
       });
     },
@@ -64,7 +64,7 @@ export default {
           this.classcode = item.id;
         }
       }
-      this.initAttendTop(0);
+      this.initAttendTop(1);
     },
     //获取当前学校或班级或年级考勤信息
     initAttendTop(page) {
@@ -88,12 +88,12 @@ export default {
     //每頁顯示條數
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
-      this.initAttendTop(0);
+      this.initAttendTop(1);
     },
     //跳轉的頁碼
     handleCurrentChange(page) {
       this.page = page;
-      this.initAttendTop(page - 1);
+      this.initAttendTop(page);
     },
     //详情
     detailRecord(list) {
@@ -117,7 +117,7 @@ export default {
       attendanceServer.updateRecord(params).then((res) => {
         if (res.success) {
           this.$message.success("修正成功");
-          this.initAttendTop(0);
+          this.initAttendTop(1);
         }
       });
     },
