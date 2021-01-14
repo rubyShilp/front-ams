@@ -90,12 +90,21 @@ export default {
     getEchartData(code, statu) {
       let scode = code;
       this.clear();
-      let params = {
+      let attendparams = {
         starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: scode,
         querytype: this.tabType,
         sorttype: "1",
+        page: "1",
+        pagesize: "10",
+      };
+      let healthparams = {
+        starttime: formDate(new Date(this.starttime), "yyyy-MM-dd hh:mm:ss"),
+        endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
+        schoolcode: scode,
+        querytype: this.tabType,
+        sorttype: "5",
         page: "1",
         pagesize: "10",
       };
@@ -105,7 +114,7 @@ export default {
           "yyyy-MM-dd hh:mm:ss"
         );
       }
-      homeServer.echartData(params).then((res) => {
+      homeServer.echartData(attendparams).then((res) => {
         if (res.success) {
           let list = res.resultMap.abAttendTop;
           //获取考勤异常的数据
@@ -134,7 +143,7 @@ export default {
           }
         }
       });
-      homeServer.healthData(params).then((res) => {
+      homeServer.healthData(healthparams).then((res) => {
         if (res.success) {
           let list = res.resultMap.abHealthTop;
           //获取健康异常的数据
