@@ -109,7 +109,11 @@ export default {
         pagesize: "10",
       };
       if (statu === "top") {
-        params.starttime = formDate(
+        healthparams.starttime = formDate(
+          new Date(new Date()),
+          "yyyy-MM-dd hh:mm:ss"
+        );
+        attendparams.starttime = formDate(
           new Date(new Date()),
           "yyyy-MM-dd hh:mm:ss"
         );
