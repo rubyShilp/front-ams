@@ -41,7 +41,7 @@
                   </el-date-picker>
                 </el-form-item>
                 <el-form-item>
-                  <el-button @click="schoolDataQuery" size="mini">查询</el-button>
+                  <el-button @click="schoolDataQuery(1,1)" size="mini">查询</el-button>
                 </el-form-item>
                 <el-form-item label="">
                   <el-button size="mini">批量删除</el-button>
@@ -91,7 +91,7 @@
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="sumleavecount"
+                  prop="sumtruantcount"
                   label="旷课人数"
                   width="100"
                   sortable
@@ -102,13 +102,6 @@
                   label="请假人数"
                   width="100"
                   sortable
-                >
-                </el-table-column>
-                <el-table-column
-                  prop="sumtruantcount"
-                  label="旷课人數"
-                  sortable
-                  width="100"
                 >
                 </el-table-column>
                 <el-table-column
@@ -127,7 +120,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="sumlessactivitycount"
-                  label="活动最差"
+                  label="活动量差"
                   sortable
                   width="100"
                 >
