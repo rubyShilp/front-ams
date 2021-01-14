@@ -10,7 +10,7 @@ export default {
       //分页参数
       currentPage: 1,
       total: 0,
-      pageSize: 10,
+      pagesize: 10,
       //模态框
       type: "",
       title: "",
@@ -41,14 +41,14 @@ export default {
   },
   beforeMount() {
     //初始化查询
-    this.query(0);
+    this.query(1);
   },
   methods: {
     query(page) {
       let params = {
         schoolname: this.initData.school,
         page: page,
-        pageSize: this.pageSize,
+        pagesize: this.pagesize,
       };
       schoolServer.querySchool(params).then((res) => {
         if (res.status === 200) {
@@ -118,7 +118,7 @@ export default {
             schoolServer.delSchool(row.schoolcode).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "删除成功");
-                this.query(0);
+                this.query(1);
               }
             });
           })
@@ -143,7 +143,7 @@ export default {
                 if (res.status === 200) {
                   this.tip("success", "批量删除成功");
                   this.$refs.table.clearSelection();
-                  this.query(0);
+                  this.query(1);
                 }
               });
             })
@@ -167,7 +167,7 @@ export default {
             schoolServer.addSchool(this.handleData).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "新增成功");
-                this.query(0);
+                this.query(1);
                 this.handle_dialog = false;
               }
             });
@@ -176,7 +176,7 @@ export default {
             schoolServer.editSchool(params).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "修改成功");
-                this.query(0);
+                this.query(1);
                 this.handle_dialog = false;
               }
             });
@@ -192,9 +192,9 @@ export default {
       this.multipleSelection = val;
     },
     //每頁顯示條數
-    handleSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.query(0);
+    handleSizeChange(pagesize) {
+      this.pagesize = pagesize;
+      this.query(1);
     },
     //跳轉的頁碼
     handleCurrentChange(page) {

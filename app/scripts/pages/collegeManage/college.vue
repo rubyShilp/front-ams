@@ -51,8 +51,8 @@ export default {
     this.initUserRole();
   },
   methods: {
-    resetquery(){
-      this.initUserRole()
+    resetquery() {
+      this.initUserRole();
     },
     //初始化学校年级树形结构菜单项
     initUserRole() {
@@ -61,7 +61,7 @@ export default {
         if (res.success) {
           this.data = res.resultMap.roleTrees;
           this.schoolcode = this.data[0].id;
-          //   this.initAttendTop(0);
+          //   this.initAttendTop(1);
         }
       });
     },

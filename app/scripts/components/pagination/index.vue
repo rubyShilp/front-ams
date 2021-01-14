@@ -3,45 +3,46 @@
     <el-pagination
       :background="background"
       :current-page.sync="currentPage"
-      :page-size.sync="pageSize"
-      :page-sizes.sync="pageSizes"
+      :page-size.sync="pagesize"
+      :page-sizes.sync="pagesizes"
       :layout="layout"
       :total="total"
       @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"/>
+      @current-change="handleCurrentChange"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Pagination',
+  name: "Pagination",
   props: {
     total: {
       required: true,
-      type: Number
+      type: Number,
     },
     page: {
       type: Number,
-      default: 1
+      default: 1,
     },
     limit: {
       type: Number,
-      default: 5
+      default: 5,
     },
-    pageSizes: {
+    pagesizes: {
       type: Array,
       default() {
-        return [10, 50, 100]
-      }
+        return [10, 50, 100];
+      },
     },
     layout: {
       type: String,
-      default: 'total, sizes, prev, pager, next, jumper'
+      default: "total, sizes, prev, pager, next, jumper",
     },
     background: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
     currentPage: {
@@ -49,27 +50,27 @@ export default {
         return this.page;
       },
       set(val) {
-        this.$emit('update:page', val);
-      }
+        this.$emit("update:page", val);
+      },
     },
-    pageSize: {
+    pagesize: {
       get() {
         return this.limit;
       },
       set(val) {
-        this.$emit('update:limit', val);
-      }
-    }
+        this.$emit("update:limit", val);
+      },
+    },
   },
   methods: {
     handleSizeChange(val) {
-      this.$emit('pagination', { page: this.currentPage, limit: val });
+      this.$emit("pagination", { page: this.currentPage, limit: val });
     },
     handleCurrentChange(val) {
-      this.$emit('pagination', { page: val, limit: this.pageSize });
-    }
-  }
-}
+      this.$emit("pagination", { page: val, limit: this.pagesize });
+    },
+  },
+};
 </script>
 
 <style scoped>

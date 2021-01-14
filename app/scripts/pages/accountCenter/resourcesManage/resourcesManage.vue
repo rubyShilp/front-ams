@@ -83,7 +83,7 @@
               v-show="total > 0"
               :total="total"
               :page.sync="currentPage"
-              :limit.sync="pageSize"
+              :limit.sync="pagesize"
               @pagination="query"
             ></pagination>
           </div>

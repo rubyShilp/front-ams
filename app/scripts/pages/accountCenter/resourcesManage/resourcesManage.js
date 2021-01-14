@@ -15,7 +15,7 @@ export default{
             ],
             //分页
             currentPage:1,
-            pageSize:10,
+            pagesize:10,
             total:0,
             //模态框
             type: '',
@@ -61,7 +61,7 @@ export default{
             let params = {
               resourcename: this.resourcename,
               page: this.currentPage,
-              pagesize: this.pageSize
+              pagesize: this.pagesize
             }
             accountCenterServer.queryuserResource(params).then(res => {
                   if(res.status === 200){

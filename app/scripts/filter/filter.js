@@ -15,9 +15,9 @@ Vue.filter("recordStatus", function(value) {
   if (value == 0) {
     return "未知";
   } else if (value == 1) {
-    return "正常";
+    return "进门";
   } else if (value == 2) {
-    return "异常";
+    return "出门";
   }
 });
 Vue.filter("resourceType", function(value) {

@@ -7,7 +7,7 @@ export default {
       dataList: [],
       totalCount: 0, //總條數
       page: 1,
-      pageSize: 10, //每頁顯示條數
+      pagesize: 10, //每頁顯示條數
       schoolcode: "",
       starttime: new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000),
       endtime: new Date(),
@@ -29,7 +29,7 @@ export default {
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: this.schoolcode,
         page: page,
-        pageSize: this.pageSize,
+        pagesize: this.pagesize,
       };
       attendanceServer.acceptorQuery(params).then((res) => {
         if (res.success) {
@@ -39,8 +39,8 @@ export default {
       });
     },
     //每頁顯示條數
-    handleSizeChange(pageSize) {
-      this.pageSize = pageSize;
+    handleSizeChange(pagesize) {
+      this.pagesize = pagesize;
       this.initAcceptorQuery(1);
     },
     //跳轉的頁碼

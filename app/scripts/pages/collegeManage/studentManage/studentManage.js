@@ -35,7 +35,7 @@ export default {
       //分页参数
       currentPage: 1,
       total: 0,
-      pageSize: 10,
+      pagesize: 10,
       multipleSelection: [],
       stusexs: [
         { id: 0, value: "女" },
@@ -79,7 +79,7 @@ export default {
     };
   },
   beforeMount() {
-    this.query(0);
+    this.query(1);
   },
   methods: {
     download() {
@@ -95,7 +95,7 @@ export default {
         classcode: this.ids.classId,
         stuname: this.initData.stuname,
         page: page,
-        pageSize: this.pageSize,
+        pagesize: this.pagesize,
       };
       studentServer.queryStudent(params).then((res) => {
         if (res.status === 200) {
@@ -191,7 +191,7 @@ export default {
             studentServer.delStudent(row.stucode).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "删除成功");
-                this.query(0);
+                this.query(1);
               }
             });
           })
@@ -216,7 +216,7 @@ export default {
                 if (res.status === 200) {
                   this.tip("success", "批量删除成功");
                   this.$refs.table.clearSelection();
-                  this.query(0);
+                  this.query(1);
                 }
               });
             })
@@ -239,7 +239,7 @@ export default {
             studentServer.addStudent(params).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "新增成功");
-                this.query(0);
+                this.query(1);
                 this.handle_dialog = false;
               }
             });
@@ -247,7 +247,7 @@ export default {
             studentServer.editStudent(params).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "编辑成功");
-                this.query(0);
+                this.query(1);
                 this.handle_dialog = false;
               }
             });
@@ -273,7 +273,7 @@ export default {
           formData.append("classcode", dataCode(this.ids.classId));
           studentServer.importStudents(formData).then((res) => {
             if (res.success) {
-              this.query(0);
+              this.query(1);
             }
           });
         }
@@ -281,9 +281,9 @@ export default {
       }
     },
     //每頁顯示條數
-    handleSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.query(0);
+    handleSizeChange(pagesize) {
+      this.pagesize = pagesize;
+      this.query(1);
     },
     //跳轉的頁碼
     handleCurrentChange(page) {

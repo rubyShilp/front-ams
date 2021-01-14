@@ -95,7 +95,7 @@ export default {
         endtime: formDate(new Date(this.endtime), "yyyy-MM-dd hh:mm:ss"),
         schoolcode: scode,
         querytype: this.tabType,
-        sorttype: "5",
+        sorttype: "1",
         page: "1",
         pagesize: "10",
       };

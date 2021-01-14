@@ -10,7 +10,7 @@ export default {
       dataList: [],
       totalCount: 0, //總條數
       page: 1,
-      pageSize: 10, //每頁顯示條數
+      pagesize: 10, //每頁顯示條數
       data: [],
       scoolType: 0, //類型(學校,年級,班級)
       schoolcode: "",
@@ -37,7 +37,7 @@ export default {
       bottom_data: [],
       detailtotal: 0,
       detailpage: 1,
-      depageSize: 10,
+      depagesize: 10,
     };
   },
   beforeMount() {
@@ -133,7 +133,7 @@ export default {
         querytype: type,
         sorttype: 1,
         page: page,
-        paegsize: this.pageSize,
+        paegsize: this.pagesize,
       };
       statisticalServer.attendTop(params).then((res) => {
         if (res.success) {
@@ -166,7 +166,7 @@ export default {
         classcode: classcode,
         querytype: this.scoolType,
         page: this.detailpage,
-        pagesize: this.depageSize,
+        pagesize: this.depagesize,
       };
       statisticalServer.getStatisticsList(params).then((res) => {
         if (res.success) {
@@ -207,8 +207,8 @@ export default {
       this.detail(1);
     },
     //每頁顯示條數
-    handleSizeChange(pageSize) {
-      this.pageSize = pageSize;
+    handleSizeChange(pagesize) {
+      this.pagesize = pagesize;
     },
     //跳轉的頁碼
     handleCurrentChange(page) {

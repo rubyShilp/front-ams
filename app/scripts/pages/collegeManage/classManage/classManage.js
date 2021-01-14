@@ -23,7 +23,7 @@ export default {
       //分页参数
       currentPage: 1,
       total: 0,
-      pageSize: 10,
+      pagesize: 10,
       //模态框
       type: "",
       title: "",
@@ -48,7 +48,7 @@ export default {
         classcode: this.ids.classId,
         classname: this.initData.classname,
         page: page,
-        pageSize: this.pageSize,
+        pagesize: this.pagesize,
       };
       classServer.queryClass(params).then((res) => {
         if (res.status === 200) {
@@ -130,7 +130,7 @@ export default {
                 if (res.status === 200) {
                   this.tip("success", "批量删除成功");
                   this.$refs.table.clearSelection();
-                  this.query(0);
+                  this.query(1);
                 }
               });
             })
@@ -151,7 +151,7 @@ export default {
             classServer.addClass(params).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "新增成功");
-                this.query(0);
+                this.query(1);
                 this.$emit("resetquery");
                 this.handle_dialog = false;
               }
@@ -160,7 +160,7 @@ export default {
             classServer.editClass(params).then((res) => {
               if (res.status === 200) {
                 this.tip("success", res.message);
-                this.query(0);
+                this.query(1);
                 this.$emit("resetquery");
                 this.handle_dialog = false;
               }
@@ -177,9 +177,9 @@ export default {
       this.multipleSelection = val;
     },
     //每頁顯示條數
-    handleSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.query(0);
+    handleSizeChange(pagesize) {
+      this.pagesize = pagesize;
+      this.query(1);
     },
     //跳轉的頁碼
     handleCurrentChange(page) {
