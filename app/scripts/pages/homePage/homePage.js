@@ -80,6 +80,9 @@ export default {
         schoolcode: scode,
         querytype: this.tabType,
       };
+      if(params.schoolcode == ""){
+        params.querytype = 1;
+      }
       homeServer.headerData(params).then((res) => {
         if (res.success) {
           this.arrs = res.resultMap.abnormalNums;
@@ -108,6 +111,10 @@ export default {
         page: "1",
         pagesize: "10",
       };
+      if(attendparams.schoolcode == ""){
+        attendparams.querytype = 1;
+        healthparams.querytype = 1;
+      }
       if (statu === "top") {
         healthparams.starttime = formDate(
           new Date(new Date()),
