@@ -52,7 +52,7 @@ export default {
       gradeServer.queryGrade(params).then((res) => {
         if (res.status === 200) {
           this.dataList = res.resultMap.grades;
-          this.total = this.dataList.length;
+          this.total = res.resultMap.total;
         }
       });
     },

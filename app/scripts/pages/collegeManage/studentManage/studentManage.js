@@ -100,7 +100,7 @@ export default {
       studentServer.queryStudent(params).then((res) => {
         if (res.status === 200) {
           this.dataList = [...res.resultMap.students];
-          this.total = this.dataList.length;
+          this.total = res.resultMap.total;
         }
       });
     },
