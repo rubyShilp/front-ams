@@ -98,7 +98,7 @@ export default {
         });
         this.handle_dialog = true;
       } else if (statu === "del") {
-        this.$confirm("是否删除当前学校?", "提示", {
+        this.$confirm("是否删除当前年级?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning",
@@ -107,6 +107,7 @@ export default {
             gradeServer.delGrade(row.gradecode).then((res) => {
               if (res.status === 200) {
                 this.tip("success", "删除成功");
+                this.$emit('resetquery')
                 this.query(1);
               }
             });
@@ -116,9 +117,9 @@ export default {
           });
       } else if (statu === "moreDel") {
         if (this.multipleSelection.length === 0) {
-          this.tip("info", "请选择需要删除的学校");
+          this.tip("info", "请选择需要删除的年级");
         } else {
-          this.$confirm("是否删除当前选中学校?", "提示", {
+          this.$confirm("是否删除当前选中年级?", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning",
@@ -131,6 +132,7 @@ export default {
               gradeServer.delmoreGrade(gradecodes.join()).then((res) => {
                 if (res.status === 200) {
                   this.tip("success", "批量删除成功");
+                  this.$emit('resetquery')
                   this.$refs.table.clearSelection();
                   this.query(1);
                 }
