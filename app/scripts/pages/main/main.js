@@ -125,11 +125,11 @@ export default {
     initAttendTop(statu) {
       let params = {
         starttime: formDate(
-          new Date(dateFullTime() + " 00:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         endtime: formDate(
-          new Date(dateFullTime() + " 23:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         schoolcode: this.schoolcode,
@@ -178,11 +178,11 @@ export default {
     initHealthTop(statu) {
       let params = {
         starttime: formDate(
-          new Date(dateFullTime() + " 00:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         endtime: formDate(
-          new Date(dateFullTime() + " 23:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         schoolcode: this.schoolcode,
@@ -229,11 +229,11 @@ export default {
     initSumTop() {
       let params = {
         starttime: formDate(
-          new Date(dateFullTime() + " 00:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         endtime: formDate(
-          new Date(dateFullTime() + " 23:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         schoolcode: this.schoolcode,
@@ -251,11 +251,11 @@ export default {
     initStatisticsTemper() {
       let params = {
         starttime: formDate(
-          new Date(dateFullTime() + " 00:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         endtime: formDate(
-          new Date(dateFullTime() + " 23:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         schoolcode: this.schoolcode,
@@ -282,11 +282,11 @@ export default {
     initStatisticsReal(number) {
       let params = {
         starttime: formDate(
-          new Date(dateFullTime() + " 00:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         endtime: formDate(
-          new Date(dateFullTime() + " 23:00:00"),
+          new Date(),
           "yyyy-MM-dd hh:mm:ss"
         ),
         schoolcode: this.schoolcode,
