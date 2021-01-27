@@ -1,6 +1,6 @@
 import axios from "axios";
 import Vue from "vue";
-import router from './../routers/router.js';
+import router from "./../routers/router.js";
 import { token, sessionOut, isJson, urlParams } from "./../util/core.js";
 axios.defaults.headers = {
   "Content-Type": "application/json;charset=utf-8" || "multipart/form-data",
@@ -9,12 +9,14 @@ axios.defaults.headers = {
 axios.defaults.baseURL = "/";
 //axios.defaults.withCredentials = true;
 //请求拦截器
+let num = 0;
 axios.interceptors.request.use(
   (config) => {
     //根据所传参数的不同判断是否序列化参数
     // if (isJson(config.data)) {
     //   config.data = JSON.stringify(config.data);
     // }
+    num++;
     if (token()) {
       config.headers.userKey = token();
     }
@@ -27,18 +29,18 @@ axios.interceptors.request.use(
 //请求响应拦截器
 axios.interceptors.response.use(
   (response) => {
-    if (response.data.position === "sessionOut") {
-      sessionStorage.removeItem("TOKEN");
-      sessionOut();
-      return;
-    } else if (response.status === 200) {
-      if(response.data.status==96){
-        Vue.prototype.$message({
-          type: "warning",
-          message: response.data.message,
-        });
-        sessionStorage.removeItem('homeIndex')
-        router.push('/login');
+    num--;
+    if (response.status === 200) {
+      if (response.data.status == 96) {
+        if (num <= 0) {
+          Vue.prototype.$message({
+            type: "warning",
+            message: response.data.message,
+          });
+          sessionStorage.removeItem("TOKEN");
+          sessionStorage.removeItem("homeIndex");
+          router.push("/login");
+        }
         return response;
       }
       if (response.data.success === false) {
@@ -49,6 +51,8 @@ axios.interceptors.response.use(
         return response;
       }
       return response;
+    } else {
+      sessionStorage.removeItem("TOKEN");
     }
   },
   (error) => {
