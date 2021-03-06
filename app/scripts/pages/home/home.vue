@@ -48,6 +48,15 @@
                 ><i class="el-icon-s-custom"></i>账号中心</a
               >
             </li>
+            <li>
+              <a
+                href="javaScript:;"
+                :class="{ cur: index == 5 }"
+                v-show="userData.userType !== 2"
+                @click="selectRouter('/home/fenceManage', 5)"
+                ><i class="el-icon-location-outline"></i>围栏管理</a
+              >
+            </li>
           </ul>
         </div>
         <div class="ams-seting">

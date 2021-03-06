@@ -102,6 +102,19 @@ const mainRouter = [
           // }
         ],
       },
+      {
+        path: "/home/fenceManage",
+        component: () => import("@/pages/fenceManage/index.vue"),
+        meta: { scrollToTop: true },
+        children: [
+          {
+            path: "/home/fenceconfig",
+            component: () =>
+              import("@/pages/fenceManage/fenceconfig/fenceconfig.vue"),
+            meta: { scrollToTop: true },
+          }
+        ],
+      },
     ],
   },
   {
