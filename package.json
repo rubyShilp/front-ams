@@ -13,6 +13,7 @@
     "element-ui": "^2.14.1",
     "md5": "^2.2.1",
     "qs": "^6.9.4",
+    "v-region": "^2.2.2",
     "vue": "^2.6.11",
     "vue-baidu-map": "^0.21.22",
     "vue-draggable-resizable": "^2.1.0",

@@ -17,8 +17,8 @@ export default {
       ruleInfo: {}, //规则信息详情
       selectDataList: [], //选择考勤规则数据
       isfence: false,
-      fentchSchoolcode: '',
-      fentchid: '',
+      fentchSchoolcode: "",
+      fentchid: "",
       center: { lng: 116.93761, lat: 40.059866 }, // 中心点坐标
       zoom: 11, // 缩放级别
       location: "吉安市",
@@ -44,7 +44,11 @@ export default {
       drawingManager: null, // 鼠标绘制工具
       localSearch: null, // 地区检索
       region: {}, // 行政区域
-    }
+      polygonPath: {
+        editing: false,
+        paths: [],
+      },
+    };
   },
   watch: {
     // 绘制类型变更
@@ -65,67 +69,19 @@ export default {
   },
   mounted() {
     this.initAttendRoleQuery(1);
-    this.map = new BMap.Map("map-container", {
-      enableMapClick: false,
-      minZoom: 5,
-      maxZoom: 15,
-    });
-    // 设置中心点坐标和地图级别
-    this.map.centerAndZoom(
-      new BMap.Point(this.center.lng, this.center.lat),
-      this.zoom
-    );
-    // 开启鼠标滚轮缩放
-    this.map.enableScrollWheelZoom(true);
-    console.log(this.drawingManager)
-    // 创建鼠标绘制工具
-    this.drawingManager = new BMapLib.DrawingManager(this.map, {
-      // isOpen: true, //是否开启绘制模式
-      enableCalculate: true, // 绘制是否进行测距(画线时候)、测面(画圆、多边形、矩形)
-      drawingToolOptions: {
-        enableTips: true,
-        customContainer: "selectbox_Drawing",
-        hasCustomStyle: true,
-        offset: new BMap.Size(5, 5), // 偏离值
-        scale: 0.8, // 工具栏缩放比例
-        drawingModes: [
-          BMAP_DRAWING_RECTANGLE,
-          BMAP_DRAWING_POLYGON,
-          BMAP_DRAWING_CIRCLE,
-        ],
-      },
-      enableSorption: true, // 是否开启边界吸附功能
-      sorptionDistance: 20, // 边界吸附距离
-      enableGpc: true, // 是否开启延边裁剪功能
-      enbaleLimit: true, // 是否开启超限提示
-      // limitOptions: {
-      //     area: 50000000 // 面积超限值
-      // },
-      circleOptions: this.styleOptions, // 圆的样式
-      polylineOptions: this.styleOptions, // 线的样式
-      polygonOptions: this.styleOptions, // 多边形的样式
-      rectangleOptions: this.styleOptions, // 矩形的样式
-      labelOptions: this.labelOptions, // label的样式
-    });
-
-    // 实例化地区检索
-    this.localSearch = new BMap.LocalSearch(this.map, {
-      renderOptions: { map: this.map, panel: "search-result" },
-    });
-
-    // 加载围栏数据
-    this.loadHurdle();
   },
   methods: {
-    hide(){
-      this.polygonData = [{
-        path:  [],
-        value: 0
-      }]
-      this.isfence = false
+    hide() {
+      this.polygonData = [
+        {
+          path: [],
+          value: 0,
+        },
+      ];
+      this.isfence = false;
     },
-     // 清除地图覆盖物
-     clearOverlays() {
+    // 清除地图覆盖物
+    clearOverlays() {
       this.map.clearOverlays();
     },
     // 绘制圆、矩形、多边形
@@ -167,7 +123,7 @@ export default {
         this.drawingManager.open();
       }
     },
- 
+
     // 绘制行政区域
     drawRegion() {
       if (!this.region.value) {
@@ -198,15 +154,15 @@ export default {
         this.map.setViewport(pointArray); //调整视野
       });
     },
- 
+
     // 返回
     goBack() {},
- 
+
     // 切换地区
     regionChange(data) {
       this.region = data.area || data.city || data.province || {};
     },
- 
+
     // 加载围栏数据
     async loadHurdle() {
       const {
@@ -221,7 +177,7 @@ export default {
       });
       this.map.setViewport(pathArr); //调整视野
     },
- 
+
     // 保存围栏数据
     saveHurdle() {
       var overlays = this.map.getOverlays();
@@ -239,12 +195,12 @@ export default {
         });
         return;
       }
- 
+
       // 后台保存需要的路径坐标数据
       const data = JSON.stringify(pointsStrArr);
       alert(data);
     },
- 
+
     // 坐标点数组转字符串
     pointsToStr(points) {
       if (!points) return "";
@@ -260,7 +216,7 @@ export default {
     //   let params = {
     //     vertexes: e.path,
     //     schoolcode: this.fentchSchoolcode,
-    //     fencename: this.fentchSchoolcode 
+    //     fencename: this.fentchSchoolcode
     //   }
     //   attendanceServer.fentch(params).then(res=>{
     //     if(res.success){
@@ -342,14 +298,14 @@ export default {
       }
     },
     //绘制围栏
-    fenceconfig(row){
+    fenceconfig(row) {
       this.fentchSchoolcode = row.schoolcode;
-      this.fentchid = row
+      this.fentchid = row;
       let params = {
-        schoolcode: row.schoolcode
-      }
-      attendanceServer.fentchQuery(params.schoolcode).then(res=>{
-        if(res.success){
+        schoolcode: row.schoolcode,
+      };
+      attendanceServer.fentchQuery(params.schoolcode).then((res) => {
+        if (res.success) {
           // [...this.polygonData[0].path] = res.resultMap.fences[0].vertexes
           // this.polygonData = [
           //   {
@@ -358,12 +314,71 @@ export default {
           //   }
           // ]
         }
-      })
+      });
       this.isfence = true;
     },
-    //保存绘制
-    fencesave(){
-
+    //初始化获取地图数据
+    handler({ BMap, map }) {
+      map.enableScrollWheelZoom(true);
+    },
+    //开启绘制
+    toggle(name) {
+      this[name].editing = !this[name].editing;
+    },
+    // 鼠标移动时
+    syncPolygon(e) {
+      if (!this.polygonPath.editing) {
+        return;
+      }
+      const { paths } = this.polygonPath;
+      if (!paths.length) {
+        return;
+      }
+      const path = paths[paths.length - 1];
+      if (!path.length) {
+        return;
+      }
+      if (path.length === 1) {
+        path.push(e.point);
+      }
+      this.$set(path, path.length - 1, e.point);
+    },
+    // 鼠标右键点击时往路径里push一个面
+    newPolygon(e) {
+      if (!this.polygonPath.editing) {
+        return;
+      }
+      // 当开始绘制后把按钮调回开始绘制状态，防止绘制多个图形
+      this["polygonPath"].editing = !this["polygonPath"].editing;
+      const { paths } = this.polygonPath;
+      if (!paths.length) {
+        paths.push([]);
+      }
+      const path = paths[paths.length - 1];
+      path.pop();
+      if (path.length) {
+        paths.push([]);
+      }
+    },
+    // 鼠标左键多边形绘制
+    paintPolygon(e) {
+      if (!this.polygonPath.editing) {
+        return;
+      }
+      const { paths } = this.polygonPath;
+      !paths.length && paths.push([]);
+      paths[paths.length - 1].push(e.point);
+    },
+    alertpath(e) {
+      console.log(e.currentTarget.so);
+      console.log(this.polygonPath.paths[0]);
+    },
+    updatePolygonPath(e) {
+      //编辑覆盖物时触发，获取坐标点集合
+      this.polygonPath.paths[0] = e.target.getPath();
+    },
+    addPolygonPoint() {
+      this.polygonPath.paths.push({ lng: 116.404, lat: 39.915 });
     },
     //新增考勤设备信息
     attendRolAdd() {
@@ -452,13 +467,11 @@ export default {
           let params = {
             schoolcodes: this.selectDataList.join(","),
           };
-          attendanceServer
-            .fentchDel(params.schoolcodes)
-            .then((res) => {
-              if (res.success) {
-                this.initAttendRoleQuery(1);
-              }
-            });
+          attendanceServer.fentchDel(params.schoolcodes).then((res) => {
+            if (res.success) {
+              this.initAttendRoleQuery(1);
+            }
+          });
         })
         .catch(() => {
           this.$message({

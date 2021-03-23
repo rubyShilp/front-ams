@@ -5,12 +5,12 @@ import "./filter/filter";
 import "./directive/index.js";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-import vRegion from 'v-region';
-import "./../lib/DrawingManager.css";
-import "./../lib/DrawingManager.js";
-
+import BaiduMap from "vue-baidu-map";
+Vue.use(BaiduMap, {
+  // ak: "ne52jEbvgvLx7kdY0O1g6LXrVhNLEGhhg", //百度地图密钥
+  ak: "nDeAA1zLmLCnjAGejr4717f2wbPgxH1Q", //百度地图密钥
+});
 Vue.use(ElementUI);
-Vue.use(vRegion);
 new Vue({
   router: router,
   render: (h) => h(App),
